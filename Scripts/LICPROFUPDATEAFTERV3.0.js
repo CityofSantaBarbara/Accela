@@ -1,19 +1,154 @@
- /*------------------------------------------------------------------------------------------------------/
-| Accela Automation
-| Accela, Inc.
-| Copyright (C): 2012
+/*------------------------------------------------------------------------------------------------------/
+| Program : LicProfUpdateAfterv3.0.js
+| Event   : LicProfUpdateAfter
 |
-| Program : INCLUDES_CUSTOM.js
-| Event   : N/A
+| Usage   : Master Script by Accela.  See accompanying documentation and release notes.
 |
-| Usage   : Custom Script Include.  Insert custom EMSE Function below and they will be 
-|	    available to all master scripts
+| Client  : N/A
+| Action# : N/A
 |
 | Notes   :
 |
+|
+/------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------------------------/
+| START User Configurable Parameters
+|
+|     Only variables in the following section may be changed.  If any other section is modified, this
+|     will no longer be considered a "Master" script and will not be supported in future releases.  If
+|     changes are made, please add notes above.
+/------------------------------------------------------------------------------------------------------*/
+var controlString = "LicProfUpdateAfter"; // Standard choice for control
+var preExecute = "PreExecuteForAfterEvents"; // Standard choice to execute first (for globals, etc)
+var documentOnly = false; // Document Only -- displays hierarchy of std choice steps
+
+/*------------------------------------------------------------------------------------------------------/
+| END User Configurable Parameters
+/------------------------------------------------------------------------------------------------------*/
+var SCRIPT_VERSION = 3.0;
+
+var useSA = false;
+var SA = null;
+var SAScript = null;
+var bzr = aa.bizDomain.getBizDomainByValue("MULTI_SERVICE_SETTINGS", "SUPER_AGENCY_FOR_EMSE");
+if (bzr.getSuccess() && bzr.getOutput().getAuditStatus() != "I") {
+	useSA = true;
+	SA = bzr.getOutput().getDescription();
+	bzr = aa.bizDomain.getBizDomainByValue("MULTI_SERVICE_SETTINGS", "SUPER_AGENCY_INCLUDE_SCRIPT");
+	if (bzr.getSuccess()) {
+		SAScript = bzr.getOutput().getDescription();
+	}
+}
+
+if (SA) {
+	eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS", SA));
+	eval(getScriptText("INCLUDES_ACCELA_GLOBALS", SA));
+	eval(getScriptText(SAScript, SA));
+} else {
+	eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
+	eval(getScriptText("INCLUDES_ACCELA_GLOBALS"));
+}
+
+eval(getScriptText("INCLUDES_CUSTOM"));
+
+if (documentOnly) {
+	doStandardChoiceActions(controlString, false, 0);
+	aa.env.setValue("ScriptReturnCode", "0");
+	aa.env.setValue("ScriptReturnMessage", "Documentation Successful.  No actions executed.");
+	aa.abortScript();
+}
+
+var prefix = lookup("EMSE_VARIABLE_BRANCH_PREFIX", vEventName);
+
+var controlFlagStdChoice = "EMSE_EXECUTE_OPTIONS";
+var doStdChoices = true; // compatibility default
+var doScripts = false;
+var bzr = aa.bizDomain.getBizDomain(controlFlagStdChoice).getOutput().size() > 0;
+if (bzr) {
+	var bvr1 = aa.bizDomain.getBizDomainByValue(controlFlagStdChoice, "STD_CHOICE");
+	doStdChoices = bvr1.getSuccess() && bvr1.getOutput().getAuditStatus() != "I";
+	var bvr1 = aa.bizDomain.getBizDomainByValue(controlFlagStdChoice, "SCRIPT");
+	doScripts = bvr1.getSuccess() && bvr1.getOutput().getAuditStatus() != "I";
+}
+
+function getScriptText(vScriptName) {
+	var servProvCode = aa.getServiceProviderCode();
+	if (arguments.length > 1) {
+		servProvCode = arguments[1]; // use different serv prov code
+	}
+	vScriptName = vScriptName.toUpperCase();
+	var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
+	try {
+		var emseScript = emseBiz.getScriptByPK(servProvCode, vScriptName, "ADMIN");
+		return emseScript.getScriptText() + "";
+	} catch (err) {
+		return "";
+	}
+}
+
+/*------------------------------------------------------------------------------------------------------/
+| BEGIN Event Specific Variables
 /------------------------------------------------------------------------------------------------------*/
 
-//eval( aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput().getScriptByPK(aa.getServiceProviderCode(),"INCLUDES_WEB_SERVICES","ADMIN").getScriptText() + "");
+var licProfObject = aa.env.getValue("LicProfModel");
+logDebug("licProfObject = " + licProfObject.getClass());
+
+var CAEAtts = aa.env.getValue("LicProfAttribute").toArray();
+for (ca in CAEAtts)
+	AInfo["CAEAttribute." + CAEAtts[ca].getAttributeName()] = CAEAtts[ca].getAttributeValue();
+
+
+/*------------------------------------------------------------------------------------------------------/
+| END Event Specific Variables
+/------------------------------------------------------------------------------------------------------*/
+
+if (preExecute.length)
+	doStandardChoiceActions(preExecute, true, 0); // run Pre-execution code
+
+logGlobals(AInfo);
+
+/*------------------------------------------------------------------------------------------------------/
+| <===========Main=Loop================>
+|
+/-----------------------------------------------------------------------------------------------------*/
+
+if (doStdChoices)
+	doStandardChoiceActions(controlString, true, 0);
+
+if (doScripts)
+	doScriptActions();
+
+//
+// Check for invoicing of fees
+//
+if (feeSeqList.length) {
+	invoiceResult = aa.finance.createInvoice(capId, feeSeqList, paymentPeriodList);
+	if (invoiceResult.getSuccess())
+		logDebug("Invoicing assessed fee items is successful.");
+	else
+		logDebug("**ERROR: Invoicing the fee items assessed to app # " + capIDString + " was not successful.  Reason: " + invoiceResult.getErrorMessage());
+}
+
+/*------------------------------------------------------------------------------------------------------/
+| <===========END=Main=Loop================>
+/-----------------------------------------------------------------------------------------------------*/
+
+if (debug.indexOf("**ERROR") > 0) {
+	aa.env.setValue("ScriptReturnCode", "1");
+	aa.env.setValue("ScriptReturnMessage", debug);
+} else {
+	aa.env.setValue("ScriptReturnCode", "0");
+	if (showMessage)
+		aa.env.setValue("ScriptReturnMessage", message);
+	if (showDebug)
+		aa.env.setValue("ScriptReturnMessage", debug);
+}
+
+
+/*------------------------------------------------------------------------------------------------------/
+| <===========External Functions (used by Action entries)
+/------------------------------------------------------------------------------------------------------*/
+
 /*===================================================================
 //Script Number:
 //Script Name: California State License Board validation element
@@ -23,14 +158,6 @@
 //Script Run Event: 
 //Script Parents:
 //         
- * California State License Board validation element
- * @TODO - Check for most recent version 
- * @param licNum
- * @param rlpType
- * @param doPopulateRef
- * @param doPopulateTrx
- * @param itemCap
- * @returns
 ===================================================================*/
 function externalLP_CA(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 	{
@@ -53,12 +180,12 @@ function externalLP_CA(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 	appsubmitbefore   (will validate the LP entered, if any, and cancel the event if the LP is inactive, cancelled, expired, etc.)
 	===============
 	true ^ cslbMessage = "";
-	CAELienseNumber ^ cslbMessage = externalLP_CA(CAELienseNumber,CAELienseType,false,false,null);
+	CAELienseNumber ^ cslbMessage = externalLP_CA(CAELienseNumber,false,false,CAELienseType,null);
 	cslbMessage.length > 0 ^ cancel = true ; showMessage = true ; comment(cslbMessage)
 
 	appsubmitafter  (update all CONTRACTOR LPs on the CAP and REFERENCE with data from CSLB.  Link the CAP LPs to REFERENCE.   Pop up a message if any are inactive...)
 	==============
-	true ^ 	cslbMessage = externalLP_CA(null,"CONTRACTOR",true,true,capId)
+	true ^ 	cslbMessage = externalLP_CA(null,true,true,"CONTRACTOR",capId)
 	cslbMessage.length > 0 ^ showMessage = true ; comment(cslbMessage);
 
 	Note;  Custom LP Template Field Mappings can be edited in the script below
@@ -91,6 +218,7 @@ function externalLP_CA(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 	else
 		doPopulateTrx = false; // can't do this without a CAP;
 
+
 	for (var thisLic = 0; thisLic < workArray.length; thisLic++)
 		{
 		var licNum = workArray[thisLic];
@@ -104,9 +232,10 @@ function externalLP_CA(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 			isObject = true;
 			}
 
-// Make the call to the California State License Board
+		// Make the call to the California State License Board
+		//changed dlh concord per accela document
 
-		var document;
+        var document;
 		var root;        
 		var aURLArgList = "https://www2.cslb.ca.gov/IVR/License+Detail.aspx?LicNum=" + licNum;
 		var vOutObj = aa.httpClient.get(aURLArgList);
@@ -229,11 +358,12 @@ function externalLP_CA(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 			for (var j=0 ; j<wcs.size(); j++) {
 				wc = wcs.get(j);
 
-				if (wc.getAttribute("PolicyNo").getValue()) newLic.setWcPolicyNo(wc.getAttribute("PolicyNo").getValue());
+				if (wc.getAttribute("PolicyNo").getValue()) newLic.setWcPolicyNo(wc.getAttribute("PolicyNo").getValue());				 				
 				if (wc.getAttribute("InsCoCde").getValue()) newLic.setWcInsCoCode(unescape(wc.getAttribute("InsCoCde").getValue()));
-				if (wc.getAttribute("WCEffDt").getValue()) newLic.setWcEffDate(aa.date.parseDate(wc.getAttribute("WCEffDt").getValue()))
-				if (wc.getAttribute("WCExpDt").getValue()) newLic.setWcExpDate(aa.date.parseDate(wc.getAttribute("WCExpDt").getValue()))
-				if (wc.getAttribute("WCCancDt").getValue()) newLic.setWcCancDate(aa.date.parseDate(wc.getAttribute("WCCancDt").getValue()))
+			/*	if (wc.getAttribute("InsCoName").getValue()) newLic.setWcInsCoName(unescape(wc.getAttribute("InsCoName").getValue()));	*/
+				if (wc.getAttribute("WCEffDt").getValue()) newLic.setWcEffDate(aa.date.parseDate(wc.getAttribute("WCEffDt").getValue()));
+				if (wc.getAttribute("WCExpDt").getValue()) newLic.setWcExpDate(aa.date.parseDate(wc.getAttribute("WCExpDt").getValue()));
+				if (wc.getAttribute("WCCancDt").getValue()) newLic.setWcCancDate(aa.date.parseDate(wc.getAttribute("WCCancDt").getValue()));
 				if (wc.getAttribute("Exempt").getValue() == "E") newLic.setWcExempt("Y"); else newLic.setWcExempt("N");
 
 				break; // only use first
@@ -373,9 +503,10 @@ function externalLP_CA(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 
 				if (bo.getAttribute("BondEffDt").getValue()) editRefLicProfAttribute(licNum,"BOND EFFDATE",unescape(bo.getAttribute("BondEffDt").getValue()));
 
-	
+			   
 
-/*
+
+/*           dlh concord added above 
 				aa.print("Bond Surety Type       : " + unescape(bo.getAttribute("SuretyTp").getValue()))
 				aa.print("Bond Code              : " + unescape(bo.getAttribute("InsCoCde").getValue()))
 				aa.print("Bond Insurance Company : " + unescape(bo.getAttribute("InsCoName").getValue()).replace(/\+/g," "))
@@ -460,3 +591,270 @@ function externalLP_CA(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 /*--------------------------------------------------------------------------------------------------------------------/
 | End externalLP_CA Function
 /--------------------------------------------------------------------------------------------------------------------*/
+
+
+function getCSLBInfo(doPop,doWarning)   // doPop = true populate the cap lic prof with this data  
+					// doWarning = true, message if license is expired.
+	{
+	// Requires getNode and getProp functions.
+	//
+	// Get the first lic prof from the app
+	//
+	var capLicenseResult = aa.licenseScript.getLicenseProf(capId);
+	if (capLicenseResult.getSuccess())
+		{ var capLicenseArr = capLicenseResult.getOutput();  }
+	else
+		{ logDebug("**ERROR: getting lic prof: " + capLicenseResult.getErrorMessage()); return false; }
+		
+	if (capLicenseArr == null || !capLicenseArr.length)
+		{ logDebug("**WARNING: no licensed professionals on this CAP"); return false; }
+
+	var licProfScriptModel = capLicenseArr[0];
+	var rlpId = licProfScriptModel.getLicenseNbr();
+
+	//
+	// Now make the call to the California State License Board
+	//
+	// dlh changed per accela doc
+	//var getout = aa.util.httpPost("http://www2.cslb.ca.gov/IVR/License+Detail.asp?LicNum=" + rlpId,"");
+	// new code below
+	var getout = aa.httpClient.get("http://www2.cslb.ca.gov/IVR/License+Detail.aspx?LicNum=" + rlpId);
+	if (getout.getSuccess())
+	  var lpXML = getout.getOutput();
+	else
+	   { logDebug("**ERROR: communicating with CSLB: " + getout.getErrorMessage()); return false; }
+	
+	// Check to see if error message in the XML:
+	
+	if (lpXML.indexOf("<Error>") > 0 )
+		{
+		logDebug("**ERROR: CSLB information returned an error: " + getNode(getNode(lpXML,"License"),"**ERROR"))
+		return false;
+		}
+		
+	var lpBiz = getNode(lpXML,"BusinessInfo");
+	var lpStatus = getNode(lpXML,"PrimaryStatus");
+	var lpClass = getNode(lpXML,"Classifications");
+	var lpBonds = getNode(lpXML,"ContractorBond"); 
+	var lpWC = getNode(lpXML,"WorkersComp");
+
+	if (doWarning)
+		{
+		var expDate = new Date(getNode(lpBiz,"ExpireDt"));
+		if (expDate < startDate)		
+			{
+			showMessage = true ;
+			comment("**WARNING: Professional License expired on " + expDate.toString());
+			}
+		}
+
+	if (doPop)  
+		{ 	
+		licProfScriptModel.setAddress1(getNode(lpBiz,"Addr1").replace(/\+/g," ")); 
+		licProfScriptModel.setAddress2(getNode(lpBiz,"Addr2").replace(/\+/g," "));
+		licProfScriptModel.setBusinessName(getNode(lpBiz,"Name").replace(/\+/g," "));
+		licProfScriptModel.setCity(getNode(lpBiz,"City").replace(/\+/g," "));
+		licProfScriptModel.setLicenseExpirDate(aa.date.parseDate(getNode(lpBiz,"ExpireDt")))
+		licProfScriptModel.setLicesnseOrigIssueDate(aa.date.parseDate(getNode(lpBiz,"IssueDt")))  
+		licProfScriptModel.setState(getNode(lpBiz,"State").replace(/\+/g," "))
+		licProfScriptModel.setPhone1(getNode(lpBiz,"BusinessPhoneNum"))
+		licProfScriptModel.setState(getNode(lpBiz,"State").replace(/\+/g," "))
+		licProfScriptModel.setZip(getNode(lpBiz,"Zip"))
+		aa.m_licenseProfessional.editLicensedProfessional(licProfScriptModel);
+		}
+	}
+	
+/*--------------------------------------------------------------------------------------------------------------------/
+| End getCSLBInfo Function
+/--------------------------------------------------------------------------------------------------------------------*/
+
+function getLicenseProfessional(itemcapId)
+{
+	capLicenseArr = null;
+	var s_result = aa.licenseProfessional.getLicenseProf(itemcapId);
+	if(s_result.getSuccess())
+	{
+		capLicenseArr = s_result.getOutput();
+		if (capLicenseArr == null || capLicenseArr.length == 0)
+		{
+			aa.print("WARNING: no licensed professionals on this CAP:" + itemcapId);
+			capLicenseArr = null;
+		}
+	}
+	else
+	{
+		aa.print("ERROR: Failed to license professional: " + s_result.getErrorMessage());
+		capLicenseArr = null;
+	}
+	return capLicenseArr;
+}
+/*--------------------------------------------------------------------------------------------------------------------/
+| End getLicenseProfessional Function
+/--------------------------------------------------------------------------------------------------------------------*/
+
+function editRefLicProfAttribute(pLicNum,pAttributeName,pNewAttributeValue)
+	{
+
+	var attrfound = false;
+	var oldValue = null;
+
+	licObj = getRefLicenseProf(pLicNum)
+
+	if (!licObj)
+		{ logDebug("**WARNING Licensed Professional : " + pLicNum + " not found") ; return false }
+
+	licSeqNum = licObj.getLicSeqNbr();
+	attributeType = licObj.getLicenseType();
+
+	if (licSeqNum==0 || licSeqNum==null || attributeType=="" || attributeType==null)
+		{ logDebug("**WARNING Licensed Professional Sequence Number or Attribute Type missing") ; return false }
+
+	var peopAttrResult = aa.people.getPeopleAttributeByPeople(licSeqNum, attributeType);
+
+	if (!peopAttrResult.getSuccess())
+		{ logDebug("**WARNING retrieving reference license professional attribute: " + peopAttrResult.getErrorMessage()); return false }
+
+	var peopAttrArray = peopAttrResult.getOutput();
+
+	for (i in peopAttrArray)
+		{
+		if ( pAttributeName.equals(peopAttrArray[i].getAttributeName()))
+			{
+			oldValue = peopAttrArray[i].getAttributeValue()
+			attrfound = true;
+			break;
+			}
+		}
+
+	if (attrfound)
+		{
+		logDebug("Updated Ref Lic Prof: " + pLicNum + ", attribute: " + pAttributeName + " from: " + oldValue + " to: " + pNewAttributeValue)
+		peopAttrArray[i].setAttributeValue(pNewAttributeValue);
+		aa.people.editPeopleAttribute(peopAttrArray[i].getPeopleAttributeModel());
+		}
+	else
+		{
+		logDebug("**WARNING attribute: " + pAttributeName + " not found for Ref Lic Prof: "+ pLicNum)
+		/* make a new one with the last model.  Not optimal but it should work
+		newPAM = peopAttrArray[i].getPeopleAttributeModel();
+		newPAM.setAttributeName(pAttributeName);
+		newPAM.setAttributeValue(pNewAttributeValue);
+		newPAM.setAttributeValueDataType("Number");
+		aa.people.createPeopleAttribute(newPAM);
+		*/
+		}
+	}function editReportedChannel(reportedChannel) // option CapId
+{
+	var itemCap = capId
+	if (arguments.length > 1) itemCap = arguments[1]; // use cap ID specified in args
+
+	var cdScriptObjResult = aa.cap.getCapDetail(itemCap);
+	if (!cdScriptObjResult.getSuccess())
+		{ logDebug("**ERROR: No cap detail script object : " + cdScriptObjResult.getErrorMessage()) ; return false; }
+
+	var cdScriptObj = cdScriptObjResult.getOutput();
+
+	if (!cdScriptObj)
+		{ logDebug("**ERROR: No cap detail script object") ; return false; }
+
+	cd = cdScriptObj.getCapDetailModel();
+
+	cd.setReportedChannel(reportedChannel);
+
+	cdWrite = aa.cap.editCapDetail(cd);
+
+	if (cdWrite.getSuccess())
+		{ logDebug("updated reported channel to " + reportedChannel) ; return true; }
+	else
+		{ logDebug("**ERROR writing capdetail : " + cdWrite.getErrorMessage()) ; return false ; }
+}
+/*--------------------------------------------------------------------------------------------------------------------/
+| End editRefLicProfAttribute Function
+/--------------------------------------------------------------------------------------------------------------------*/
+
+/*===================================================================
+//Script Number:
+//Script Name: California State License Board validation element
+//Script Developer: Jason Jackson
+//Script Agency: SLS
+//Script Description: 
+//Script Run Event: 
+//Script Parents:
+//         
+===================================================================*/
+function getCSLBInfo(doPop,doWarning)   // doPop = true populate the cap lic prof with this data  
+					// doWarning = true, message if license is expired.
+	{
+	// Requires getNode and getProp functions.
+	//
+	// Get the first lic prof from the app
+	//
+	var capLicenseResult = aa.licenseScript.getLicenseProf(capId);
+	if (capLicenseResult.getSuccess())
+		{ var capLicenseArr = capLicenseResult.getOutput();  }
+	else
+		{ logDebug("**ERROR: getting lic prof: " + capLicenseResult.getErrorMessage()); return false; }
+		
+	if (capLicenseArr == null || !capLicenseArr.length)
+		{ logDebug("**WARNING: no licensed professionals on this CAP"); return false; }
+
+	var licProfScriptModel = capLicenseArr[0];
+	var rlpId = licProfScriptModel.getLicenseNbr();
+
+	//
+	// Now make the call to the California State License Board
+	//
+	// dlh changed per accela doc
+	//var getout = aa.util.httpPost("http://www2.cslb.ca.gov/IVR/License+Detail.asp?LicNum=" + rlpId,"");
+	// new code below
+	var getout = aa.httpClient.get("http://www2.cslb.ca.gov/IVR/License+Detail.aspx?LicNum=" + rlpId);
+	if (getout.getSuccess())
+	  var lpXML = getout.getOutput();
+	else
+	   { logDebug("**ERROR: communicating with CSLB: " + getout.getErrorMessage()); return false; }
+	
+	// Check to see if error message in the XML:
+	
+	if (lpXML.indexOf("<Error>") > 0 )
+		{
+		logDebug("**ERROR: CSLB information returned an error: " + getNode(getNode(lpXML,"License"),"**ERROR"))
+		return false;
+		}
+		
+	var lpBiz = getNode(lpXML,"BusinessInfo");
+	var lpStatus = getNode(lpXML,"PrimaryStatus");
+	var lpClass = getNode(lpXML,"Classifications");
+	var lpBonds = getNode(lpXML,"ContractorBond"); 
+	var lpWC = getNode(lpXML,"WorkersComp");
+
+	if (doWarning)
+		{
+		var expDate = new Date(getNode(lpBiz,"ExpireDt"));
+		if (expDate < startDate)		
+			{
+			showMessage = true ;
+			comment("**WARNING: Professional License expired on " + expDate.toString());
+			}
+		}
+
+	if (doPop)  
+		{ 	
+		licProfScriptModel.setAddress1(getNode(lpBiz,"Addr1").replace(/\+/g," ")); 
+		licProfScriptModel.setAddress2(getNode(lpBiz,"Addr2").replace(/\+/g," "));
+		licProfScriptModel.setBusinessName(getNode(lpBiz,"Name").replace(/\+/g," "));
+		licProfScriptModel.setCity(getNode(lpBiz,"City").replace(/\+/g," "));
+		licProfScriptModel.setLicenseExpirDate(aa.date.parseDate(getNode(lpBiz,"ExpireDt")))
+		licProfScriptModel.setLicesnseOrigIssueDate(aa.date.parseDate(getNode(lpBiz,"IssueDt")))  
+		licProfScriptModel.setState(getNode(lpBiz,"State").replace(/\+/g," "))
+		licProfScriptModel.setPhone1(getNode(lpBiz,"BusinessPhoneNum"))
+		licProfScriptModel.setState(getNode(lpBiz,"State").replace(/\+/g," "))
+		licProfScriptModel.setZip(getNode(lpBiz,"Zip"))
+		aa.m_licenseProfessional.editLicensedProfessional(licProfScriptModel);
+		}
+	}
+/*--------------------------------------------------------------------------------------------------------------------/
+| End getCSLBInfo Function
+/--------------------------------------------------------------------------------------------------------------------*/
+
+
+
