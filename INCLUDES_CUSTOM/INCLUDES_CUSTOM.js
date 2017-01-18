@@ -13,7 +13,7 @@
 |
 /------------------------------------------------------------------------------------------------------*/
 
-//eval( aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput().getScriptByPK(aa.getServiceProviderCode(),"INCLUDES_WEB_SERVICES","ADMIN").getScriptText() + "");
+eval( aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput().getScriptByPK(aa.getServiceProviderCode(),"INCLUDES_WEB_SERVICES","ADMIN").getScriptText() + "");
 /*===================================================================
 //Script Number:
 //Script Name: California State License Board validation element
