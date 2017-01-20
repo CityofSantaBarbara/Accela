@@ -289,7 +289,7 @@ function externalLP_CA(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 	{
 
 	/*
-	Version: 3.2 Test
+	Version: 3.2 
 
 	Usage:
 
