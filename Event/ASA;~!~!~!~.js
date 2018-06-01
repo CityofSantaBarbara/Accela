@@ -25,7 +25,7 @@ catch (err) {
 	logDebug("A JavaScript Error occurred: ASA;DS~!~!~!~ - CSLB Interface" + err.message);
 } ;
 //Copy Parcel GIS Objects to Record using function copyParcelGisObjects()
- try{
+try{
       if(!publicUser){
             copyParcelGisObjects();
       }
@@ -33,13 +33,4 @@ catch (err) {
       logDebug("A JavaScript Error occurred: ASA:*/*/*/*: copyParcelGisObjects()" + err.message);
       logDebug(err.stack);
 };
-
-//Proximity Alert for High Fire Hazard Areas
-var vIsWithinProximity = getGISInfo("SANTABARBARA","High Fire Hazard Areas","Assessment","yes");
-
-if (vIsWithinProximity == true) {
-		showMessage = true;
-		//cancel = true; 
-		comment("<B><Font Color=RED>Please be advised, this property is within a High Fire Hazard Area</B></Font>.");
-}
 
