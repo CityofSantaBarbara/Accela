@@ -4,7 +4,7 @@ if (matches(currentUserID,"JJACKSON","ADMIN")) {
 }
 
 //Proximity Alert for High Fire Hazard Areas
-var vIsWithinProximity = getGISInfo("SANTABARBARA","High Fire Hazard Areas","Assessment","yes");
+var vIsWithinProximity = getGISInfo("SANTABARBARA","High Fire Hazard Areas","0","feet");
 
 if (vIsWithinProximity == true) {
 		showMessage = true;
