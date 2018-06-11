@@ -11,11 +11,6 @@ if (matches(currentUserID,"JJACKSON","ADMIN")) {
 	showMessage= true;
 }
 
-//Proximity Alert for High Fire Hazard Areas
-var vIsWithinProximity = proximity("SANTABARBARA","High Fire Hazard Areas","0","feet");
-
-if (vIsWithinProximity == true) {
-		showMessage = true;
-		//cancel = true; 
-		comment("<B><Font Color=RED>Please be advised, this property is within a High Fire Hazard Area</B></Font>.");
-}
+//Start Proximity Alerts
+include("High_Fire_Hazard_Areas");
+//End Proximuty Alerts
