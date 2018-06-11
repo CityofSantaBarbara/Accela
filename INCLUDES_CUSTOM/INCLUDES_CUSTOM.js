@@ -1,4 +1,4 @@
- /*------------------------------------------------------------------------------------------------------/
+/*------------------------------------------------------------------------------------------------------/
 | Accela Automation
 | Accela, Inc.
 | Copyright (C): 2012
@@ -13,26 +13,7 @@
 |
 /------------------------------------------------------------------------------------------------------*/
 
-eval( aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput().getScriptByPK(aa.getServiceProviderCode(),"INCLUDES_WEB_SERVICES","ADMIN").getScriptText() + "");
-/*===================================================================
-//Script Number:
-//Script Name: California State License Board validation element
-//Script Developer: Jason Jackson
-//Script Agency: SLS
-//Script Description: 
-//Script Run Event: 
-//Script Parents:
-//         
- * California State License Board validation element
- * @TODO - Check for most recent version 
- * @param licNum
- * @param rlpType
- * @param doPopulateRef
- * @param doPopulateTrx
- * @param itemCap
- * @returns
-===================================================================*/
-function externalLP_CA(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
+function externalLP_CA_AT(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 	{
 
 	/*
@@ -359,7 +340,7 @@ function externalLP_CA(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 
 			for (var n=0 ; n<bos.size(); n++) {
 				var bo = bos.get(n);
-				if (bo.getAttribute("BondAmt").getValue()) editRefLicProfAttribute(licNum,"BOND AMOUNT",unescape(bo.getAttribute("BondAmt").getValue()));
+				if (bo.getAttribute("BondAmt").getValue()) editRefLicProfAttribute(licNum,"BOND AMOUNT",unescape(bo.getAttribute("BondAmt").getValue()).replace(/[$,]/g,""));
 				if (bo.getAttribute("BondCancDt").getValue()) editRefLicProfAttribute(licNum,"BOND EXPIRATION",unescape(bo.getAttribute("BondCancDt").getValue()));
 
 				// Currently unused but could be loaded into custom attributes.
@@ -456,10 +437,115 @@ function externalLP_CA(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 	if (returnMessage.length > 0) return returnMessage;
 	else return null;
 
-} 
-/*--------------------------------------------------------------------------------------------------------------------/
-| End externalLP_CA Function
-/--------------------------------------------------------------------------------------------------------------------*/
+} // end function
+
+function getLPLicNum(pCapId) {
+//Function find licensed professionals number
+        var newLicNum = null;
+	var licProf = aa.licenseProfessional.getLicensedProfessionalsByCapID(pCapId).getOutput();
+	if (licProf != null)
+		for(x in licProf)
+		{
+                        newLicNum = licProf[x].getLicenseNbr();
+		        // logDebug("Found " + licProf[x].getLicenseNbr());
+                        return newLicNum;
+		}
+	else
+		// logDebug("No licensed professional on source");
+                return null;
+}
+
+
+function getLPLicType(pCapId) {
+//Function find licensed professionals number
+	var newLicType = null;
+	var licProf = aa.licenseProfessional.getLicensedProfessionalsByCapID(pCapId).getOutput();
+	if (licProf != null)
+	for(x in licProf)
+	{
+		newLicType = licProf[x].getLicenseType();
+		// logDebug("Found " + licProf[x].getLicenseType());
+		return newLicType;
+	}
+	else
+	// logDebug("No licensed professional on source");
+		return null;
+}
+
+
+function doScriptActions() {
+                include(prefix + ":" + "*/*/*/*");
+                if (typeof(appTypeArray) == "object") {
+                                                include(prefix + ":" + appTypeArray[0] + "/*/*/*");
+                                                include(prefix + ":" + appTypeArray[0] + "/" + appTypeArray[1] + "/*/*");
+                                                include(prefix + ":" + appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*");
+                                                include(prefix + ":" + appTypeArray[0] + "/*/" + appTypeArray[2] + "/*");
+                                                include(prefix + ":" + appTypeArray[0] + "/*/" + appTypeArray[2] + "/" + appTypeArray[3]);
+                                                include(prefix + ":" + appTypeArray[0] + "/*/*/" + appTypeArray[3]);
+                                                include(prefix + ":" + appTypeArray[0] + "/" + appTypeArray[1] + "/*/" + appTypeArray[3]);
+                                                include(prefix + ":" + appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/" + appTypeArray[3]);
+                                                }
+                }
+/*
+Functions to attach incoming email messages to a record
+*/
+function associateMessagesToRecords(messages)
+{
+	if(messages){
+		var i = 0;  var len = messages.length; 
+		while(i < len)
+		{
+			var message = messages[i];
+			var content = message.getTitle();
+			var cmId = message.getCmId();
+			var altId = parseAltIdFromContent(content);
+			var messageBody = message.getContent();
+			var messageModel = message.getModel();
+			var messageFrom = messageModel.getFromString();
+			var messageTo = messageModel.getToString();
+			
+			var altIdResult= new String(parseAltIdFromContent(content));
+			var altIdMatch = altIdResult.split(',');
+			logDebug("Subject: " + content);
+			logDebug("Record ID from the Subject Line: " + altIdMatch);
+			
+			var altId = altIdMatch[1];
+			if (altId)
+			{
+				aa.communication.associateEnities(cmId, altId, 'RECORD');
+				logDebug("Successfully associated message with Record: " + altId);
+				return true;
+			}
+			else
+			{
+				logDebug("Record ID not found, sending bounce back email.");
+				email(messageFrom, messageTo, bouncebackSubject + ": " + content, bouncebackBody + ": <br><br>" + messageBody);
+				
+				if (sendDebugEmail)
+				{
+					email(debugEmailAddress, messageTo, "Debug log from CommunicationReceivingEmailAfter Event Script", debug);
+				}
+						
+				return false;
+			}
+			i++;						
+		}
+	}
+}
+
+
+function parseAltIdFromContent(content)
+{       
+		//This is just a sample.
+		//Note, please customize the RegExp for actual AlternateID.
+        var altIdFormat = /Record ID #(.*\w)+/; 		
+		var result = altIdFormat.exec(content);
+		if(result){
+			return result;
+		}
+		aa.print('No record id has been parsed from content.');
+}
+
 
 /*--------------------------------------------------------------------------------------------------------------------/
 | Start Fuction getGISInfo
