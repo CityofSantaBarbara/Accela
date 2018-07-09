@@ -30,4 +30,4 @@ else {
 		aa.print("<B><Font Color=RED>NOT within 10000 feet of the Pacific Ocean</B></Font>.");
 }
 
-mapGISAttribToASI("SANTABARBARA", "High Fire Hazard Areas", "assessment", "Zone");
+mapGISAttribToASI("SANTABARBARA", "Zoning", "ZONE", "Zone");
