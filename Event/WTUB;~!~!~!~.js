@@ -3,7 +3,7 @@ showMessage = true;
 logDebug("Script WTUB - Begin");
 logDebug("BalanceDue = " + balanceDue);
 
-var lookupString = "appTypeString" + "|" + wfTask + "|" + wfStatus;
+var lookupString = appTypeString + "|" + wfTask + "|" + wfStatus;
 logDebug("lookupString = " + lookupString);
 
 var lookupValue = lookup("ValidationZeroBalance", lookupString);
