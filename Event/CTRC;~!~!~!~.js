@@ -1,10 +1,20 @@
-/*------------------------------------------------------------------------------------------------------/
-| Program: CTRC:*/*/*/*.js  Trigger: Create to Real Cap
-| Client:Santa Barbara - Silver Lining Solutions
-|
-| Version 1.0 - Base Version. 
-|
-/------------------------------------------------------------------------------------------------------*/
+//********************************************************************************************************
+//Script 		CTRC:~/~/~/~.js
+//Record Types:	all
+//
+//Event: 		
+//
+//Desc:		for aca 
+//
+//Created By: Silver Lining Solutions
+//********************************************************************************************************
+// Change Log
+//         		Date		Name			Modification
+//				      Jason			Initial Draft
+//			08-08-2018	Chad			changed header
+//********************************************************************************************************
+      
+      
 //Needed to get GIS feature associated when created by ACA
 //Copy Parcel GIS Objects to Record using function copyParcelGisObjects()
 try{
