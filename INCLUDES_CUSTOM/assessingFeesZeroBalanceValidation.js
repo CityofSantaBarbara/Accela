@@ -25,26 +25,28 @@
 //         		Date		Name			Modification
 //
 //********************************************************************************************************
-
-showMessage = true;
-logDebug("Script Assessing Fees - Zero Balance Validation - Begin");
-logDebug("BalanceDue = " + balanceDue);
-
-if (controlString == "WorkflowTaskUpdateBefore")
-	{var lookupString = appTypeString + "|" + wfTask + "|" + wfStatus;}
-else if (controlString == "InspectionResultUpdateBefore")
-	{var lookupString = appTypeString + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
-
-logDebug("lookupString = " + lookupString);
-
-var lookupValue = lookup("ValidationZeroBalance", lookupString);
-logDebug("lookupValue = " + lookupValue);
-
-if (lookupValue && balanceDue > 0)
+function assessingFeesZeroBalanceValidation()
 {
-	logDebug("lookupValue matched in ValidationZeroBalance table");
-	comment("This Inspection Action may not be completed while there is a Balance on the Record.");
-	cancel = true;
-}
+	showMessage = true;
+	logDebug("Script Assessing Fees - Zero Balance Validation - Begin");
+	logDebug("BalanceDue = " + balanceDue);
 
-logDebug("Script Assessing Fees - Zero Balance Validation - End");
+	if (controlString == "WorkflowTaskUpdateBefore")
+		{var lookupString = appTypeString + "|" + wfTask + "|" + wfStatus;}
+	else if (controlString == "InspectionResultUpdateBefore")
+		{var lookupString = appTypeString + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
+
+	logDebug("lookupString = " + lookupString);
+
+	var lookupValue = lookup("ValidationZeroBalance", lookupString);
+	logDebug("lookupValue = " + lookupValue);
+
+	if (lookupValue && balanceDue > 0)
+	{
+		logDebug("lookupValue matched in ValidationZeroBalance table");
+		comment("This Inspection Action may not be completed while there is a Balance on the Record.");
+		cancel = true;
+	}
+
+	logDebug("Script Assessing Fees - Zero Balance Validation - End");
+}
