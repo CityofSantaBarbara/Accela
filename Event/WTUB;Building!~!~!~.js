@@ -21,7 +21,7 @@ if (wfStatus == "Issued" ) {
 	var thisAddrAttribsArr = [];
 	loadAddressAttributes(thisAddrAttribsArr, capId);
 
-	if (thisAddrAttribsArr["OCCUPANCYID"]) {
+	if (thisAddrAttribsArr["AddressAttribute.OCCUPANCYID"]) {
 		logDebug("you have an occupancy ID on file for the primary address!");
 	} else {
 		logDebug("you DO NOT have an occupancy ID on file for the primary address!");
