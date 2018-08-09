@@ -16,14 +16,20 @@
 function sumFeesAssessedBeforeAndAddTechFee () {
 	logDebug("start sumFeesAssessedBeforeAndAddTechFee");
 
+	var checkFeesArr = [];
+	checkFeesArr = loadFees();
+	
+	printObjProperties(checkFeesArr);
+	
 	logDebug(" globals available to this event: ");
 	
+/*
 	logDebug("************** FeeGroupNamesArray ******************");
 	printObjProperties(FeeGroupNamesArray);
 	
 	logDebug("************** FeeGroupQuantityArray ******************");
 	printObjProperties(FeeGroupQuantityArray);
-	
+*/	
 	logDebug("************** FeeItemsList ******************");
 	printObjProperties(FeeItemsList);
 	
