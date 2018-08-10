@@ -9,9 +9,9 @@
 //Created By: Silver Lining Solutions
 //********************************************************************************************************
 // Change Log
-//         		Date		Name			Modification
-//			08-09-2018	Chad			Initial Draft
-//			08-10-2018	Chad			Adding Lookup Logic
+//				Date		Name			Modification
+//				08-09-2018	Chad			Initial Draft
+//				08-10-2018	Chad			Adding Lookup Logic
 //********************************************************************************************************
 
 function sumFeesAssessedBeforeAndAddTechFee () {
@@ -42,7 +42,7 @@ function sumFeesAssessedBeforeAndAddTechFee () {
 			var lookupValue = lookup("TechnologyFeeIgnoredFees", lookupString);
 			logDebug("lookupValue = " + lookupValue);	
 
-			if (lookupValue) { logDebug("Ignore fee, "+lookupString+" in TechnologyFeeIgnoredFees standard choice"); continue; }
+			if (lookupValue == '1') { logDebug("Ignore fee, "+lookupString+" in TechnologyFeeIgnoredFees standard choice"); continue; }
 		
 		// build the item look up search
 		// if found, skip adding the fee.
@@ -52,7 +52,7 @@ function sumFeesAssessedBeforeAndAddTechFee () {
 			var lookupValue = lookup("TechnologyFeeIgnoredFees", lookupString);
 			logDebug("lookupValue = " + lookupValue);	
 
-			if (lookupValue) { logDebug("Ignore fee, "+lookupString+" in TechnologyFeeIgnoredFees standard choice"); continue; }
+			if (lookupValue == '1') { logDebug("Ignore fee, "+lookupString+" in TechnologyFeeIgnoredFees standard choice"); continue; }
 		
 			techFeeTotal += iFeeAmt;
 		
