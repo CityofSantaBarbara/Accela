@@ -64,15 +64,15 @@ function sumFeesAssessedBeforeAndAddTechFee () {
 		// here we look up the apptype so we know what module we're dealing with
 		// each dept will have different tech fee codes to apply.
 		
-		var thisModule = appTypeString.split("/",1);
+		var thisModule = appTypeString.split("/")[0];
 		logDebug("will assess fee for module="+thisModule);
 
 		techFeeAmt = Number(techFeeTotal * .08).toFixed(2);
 		logDebug("Calculated Tech Fee is :"+techFeeAmt);
 		
 		switch(thisModule) {
-			case "Public Works":
-				logDebug("Public Works module... asesssing fee of...");
+			case "PublicWorks":
+				logDebug("Public Works module... assessing fee of...");
 				break;
 			case "Building":
 				logDebug("Building module... would assess fee but no spec...");
