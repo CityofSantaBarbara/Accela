@@ -15,7 +15,7 @@
 //********************************************************************************************************
 
 function sumFeesAssessedBeforeInvoiceAndAddTechFee () {
-	logDebug("start sumFeesAssessedBeforeAndAddTechFee");
+	logDebug("start sumFeesAssessedBeforeInvoiceAndAddTechFee");
 
 	var checkFeesArr = [], 
 		techFeeTotal = 0,
@@ -87,5 +87,5 @@ function sumFeesAssessedBeforeInvoiceAndAddTechFee () {
 	} else { logDebug("no tech fee added"); }
 	
 	comment("<font color=red><b>TECH FEE AMOUNT = "+techFeeAmt+"</b></font>");
-	logDebug("end sumFeesAssessedBeforeAndAddTechFee");
+	logDebug("end sumFeesAssessedBeforeInvoiceAndAddTechFee");
 }
