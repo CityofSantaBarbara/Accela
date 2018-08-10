@@ -15,6 +15,6 @@
 
 logDebug("start FAA:~/~/~/~ to add technology fee!");
 
-sumFeesAssessedBeforeAndAddTechFee();
+sumFeesAssessedBeforeInvoiceAndAddTechFee();
 
 logDebug("end  FAA:~/~/~/~ to add technology fee!");
