@@ -19,8 +19,9 @@ function sumFeesAssessedBeforeAndAddTechFee () {
 	var checkFeesArr = [];
 	checkFeesArr = loadFees();
 	
+	logDebug("printing check fees array ----------->"+checkFeesArr);
 	printObjProperties(checkFeesArr);
-	
+		
 	logDebug(" globals available to this event: ");
 	
 /*
