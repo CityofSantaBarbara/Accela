@@ -19,26 +19,12 @@ function sumFeesAssessedBeforeAndAddTechFee () {
 	var checkFeesArr = [];
 	checkFeesArr = loadFees();
 	
-	logDebug("printing check fees array ----------->"+checkFeesArr);
-	printObjProperties(checkFeesArr);
-		
-	logDebug(" globals available to this event: ");
+	logDebug("printing check fees array -----------");
+	for (var x in checkFeesArr) {
+		printObjProperties(checkFeesArr[x]);
+	}
+
+	comment("<font color=red><b>FEE TOTAL = "+FeeItemsTotalFee+"</b></font>");
 	
-/*
-	logDebug("************** FeeGroupNamesArray ******************");
-	printObjProperties(FeeGroupNamesArray);
-	
-	logDebug("************** FeeGroupQuantityArray ******************");
-	printObjProperties(FeeGroupQuantityArray);
-*/	
-	logDebug("************** FeeItemsList ******************");
-	printObjProperties(FeeItemsList);
-	
-	logDebug("************** FeeItemsQuantityList ******************");
-	printObjProperties(FeeItemsQuantityList);
-	
-	logDebug("************** NumberOfFeeItems ******************");
-	printObjProperties(NumberOfFeeItems);
- 
 	logDebug("end sumFeesAssessedBeforeAndAddTechFee");
 }
