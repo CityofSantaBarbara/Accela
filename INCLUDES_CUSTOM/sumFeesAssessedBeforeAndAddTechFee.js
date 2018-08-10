@@ -66,5 +66,6 @@ function sumFeesAssessedBeforeAndAddTechFee () {
 		
 	} else { logDebug("no tech fee added"); }
 	
+	comment("<font color=red><b>TECH FEE AMOUNT = "+techFeeAmt+"</b></font>");
 	logDebug("end sumFeesAssessedBeforeAndAddTechFee");
 }
