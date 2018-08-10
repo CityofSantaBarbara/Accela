@@ -60,9 +60,27 @@ function sumFeesAssessedBeforeAndAddTechFee () {
 	comment("<font color=red><b>TECH FEE TOTAL = "+techFeeTotal+"</b></font>");
 	
 	if (techFeeTotal > 0) {
-		techFeeAmt = Number(techFeeTotal * .08).toFixed(2);
+		
+		// here we look up the apptype so we know what module we're dealing with
+		// each dept will have different tech fee codes to apply.
+		
+		var thisModule = appTypeString.split("/",1);
+		logDebug("will assess fee for module="+thisModule);
 
+		techFeeAmt = Number(techFeeTotal * .08).toFixed(2);
 		logDebug("Calculated Tech Fee is :"+techFeeAmt);
+		
+		switch(thisModule) {
+			case "Public Works":
+				logDebug("Public Works module... asesssing fee of...");
+				break;
+			case "Building":
+				logDebug("Building module... would assess fee but no spec...");
+				break;
+			default:
+				logDebug("Module not included in tech fee assessment.");
+		}
+		
 		
 	} else { logDebug("no tech fee added"); }
 	
