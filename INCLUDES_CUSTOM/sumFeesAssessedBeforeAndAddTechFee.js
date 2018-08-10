@@ -24,7 +24,7 @@ function sumFeesAssessedBeforeAndAddTechFee () {
 		printObjProperties(checkFeesArr[x]);
 	}
 
-	comment("<font color=red><b>FEE TOTAL = "+FeeItemsTotalFee+"</b></font>");
+//	comment("<font color=red><b>FEE TOTAL = "+FeeItemsTotalFee+"</b></font>");
 	
 	logDebug("end sumFeesAssessedBeforeAndAddTechFee");
 }
