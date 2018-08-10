@@ -71,11 +71,11 @@ function sumFeesAssessedBeforeAndAddTechFee () {
 		logDebug("Calculated Tech Fee is :"+techFeeAmt);
 		
 		switch(thisModule) {
-			case PublicWorks:
+			case "PublicWorks":
 				logDebug("Public Works module... assessing fee of...");
 				updateFee("PBW_TECH_FEE","PBW_TECH_FEE","FINAL", techFeeAmt, "N");
 				break;
-			case Building:
+			case "Building":
 				logDebug("Building module... would assess fee but no spec...");
 				updateFee("PBW_TECH_FEE","PBW_TECH_FEE","FINAL", techFeeAmt, "N");
 				break;
