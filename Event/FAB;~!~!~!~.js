@@ -15,6 +15,5 @@
 
 logDebug("start FAB:~/~/~/~ to add technology fee!");
 
-sumFeesAssessedBeforeAndAddTechFee();
 
 logDebug("end  FAB:~/~/~/~ to add technology fee!");
