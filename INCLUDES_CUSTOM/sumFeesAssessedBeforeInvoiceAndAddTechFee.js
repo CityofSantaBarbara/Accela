@@ -14,7 +14,7 @@
 //				08-10-2018	Chad			Adding Lookup Logic
 //********************************************************************************************************
 
-function sumFeesAssessedBeforeAndAddTechFee () {
+function sumFeesAssessedBeforeInvoiceAndAddTechFee () {
 	logDebug("start sumFeesAssessedBeforeAndAddTechFee");
 
 	var checkFeesArr = [], 
