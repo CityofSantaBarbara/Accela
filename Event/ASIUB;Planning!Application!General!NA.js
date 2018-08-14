@@ -48,7 +48,7 @@ var beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,
 for (var i=0;i<beforeValueList.length;i++)
 {
 	
-	checkboxDesc
+//	checkboxDesc
 
 	printObjProperties(beforeValueList[i]);
 
