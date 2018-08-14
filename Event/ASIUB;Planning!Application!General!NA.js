@@ -34,6 +34,30 @@
 //         		Date		Name			Modification
 //				08-08-2018	Chad			Initial Draft
 //********************************************************************************************************
+
+function printObjProperties(obj){
+    var idx;
+
+    if(obj.getClass != null){
+        logDebug("************* " + obj.getClass() + " *************");
+    }
+	else {
+		logDebug("this is not an object with a class!");
+	}
+
+    for(idx in obj){
+        if (typeof (obj[idx]) == "function") {
+            try {
+                logDebug(idx + "==>  " + obj[idx]());
+            } catch (ex) { }
+        } else {
+            logDebug(idx + ":  " + obj[idx]);
+        }
+    }
+}
+
+
+
 logDebug("start of ASIUB:Planning!Application!General!NA");
 
 logDebug("******************* GMP Residential values ************");
@@ -132,7 +156,11 @@ if (updateNeeded) {
 	if (curUpdDateInfo.getSuccess()) {
 
 		var curUpdDate = curUpdDateInfo.getOutput();
-		logDebug("calling editsigle no trans with:");
+		
+		printObjProperties(curUpdDateInfo);
+		printObjProperties(curUpdDate);
+		
+		logDebug("calling edit single no trans with:");
 		logDebug("capId ="+capId);
 		logDebug("update date is field");
 		logDebug("dnow ="+dNow);
