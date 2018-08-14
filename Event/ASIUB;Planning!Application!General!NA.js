@@ -43,7 +43,7 @@ var subgroupName = 'GMP Residential';
 var beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 for (var i=0;i<beforeValueList.length;i++)
 {
-	var beforeValName = beforeValueList[i]checkboxDesc;
+	var beforeValName = beforeValueList[i].checkboxDesc;
 	var beforeValue = beforeValueList[i].checklistComment;
 	logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
 }
@@ -53,7 +53,7 @@ subgroupName = 'GMP NONRESIDENTIAL';
 beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 for (var i=0;i<beforeValueList.length;i++)
 {
-	var beforeValName = beforeValueList[i]checkboxDesc;
+	var beforeValName = beforeValueList[i].checkboxDesc;
 	var beforeValue = beforeValueList[i].checklistComment;
 	logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
 }
