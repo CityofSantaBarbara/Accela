@@ -79,6 +79,7 @@ if (updateNeeded) {
 	useAppSpecificGroupName=true;
 	editAppSpecific("GMP Residential 2.Update Date",dNow);
 	useAppSpecificGroupName=false;
+	editAppSpecific("Update Date",dNow);
 }
 
 updateNeeded = false;
@@ -125,6 +126,7 @@ if (updateNeeded) {
 	useAppSpecificGroupName=true;
 	editAppSpecific("GMP NONRESIDENTIAL 2.Update Date",dNow);
 	useAppSpecificGroupName=false;
+	editAppSpecific("Update Date",dNow);
 }
 
 
