@@ -43,6 +43,7 @@ var subgroupName = 'GMP Residential';
 var beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 var updateNeeded = false;
 var asiToLookFor = [ "Existing Residential Units", "Residential Units to be Demo'd", "Total Residential Units" ];
+logDebug("looking for..."+asiToLookFor);
 for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
@@ -60,6 +61,7 @@ logDebug("******************* printing the GMP Residential 2 values ************
 var subgroupName = 'GMP Residential 2';
 var beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 var asiToLookFor = [ "New Residential Units", "Net New Residential Units" ];
+logDebug("looking for..."+asiToLookFor);
 for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
@@ -77,6 +79,7 @@ logDebug("******************* printing the GMP NONRESIDENTIAL values ***********
 subgroupName = 'GMP NONRESIDENTIAL';
 beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 var asiToLookFor = [ "Existing Nonres sq ft", "Nonres sq ft to be Demo'd", "Total Nonres sq ft", "Existing Hotel Rooms", "Hotel Rooms to be Demolished", "Total Hotel Rooms" ];
+logDebug("looking for..."+asiToLookFor);
 for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
@@ -94,6 +97,7 @@ logDebug("******************* printing the GMP NONRESIDENTIAL 2 values *********
 subgroupName = 'GMP NONRESIDENTIAL 2';
 beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 var asiToLookFor = [ "New Nonres sq ft", "Net New Nonres sq ft", "New Hotel Rooms", "Net New Hotel Rooms" ];
+logDebug("looking for..."+asiToLookFor);
 for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
