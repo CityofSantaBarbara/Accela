@@ -38,24 +38,16 @@
 
 logDebug("start of ASIUB:Planning!Application!General!NA");
 
-
 logDebug("NOTICE THE DIFFERENCE IN THE VALUES - THIS IS HOW YOU CAN CHECK WHAT HAS CHANGED!")
-
 
 logDebug("******************* printing the GMP Residential values ************");
 var subgroupName = 'GMP Residential';
 var beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 for (var i=0;i<beforeValueList.length;i++)
 {
-	
-//	checkboxDesc
-
-	printObjProperties(beforeValueList[i]);
-
-	var beforeValName = beforeValueList[i].getAttributeValue();
-	logDebug("--->"+beforeValName);
-	var beforeValue = beforeValueList[i].getChecklistComment();
-	logDebug("--->before value is:"+beforeValue);
+	var beforeValName = beforeValueList[i]checkboxDesc;
+	var beforeValue = beforeValueList[i].checklistComment;
+	logDebug("--->before value of >"+beforeValName+"< is:"+beforeValue);
 }
 
 logDebug("******************* printing the GMP NONRESIDENTIAL values ************");
@@ -63,12 +55,9 @@ subgroupName = 'GMP NONRESIDENTIAL';
 beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 for (var i=0;i<beforeValueList.length;i++)
 {
-	printObjProperties(beforeValueList[i]);
-
-	var beforeValName = beforeValueList[i].getAttributeValue();
-	logDebug("--->"+beforeValName);
-	var beforeValue = beforeValueList[i].getChecklistComment();
-	logDebug("--->before value is:"+beforeValue);
+	var beforeValName = beforeValueList[i]checkboxDesc;
+	var beforeValue = beforeValueList[i].checklistComment;
+	logDebug("--->before value of >"+beforeValName+"< is:"+beforeValue);
 }
 
 logDebug("end of ASIUB:Planning!Application!General!NA");
