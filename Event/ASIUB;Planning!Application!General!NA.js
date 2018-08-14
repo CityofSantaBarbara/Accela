@@ -42,11 +42,11 @@ logDebug("******************* printing the GMP Residential values ************")
 var subgroupName = 'GMP Residential';
 var beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 var updateNeeded = false;
-var asiToLookFor = [ "Existing Residential Units", "Residential Units to be Demo'd", "Total Residential Units" ];
+var asiToLookFor = [ "Existing Residential Units", "Residential Units to be Demolished", "Total Residential Units" ];
 logDebug("looking for..."+asiToLookFor);
 for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
 {
-	var beforeValName = beforeValueList[i].checkboxDesc;
+	var beforeValName = "" + beforeValueList[i].checkboxDesc;
 	logDebug("look at:"+beforeValName);
 	logDebug("the index of would be:"+asiToLookFor.indexOf(beforeValName));
 	if ( asiToLookFor.indexOf(beforeValName) > -1 ) {
