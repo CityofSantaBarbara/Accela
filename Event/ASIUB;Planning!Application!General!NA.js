@@ -34,8 +34,6 @@
 //         		Date		Name			Modification
 //				08-08-2018	Chad			Initial Draft
 //********************************************************************************************************
-
-
 logDebug("start of ASIUB:Planning!Application!General!NA");
 
 logDebug("NOTICE THE DIFFERENCE IN THE VALUES - THIS IS HOW YOU CAN CHECK WHAT HAS CHANGED!")
@@ -47,7 +45,7 @@ for (var i=0;i<beforeValueList.length;i++)
 {
 	var beforeValName = beforeValueList[i]checkboxDesc;
 	var beforeValue = beforeValueList[i].checklistComment;
-	logDebug("--->before value of >"+beforeValName+"< is:"+beforeValue);
+	logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
 }
 
 logDebug("******************* printing the GMP NONRESIDENTIAL values ************");
@@ -57,7 +55,7 @@ for (var i=0;i<beforeValueList.length;i++)
 {
 	var beforeValName = beforeValueList[i]checkboxDesc;
 	var beforeValue = beforeValueList[i].checklistComment;
-	logDebug("--->before value of >"+beforeValName+"< is:"+beforeValue);
+	logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
 }
 
 logDebug("end of ASIUB:Planning!Application!General!NA");
