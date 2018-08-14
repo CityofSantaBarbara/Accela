@@ -75,7 +75,25 @@ if (updateNeeded == false ) {
 }
 if (updateNeeded) { 
 	
-	aa.env.setValue("ASIUB_PLN_MST_UpdateDate_GMPRes",true);
+//	aa.env.setValue("ASIUB_PLN_MST_UpdateDate_GMPRes",true);
+
+//ASIUB_TO_ASIUA_CHECK_FOR_UPDATE   create a line there with capid|subgroup|item|value- this idea won't work as you cant delete later via script (that I can find)
+
+	var dNow = "" + dateAdd(null,0); 
+	logDebug("updating gmp residential 2 update date with:"+dNow);
+//	useAppSpecificGroupName=true;
+	
+	var curUpdDate = aa.appSpecificInfo.getAppSpecificInfos(capId,"GMP Residential 2","Update Date");
+	
+	logDebug("calling editSingleAppSpecificNoTransaction with:");
+	logDebug("capid = "+capId);
+	logDebug("dNow = "+dNow);
+	logDebug("curUpdDate = "+curUpdDate);
+	
+	aa.appSpecificInfo.editSingleAppSpecificNoTransaction(capId, "Update Date", dNow, "GMP Residential 2", curUpdDate );
+	
+//	useAppSpecificGroupName=false;
+
 }
 
 updateNeeded = false;
