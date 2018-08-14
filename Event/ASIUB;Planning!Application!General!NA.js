@@ -73,7 +73,7 @@ if (updateNeeded == false ) {
 		}
 	}
 }
-if (updateNeeded) { var dNow = new Date(); aa.appSpecificInfo.editSingleAppSpecific(capId,"Update Date",dNow, "GMP Residential 2"); }
+if (updateNeeded) { var dNow = dateAdd(null,0); aa.appSpecificInfo.editSingleAppSpecific(capId,"Update Date",dNow, "GMP Residential 2"); }
 
 updateNeeded = false;
 logDebug("******************* GMP NONRESIDENTIAL values ************");
@@ -113,7 +113,7 @@ if (updateNeeded == false ) {
 	}
 }
 
-if (updateNeeded) { var dNow = new Date(); aa.appSpecificInfo.editSingleAppSpecific(capId,"Update Date",dNow, "GMP NONRESIDENTIAL 2"); }
+if (updateNeeded) { var dNow = dateAdd(null,0); aa.appSpecificInfo.editSingleAppSpecific(capId,"Update Date",dNow, "GMP NONRESIDENTIAL 2"); }
 
 
 logDebug("end of ASIUB:Planning!Application!General!NA");
