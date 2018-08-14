@@ -76,7 +76,6 @@ function sumFeesAssessedBeforeInvoiceAndAddTechFee () {
 				break;
 			case "Building":
 				logDebug("Building module... would assess fee but no spec...");
-				updateFee("PBW_TECH_FEE","PBW_TECH_FEE","FINAL", techFeeAmt, "N");
 				break;
 			default:
 				logDebug("Module not included in tech fee assessment.");
