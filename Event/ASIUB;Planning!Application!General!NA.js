@@ -153,7 +153,7 @@ if (updateNeeded) {
 	var dNow = "" + dateAdd(null,0); 
 	logDebug("updating gmp NONresidential 2 update date with:"+dNow);
 	var curUpdDateInfo = aa.appSpecificInfo.getAppSpecificInfos(capId,"GMP NONRESIDENTIAL 2","Update Date").getOutput();
-	var curUpdDate = curUpdDateInfo[0].checklistComment;
+	var curUpdDate = curUpdDateInfo[0].checklistComment || '';
 	
 	logDebug("calling edit single no trans with:");
 	logDebug("capId ="+capId);
@@ -162,7 +162,6 @@ if (updateNeeded) {
 	logDebug("curUpdDate ="+curUpdDate);
 	aa.appSpecificInfo.editSingleAppSpecificNoTransaction(capId, "Update Date", dNow, "GMP NONRESIDENTIAL 2", curUpdDate );
 	
-	} else { logDebug("failed to ge the asi infos!"); }
 }
 
 
