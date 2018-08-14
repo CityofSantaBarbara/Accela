@@ -72,44 +72,48 @@ if (updateNeeded == false ) {
 			if (afterValue != beforeValue) { logDebug ("THEY ARE DIFFERENT!");  updateNeeded = true; }
 		}
 	}
-	if (updateNeeded == false ) {
-		logDebug("******************* GMP NONRESIDENTIAL values ************");
-		subgroupName = 'GMP NONRESIDENTIAL';
-		beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
-		var asiToLookFor = [ "Existing Nonres sq ft", "Nonres sq ft to be Demo'd", "Total Nonres sq ft", "Existing Hotel Rooms", "Hotel Rooms to be Demolished", "Total Hotel Rooms" ];
-		for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
-		{
-			var beforeValName = "" + beforeValueList[i].checkboxDesc;
-			if ( asiToLookFor.indexOf(beforeValName) > -1 ) {
+}
+if (updateNeeded) { var dNow = new Date(); aa.appSpecificInfo.editSingleAppSpecific(capId,"Update Date",dNow, "GMP Residential 2"); }
 
-				var beforeValue = beforeValueList[i].checklistComment || '';
-				var afterValue = AInfo[beforeValName] || '';
-				logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
-				logDebug("---> the AInfo field value is:"+afterValue);
-				
-				if (afterValue != beforeValue) { logDebug ("THEY ARE DIFFERENT!");  updateNeeded = true; }
-			}
-		}
-		if (updateNeeded == false ) {
-			logDebug("******************* GMP NONRESIDENTIAL 2 values ************");
-			subgroupName = 'GMP NONRESIDENTIAL 2';
-			beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
-			var asiToLookFor = [ "New Nonres sq ft", "Net New Nonres sq ft", "New Hotel Rooms", "Net New Hotel Rooms" ];
-			for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
-			{
-				var beforeValName = "" + beforeValueList[i].checkboxDesc;
-				if ( asiToLookFor.indexOf(beforeValName) > -1 ) {
+updateNeeded = false;
+logDebug("******************* GMP NONRESIDENTIAL values ************");
+subgroupName = 'GMP NONRESIDENTIAL';
+beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
+var asiToLookFor = [ "Existing Nonres sq ft", "Nonres sq ft to be Demo'd", "Total Nonres sq ft", "Existing Hotel Rooms", "Hotel Rooms to be Demolished", "Total Hotel Rooms" ];
+for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
+{
+	var beforeValName = "" + beforeValueList[i].checkboxDesc;
+	if ( asiToLookFor.indexOf(beforeValName) > -1 ) {
 
-					var beforeValue = beforeValueList[i].checklistComment || '';
-					var afterValue = AInfo[beforeValName] || '';
-					logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
-					logDebug("---> the AInfo field value is:"+afterValue);
-					
-					if (afterValue != beforeValue) { logDebug ("THEY ARE DIFFERENT!");  updateNeeded = true; }
-				}
-			}
+		var beforeValue = beforeValueList[i].checklistComment || '';
+		var afterValue = AInfo[beforeValName] || '';
+		logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
+		logDebug("---> the AInfo field value is:"+afterValue);
+		
+		if (afterValue != beforeValue) { logDebug ("THEY ARE DIFFERENT!");  updateNeeded = true; }
+	}
+}
+if (updateNeeded == false ) {
+	logDebug("******************* GMP NONRESIDENTIAL 2 values ************");
+	subgroupName = 'GMP NONRESIDENTIAL 2';
+	beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
+	var asiToLookFor = [ "New Nonres sq ft", "Net New Nonres sq ft", "New Hotel Rooms", "Net New Hotel Rooms" ];
+	for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
+	{
+		var beforeValName = "" + beforeValueList[i].checkboxDesc;
+		if ( asiToLookFor.indexOf(beforeValName) > -1 ) {
+
+			var beforeValue = beforeValueList[i].checklistComment || '';
+			var afterValue = AInfo[beforeValName] || '';
+			logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
+			logDebug("---> the AInfo field value is:"+afterValue);
+			
+			if (afterValue != beforeValue) { logDebug ("THEY ARE DIFFERENT!");  updateNeeded = true; }
 		}
 	}
 }
+
+if (updateNeeded) { var dNow = new Date(); aa.appSpecificInfo.editSingleAppSpecific(capId,"Update Date",dNow, "GMP NONRESIDENTIAL 2"); }
+
 
 logDebug("end of ASIUB:Planning!Application!General!NA");
