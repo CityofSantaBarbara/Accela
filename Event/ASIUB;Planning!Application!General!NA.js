@@ -42,8 +42,8 @@ logDebug("******************* printing the GMP Residential values ************")
 var subgroupName = 'GMP Residential';
 var beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 var updateNeeded = false;
-var asiToLookFor = [ "Existing Dwelling Units", "Dwelling Units to be Demo'd", "Total Dwelling Units" ];
-for (var i=0;i<beforeValueList.length && !updateNeeded ;i++)
+var asiToLookFor = [ "Existing Residential Units", "Residential Units to be Demo'd", "Total Residential Units" ];
+for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
 	if ( asiToLookFor.indexOf(beforeValName) > -1 ) {
@@ -59,8 +59,8 @@ for (var i=0;i<beforeValueList.length && !updateNeeded ;i++)
 logDebug("******************* printing the GMP Residential 2 values ************");
 var subgroupName = 'GMP Residential 2';
 var beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
-var asiToLookFor = [ "New Dwelling Units", "Net New Dwelling Units" ];
-for (var i=0;i<beforeValueList.length && !updateNeeded ;i++)
+var asiToLookFor = [ "New Residential Units", "Net New Residential Units" ];
+for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
 	if ( asiToLookFor.indexOf(beforeValName) > -1 ) {
@@ -77,7 +77,7 @@ logDebug("******************* printing the GMP NONRESIDENTIAL values ***********
 subgroupName = 'GMP NONRESIDENTIAL';
 beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 var asiToLookFor = [ "Existing Nonres sq ft", "Nonres sq ft to be Demo'd", "Total Nonres sq ft", "Existing Hotel Rooms", "Hotel Rooms to be Demolished", "Total Hotel Rooms" ];
-for (var i=0;i<beforeValueList.length && !updateNeeded ;i++)
+for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
 	if ( asiToLookFor.indexOf(beforeValName) > -1 ) {
@@ -94,7 +94,7 @@ logDebug("******************* printing the GMP NONRESIDENTIAL 2 values *********
 subgroupName = 'GMP NONRESIDENTIAL 2';
 beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null).getOutput();
 var asiToLookFor = [ "New Nonres sq ft", "Net New Nonres sq ft", "New Hotel Rooms", "Net New Hotel Rooms" ];
-for (var i=0;i<beforeValueList.length && !updateNeeded ;i++)
+for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
 	if ( asiToLookFor.indexOf(beforeValName) > -1 ) {
