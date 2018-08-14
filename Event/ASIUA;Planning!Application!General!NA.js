@@ -18,12 +18,30 @@
 
 logDebug("start of ASIUA:Planning!Application!General!NA");
 
+var upGMPRes = aa.env.getValue("ASIUB_PLN_MST_UpdateDate_GMPRes");
+var upGMPNonRes = aa.env.getValue("ASIUB_PLN_MST_UpdateDate_GMPNonRes");
 
-var dNow = "" + dateAdd(null,0); 
-logDebug("updating gmp NONresidential 2 update date with:"+dNow);
-useAppSpecificGroupName=true;
-editAppSpecific("GMP NONRESIDENTIAL 2.Update Date",dNow);
-useAppSpecificGroupName=false;
-//useAppSpecificGroupName=false;}
+logDebug(" the upGMPRes is:" + upGMPRes );
+logDebug(" the upGMPNonRes:" + upGMPNonRes );
+
+if ( upGMPRes ) {
+	var dNow = "" + dateAdd(null,0); 
+	logDebug("updating gmp residential 2 update date with:"+dNow);
+	useAppSpecificGroupName=true;
+	editAppSpecific("GMP Residential 2.Update Date",dNow);
+	useAppSpecificGroupName=false;
+}
+
+if ( upGMPNonRes ) {
+	var dNow = "" + dateAdd(null,0); 
+	logDebug("updating gmp residential 2 update date with:"+dNow);
+	useAppSpecificGroupName=true;
+	editAppSpecific("GMP Residential 2.Update Date",dNow);
+	useAppSpecificGroupName=false;
+}
+
+aa.env.setValue("ASIUB_PLN_MST_UpdateDate_GMPRes",false);
+aa.env.setValue("ASIUB_PLN_MST_UpdateDate_GMPNonRes",false);
+
 
 logDebug("end of ASIUA:Planning!Application!General!NA");
