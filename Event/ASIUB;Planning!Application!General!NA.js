@@ -162,7 +162,8 @@ if (updateNeeded) {
 	logDebug("curUpdDate ="+curUpdDate);
 	var results = aa.appSpecificInfo.editSingleAppSpecificNoTransaction(capId, "Update Date", dNow, "GMP NONRESIDENTIAL 2", curUpdDate );
 	
-	logDebug("results are:"+results);
+	logDebug("results are:"+results.getOutput());
+	printObjProperties(results.getOutput());
 }
 
 
