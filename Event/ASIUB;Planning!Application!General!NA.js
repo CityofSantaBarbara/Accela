@@ -74,12 +74,8 @@ if (updateNeeded == false ) {
 	}
 }
 if (updateNeeded) { 
-	var dNow = "" + dateAdd(null,0); 
-	logDebug("updating gmp residential 2 update date with:"+dNow);
-	useAppSpecificGroupName=true;
-	editAppSpecific("GMP Residential 2.Update Date",dNow);
-	useAppSpecificGroupName=false;
-	editAppSpecific("Update Date",dNow);
+	
+	aa.env.setValue("ASIUB_PLN_MST_UpdateDate_GMPRes",true);
 }
 
 updateNeeded = false;
@@ -127,6 +123,9 @@ if (updateNeeded) {
 	editAppSpecific("GMP NONRESIDENTIAL 2.Update Date",dNow);
 	useAppSpecificGroupName=false;
 	editAppSpecific("Update Date",dNow);
+
+	aa.env.setValue("ASIUB_PLN_MST_UpdateDate_GMPNonRes",true);
+
 }
 
 
