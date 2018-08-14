@@ -22,7 +22,7 @@
 
 logDebug("start of IRSA:Fire!~!~!~");
 
-if (InspectionType == "Fire Final" && InspectionResult == "Passed") {
+if (inspType == "Fire Final" && inspResult == "Passed") {
 	logDebug("Criteria met at inspection type of fire final");
 	closeTask("Inspection","Final Inspection Passed","Auto Closed by Script","Auto Closed by Script");
 	closeTask("Close","Closed","Auto Closed by Script","Auto Closed by Script");
