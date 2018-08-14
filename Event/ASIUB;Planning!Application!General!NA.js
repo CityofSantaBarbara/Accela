@@ -75,24 +75,10 @@ if (updateNeeded == false ) {
 }
 if (updateNeeded) { 
 	
-//	aa.env.setValue("ASIUB_PLN_MST_UpdateDate_GMPRes",true);
-
-//ASIUB_TO_ASIUA_CHECK_FOR_UPDATE   create a line there with capid|subgroup|item|value- this idea won't work as you cant delete later via script (that I can find)
-
 	var dNow = "" + dateAdd(null,0); 
 	logDebug("updating gmp residential 2 update date with:"+dNow);
-//	useAppSpecificGroupName=true;
-	
 	var curUpdDate = aa.appSpecificInfo.getAppSpecificInfos(capId,"GMP Residential 2","Update Date");
-	
-	logDebug("calling editSingleAppSpecificNoTransaction with:");
-	logDebug("capid = "+capId);
-	logDebug("dNow = "+dNow);
-	logDebug("curUpdDate = "+curUpdDate);
-	
 	aa.appSpecificInfo.editSingleAppSpecificNoTransaction(capId, "Update Date", dNow, "GMP Residential 2", curUpdDate );
-	
-//	useAppSpecificGroupName=false;
 
 }
 
@@ -137,13 +123,8 @@ if (updateNeeded == false ) {
 if (updateNeeded) { 
 	var dNow = "" + dateAdd(null,0); 
 	logDebug("updating gmp NONresidential 2 update date with:"+dNow);
-	useAppSpecificGroupName=true;
-	editAppSpecific("GMP NONRESIDENTIAL 2.Update Date",dNow);
-	useAppSpecificGroupName=false;
-	editAppSpecific("Update Date",dNow);
-
-	aa.env.setValue("ASIUB_PLN_MST_UpdateDate_GMPNonRes",true);
-
+	var curUpdDate = aa.appSpecificInfo.getAppSpecificInfos(capId,"GMP NONRESIDENTIAL 2","Update Date");
+	aa.appSpecificInfo.editSingleAppSpecificNoTransaction(capId, "Update Date", dNow, "GMP NONRESIDENTIAL 2", curUpdDate );
 }
 
 
