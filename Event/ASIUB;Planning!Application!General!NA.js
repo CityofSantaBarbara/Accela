@@ -128,13 +128,18 @@ if (updateNeeded == false ) {
 if (updateNeeded) { 
 	var dNow = "" + dateAdd(null,0); 
 	logDebug("updating gmp NONresidential 2 update date with:"+dNow);
-	var curUpdDate = aa.appSpecificInfo.getAppSpecificInfos(capId,"GMP NONRESIDENTIAL 2","Update Date");
-	logDebug("calling editsigle no trans with:");
-	logDebug("capId ="+capId);
-	logDebug("update date is field");
-	logDebug("dnow ="+dNow);
-	logDebug("curUpdDate ="+curUpdDate);
-	aa.appSpecificInfo.editSingleAppSpecificNoTransaction(capId, "Update Date", dNow, "GMP NONRESIDENTIAL 2", curUpdDate );
+	var curUpdDateInfo = aa.appSpecificInfo.getAppSpecificInfos(capId,"GMP NONRESIDENTIAL 2","Update Date");
+	if (curUpdDateInfo.getSuccess()) {
+
+		var curUpdDate = curUpdDateInfo.getOutput();
+		logDebug("calling editsigle no trans with:");
+		logDebug("capId ="+capId);
+		logDebug("update date is field");
+		logDebug("dnow ="+dNow);
+		logDebug("curUpdDate ="+curUpdDate);
+		aa.appSpecificInfo.editSingleAppSpecificNoTransaction(capId, "Update Date", dNow, "GMP NONRESIDENTIAL 2", curUpdDate );
+		
+	} else { logDebug("failed to ge the asi infos!"); }
 }
 
 
