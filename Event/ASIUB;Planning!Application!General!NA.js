@@ -47,6 +47,8 @@ logDebug("looking for..."+asiToLookFor);
 for (var i=0;i<beforeValueList.length && updateNeeded == false ;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
+	logDebug("look at:"+beforeValName);
+	logDebug("the index of would be:"+asiToLookFor.indexOf(beforeValName));
 	if ( asiToLookFor.indexOf(beforeValName) > -1 ) {
 
 		var beforeValue = beforeValueList[i].checklistComment || '';
