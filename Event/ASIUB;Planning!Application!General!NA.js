@@ -44,9 +44,12 @@ var beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,
 for (var i=0;i<beforeValueList.length;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
-	var beforeValue = beforeValueList[i].checklistComment;
+	var beforeValue = beforeValueList[i].checklistComment || '';
+	var afterValue = AInfo[beforeValName] || '';
 	logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
-	logDebug("---> the AInfo field value is:"+AInfo[beforeValName]);
+	logDebug("---> the AInfo field value is:"+afterValue);
+	
+	if (afterValue != beforeValue) { logDebug ("THEY ARE DIFFERENT!"); }
 }
 logDebug("******************* printing the GMP Residential 2 values ************");
 var subgroupName = 'GMP Residential 2';
@@ -54,9 +57,13 @@ var beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,
 for (var i=0;i<beforeValueList.length;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
-	var beforeValue = beforeValueList[i].checklistComment;
+	var beforeValue = beforeValueList[i].checklistComment || '';
+	var afterValue = AInfo[beforeValName] || '';
 	logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
-	logDebug("---> the AInfo field value is:"+AInfo[beforeValName]);
+	logDebug("---> the AInfo field value is:"+afterValue);
+	
+	if (afterValue != beforeValue) { logDebug ("THEY ARE DIFFERENT!"); }
+	
 }
 
 logDebug("******************* printing the GMP NONRESIDENTIAL values ************");
@@ -65,9 +72,12 @@ beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null
 for (var i=0;i<beforeValueList.length;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
-	var beforeValue = beforeValueList[i].checklistComment;
+	var beforeValue = beforeValueList[i].checklistComment || '';
+	var afterValue = AInfo[beforeValName] || '';
 	logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
-	logDebug("---> the AInfo field value is:"+AInfo[beforeValName]);
+	logDebug("---> the AInfo field value is:"+afterValue);
+	
+	if (afterValue != beforeValue) { logDebug ("THEY ARE DIFFERENT!"); }
 }
 logDebug("******************* printing the GMP NONRESIDENTIAL 2 values ************");
 subgroupName = 'GMP NONRESIDENTIAL 2';
@@ -75,9 +85,12 @@ beforeValueList = aa.appSpecificInfo.getAppSpecificInfos(capId,subgroupName,null
 for (var i=0;i<beforeValueList.length;i++)
 {
 	var beforeValName = beforeValueList[i].checkboxDesc;
-	var beforeValue = beforeValueList[i].checklistComment;
+	var beforeValue = beforeValueList[i].checklistComment || '';
+	var afterValue = AInfo[beforeValName] || '';
 	logDebug("--->before value of "+beforeValName+" is:"+beforeValue);
-	logDebug("---> the AInfo field value is:"+AInfo[beforeValName]);
+	logDebug("---> the AInfo field value is:"+afterValue);
+	
+	if (afterValue != beforeValue) { logDebug ("THEY ARE DIFFERENT!"); }
 }
 
 logDebug("end of ASIUB:Planning!Application!General!NA");
