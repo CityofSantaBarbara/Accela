@@ -160,8 +160,9 @@ if (updateNeeded) {
 	logDebug("update date is field");
 	logDebug("dnow ="+dNow);
 	logDebug("curUpdDate ="+curUpdDate);
-	aa.appSpecificInfo.editSingleAppSpecificNoTransaction(capId, "Update Date", dNow, "GMP NONRESIDENTIAL 2", curUpdDate );
+	var results = aa.appSpecificInfo.editSingleAppSpecificNoTransaction(capId, "Update Date", dNow, "GMP NONRESIDENTIAL 2", curUpdDate );
 	
+	logDebug("results are:"+results);
 }
 
 
