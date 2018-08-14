@@ -67,8 +67,7 @@ function sumFeesAssessedBeforeInvoiceAndAddTechFee () {
 		var thisModule = ""+ appTypeArray[0];
 		logDebug("will assess fee for module="+thisModule);
 
-		techFeeAmt = Number(techFeeTotal * .08).toFixed(2);
-		logDebug("Calculated Tech Fee is :"+techFeeAmt);
+		techFeeAmt = Number(techFeeTotal * 1).toFixed(2);
 		
 		switch(thisModule) {
 			case "PublicWorks":
