@@ -74,7 +74,7 @@ if (updateNeeded == false ) {
 	}
 }
 if (updateNeeded) { 
-	var dNow = dateAdd(null,0); 
+	var dNow = "" + dateAdd(null,0); 
 	logDebug("updating gmp residential 2 update date with:"+dNow);
 	useAppSpecificGroupName=true;
 	editAppSpecific("GMP Residential 2.Update Date",dNow);
@@ -120,7 +120,7 @@ if (updateNeeded == false ) {
 }
 
 if (updateNeeded) { 
-	var dNow = dateAdd(null,0); 
+	var dNow = "" + dateAdd(null,0); 
 	logDebug("updating gmp NONresidential 2 update date with:"+dNow);
 	useAppSpecificGroupName=true;
 	editAppSpecific("GMP NONRESIDENTIAL 2.Update Date",dNow);
