@@ -9,7 +9,7 @@ function mapGISAttribToASI(svc,layer,attributeName,asiName) {
 		aa.print("mapGISAttribToASI: param attributeName is:"+attributeName);
 		aa.print("mapGISAttribToASI: param asiName is:"+asiName);
 		
-		var arrGIS = getGISInfoArray2(svc, layer, attributeName);
+		var arrGIS = getGISInfoArray2(svc, layer, attributeName, -2);
 		if (arrGIS != null && arrGIS.length > 0) {
 			var gisAttrforASI = arrGIS.toString();
 			editAppSpecific(asiName,gisAttrforASI);
