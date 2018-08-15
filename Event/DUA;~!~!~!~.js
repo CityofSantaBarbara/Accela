@@ -27,7 +27,7 @@ activateTask("Plans Distribution");
 taskStatus("Plans Distribution","Revisions Received");
 
 // prepare Notification parameters
-var staff = getTaskAssignedStaff();
+var staff = getTaskAssignedStaff("Plans Distribution");
 logDebug("staff = " + typeof(staff) + staff);
 var fromEmail = "noreply@SantaBarbaraCA.gov";
 var toEmail = ""; //staff.getEmail();
