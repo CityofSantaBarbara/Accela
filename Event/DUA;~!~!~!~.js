@@ -46,11 +46,16 @@ logDebug("dma.docName = " + documentModelArray["docName"]);
 //logDebug("dma.dName = " + documentModelArray[0].["docName"]); syntax err
 //logDebug("dma.dName = " + documentModelArray.[0].["docName"]); syntax err
 //logDebug("dma.dName = " + documentModelArray[0].[docName]); syntax err
-var docOne = documentModelArray[0];
-logDebug("docOne" + docOne);
+// var docOne = documentModelArray[0];
+// logDebug("docOne" + docOne);
+
 printObjProperties(documentModelArray);
-var doc = documentModelArray.getOutput();
-printObjProperties(doc);
+
+var docArray = documentModelArray.toArray();
+printObjProperties(docArray);
+
+// var doc = documentModelArray.getOutput();
+// printObjProperties(doc);
 
 
 // send Notification
