@@ -41,7 +41,7 @@ addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
 addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
 
 logDebug("documentModelArray = " + documentModelArray);
-logDebug("dMA.docName = " documentModelArray.docName);
+logDebug("dMA.docName = " + documentModelArray.docName);
 
 // send Notification
 var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
