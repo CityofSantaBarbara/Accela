@@ -28,8 +28,9 @@ taskStatus("Plans Distribution","Revisions Received");
 
 // prepare Notification parameters
 var staff = getTaskAssignedStaff();
+logDebug("staff = " + typeof(staff) + staff);
 var fromEmail = "noreply@SantaBarbaraCA.gov";
-var toEmail = staff.getEmail();
+var toEmail = ""; //staff.getEmail();
 var ccEmail = "eric@esilverliningsolutions.com";
 var notificationTemplate = "DOCUMENT UPDATE";
 var reportFile = [];  // empty set for the file list
