@@ -28,9 +28,9 @@ taskStatus("Plans Distribution","Revisions Received");
 
 // prepare Notification parameters
 var staff = getTaskAssignedStaff("Plans Distribution");
-logDebug("staff = " + typeof(staff) + staff);
+logDebug("staff = " + typeof(staff) + "   " + staff);
 var fromEmail = "noreply@SantaBarbaraCA.gov";
-var toEmail = ""; //staff.getEmail();
+var toEmail = staff.getEmail();
 var ccEmail = "eric@esilverliningsolutions.com";
 var notificationTemplate = "DOCUMENT UPDATE";
 var reportFile = [];  // empty set for the file list
@@ -41,6 +41,7 @@ addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
 addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
 
 logDebug("documentModelArray = " + documentModelArray);
+logDebug("dMA.docName = " documentModelArray.docName);
 
 // send Notification
 var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
