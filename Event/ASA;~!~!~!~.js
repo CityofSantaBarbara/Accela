@@ -14,6 +14,10 @@
 //			08-08-2018	Chad			changed header, can't have slash star in headers
 // ********************************************************************************************************
 
+var GISService = "SANTABARBARA";
+
+
+
 if (matches(currentUserID,"JJACKSON","ADMIN")) {
 	showDebug = 3;
 	showMessage= true;
@@ -49,4 +53,12 @@ try{
       logDebug("A JavaScript Error occurred: ASA:*/*/*/*: copyParcelGisObjects()" + err.message);
       logDebug(err.stack);
 };
+
+
+// zoning 
+
+mapGISAttribToASI("SANTABARBARA", "Zoning", "ZONE", "Zone");
+// flood zone 
+mapGISAttribToASI("SANTABARBARA", "FEMA Flood 2015", "FLD_ZONE", "Flood Zone");
+
 
