@@ -50,15 +50,15 @@ logDebug("dma.docName = " + documentModelArray["docName"]);
 // logDebug("docOne" + docOne);
 logDebug("************* documentModelArray ****************");
 printObjProperties(documentModelArray);
-logDebug("dMA size = " + documentModelArray.size);
+logDebug("dMA size = " + documentModelArray.size());
 
 var docArray = documentModelArray.toArray();
 logDebug("************* docArray ****************");
 printObjProperties(docArray);
 
-var da = docArray.getOutput();
-logDebug("************* da ****************");
-printObjProperties(da);
+//var da = docArray.getOutput();
+//logDebug("************* da ****************");
+//printObjProperties(da);
 
 // var doc = documentModelArray.getOutput();
 // printObjProperties(doc);
