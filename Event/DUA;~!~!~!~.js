@@ -40,9 +40,9 @@ var emailParameters = aa.util.newHashtable();
 addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
 addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
 
-logDebug("documentModelArray = " + documentModelArray);
+logDebug("documentModelArray = " + typeof(documentModelArray) + "    " + documentModelArray);
 logDebug("dMA.docName = " + documentModelArray.docName);
-
+logDebug("dma.docName = " + documentModelArray.getDocName());
 // send Notification
 var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
 if (!sendResult) 
