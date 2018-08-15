@@ -48,8 +48,9 @@ logDebug("dma.docName = " + documentModelArray["docName"]);
 //logDebug("dma.dName = " + documentModelArray[0].[docName]); syntax err
 // var docOne = documentModelArray[0];
 // logDebug("docOne" + docOne);
-
+logDebug("************* documentModelArray ****************");
 printObjProperties(documentModelArray);
+logDebug("dMA size = " + documentModelArray.size);
 
 var docArray = documentModelArray.toArray();
 logDebug("************* docArray ****************");
