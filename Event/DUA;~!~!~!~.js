@@ -26,6 +26,23 @@ logDebug("Script 31 Email Staff on Document Update - Begin");
 activateTask("Plans Distribution");
 taskStatus("Plans Distribution","Revisions Received");
 
+var docArray = documentModelArray.toArray();
+var err = 0;
+
+var documentModel = null;
+var fileName = null;
+
+for (i = 0; i < docArray.length; i++) {
+	documentModel = documentModels[i];
+	fileName = documentModel.getFileName();
+	logDebug("i = " + i + " & fileName = " + fileName);
+	}
+
+
+
+
+
+
 // prepare Notification parameters
 var staff = getTaskAssignedStaff("Plans Distribution");
 logDebug("staff = " + typeof(staff) + "   " + staff);
@@ -40,28 +57,6 @@ var emailParameters = aa.util.newHashtable();
 addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
 addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
 
-logDebug("documentModelArray = " + typeof(documentModelArray) + "   " + documentModelArray.length + "    " + documentModelArray);
-logDebug("dMA.docName = " + documentModelArray.docName);
-logDebug("dma.docName = " + documentModelArray["docName"]);
-//logDebug("dma.dName = " + documentModelArray[0].["docName"]); syntax err
-//logDebug("dma.dName = " + documentModelArray.[0].["docName"]); syntax err
-//logDebug("dma.dName = " + documentModelArray[0].[docName]); syntax err
-// var docOne = documentModelArray[0];
-// logDebug("docOne" + docOne);
-logDebug("************* documentModelArray ****************");
-printObjProperties(documentModelArray);
-logDebug("dMA size = " + documentModelArray.size());
-
-var docArray = documentModelArray.toArray();
-logDebug("************* docArray ****************");
-printObjProperties(docArray);
-
-//var da = docArray.getOutput();
-//logDebug("************* da ****************");
-//printObjProperties(da);
-
-// var doc = documentModelArray.getOutput();
-// printObjProperties(doc);
 
 
 // send Notification
