@@ -43,7 +43,14 @@ addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
 logDebug("documentModelArray = " + typeof(documentModelArray) + "   " + documentModelArray.length + "    " + documentModelArray);
 logDebug("dMA.docName = " + documentModelArray.docName);
 logDebug("dma.docName = " + documentModelArray["docName"]);
-//logDebug("dma.dName = " + documentModelArray[0].["docName"]);
+//logDebug("dma.dName = " + documentModelArray[0].["docName"]); syntax err
+//logDebug("dma.dName = " + documentModelArray.[0].["docName"]); syntax err
+//logDebug("dma.dName = " + documentModelArray[0].[docName]); syntax err
+
+printObjProperties(documentModelArray);
+var doc = documentModelArray.getOutput();
+printObjProperties(doc);
+
 
 // send Notification
 var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
