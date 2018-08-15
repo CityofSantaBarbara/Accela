@@ -52,7 +52,12 @@ logDebug("dma.docName = " + documentModelArray["docName"]);
 printObjProperties(documentModelArray);
 
 var docArray = documentModelArray.toArray();
+logDebug("************* docArray ****************");
 printObjProperties(docArray);
+
+var da = docArray.getOutput();
+logDebug("************* da ****************");
+printObjProperties(da);
 
 // var doc = documentModelArray.getOutput();
 // printObjProperties(doc);
