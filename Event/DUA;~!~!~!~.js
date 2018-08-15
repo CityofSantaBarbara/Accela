@@ -36,6 +36,10 @@ for (i = 0; i < docArray.length; i++) {
 	documentModel = docArray[i];
 	fileName = documentModel.getFileName();
 	logDebug("i = " + i + " & fileName = " + fileName);
+	logDebug("        documentNo = " + documentModel.getDocumentNo());
+	logDebug("        docType = " + documentModel.getDocType());
+	logDebug("*****************documentModel*******************");
+	printObjProperties(documentModel);
 	}
 
 
