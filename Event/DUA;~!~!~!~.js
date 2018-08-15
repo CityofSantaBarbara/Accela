@@ -33,7 +33,7 @@ var documentModel = null;
 var fileName = null;
 
 for (i = 0; i < docArray.length; i++) {
-	documentModel = documentModels[i];
+	documentModel = docArray[i];
 	fileName = documentModel.getFileName();
 	logDebug("i = " + i + " & fileName = " + fileName);
 	}
