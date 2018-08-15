@@ -19,7 +19,7 @@
 //				example: Fire/Sprinkler/NA/NA|
 //				example: Building/Residential/New/NA|BLD Residential|Building Final|OK for Service
 //
-//Created By: Silver Lining Solutions
+//Created By: Silver Lining Solutions 
 //********************************************************************************************************
 // Change Log
 //         		Date		Name			Modification
@@ -44,7 +44,7 @@ function assessingFeesZeroBalanceValidation()
 	if (lookupValue && balanceDue > 0)
 	{
 		logDebug("lookupValue matched in ValidationZeroBalance table");
-		comment("This Inspection Action may not be completed while there is a Balance on the Record.");
+		comment("This Action may not be completed while there is a Balance on the Record.");
 		cancel = true;
 	}
 
