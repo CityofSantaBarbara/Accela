@@ -54,11 +54,16 @@ try{
       logDebug(err.stack);
 };
 
+// ******************************** begin GIS attribs to Accela section
+// ********************************  
 
 // zoning 
 
 mapGISAttribToASI("SANTABARBARA", "Zoning", "ZONE", "Zone");
 // flood zone 
 mapGISAttribToASI("SANTABARBARA", "FEMA Flood 2015", "FLD_ZONE", "Flood Zone");
+// parcel sq ft
+mapGISAttribToASI("SANTABARBARA", "Assessors Parcels", "Shape.STArea()", "Parcel Sq Ft");
+
 
 
