@@ -24,7 +24,7 @@
 logDebug("Script 31 Email Staff on Document Update - Begin");
 
 activateTask("Plans Distribution");
-taskStatus("Plans Distribution","Revisions Received");
+updateTask("Plans Distribution","Revisions Received","auto updated by script","auto updated by script");
 
 // ensure that we have an assigned staff that will be notified
 var staff = getTaskAssignedStaff("Plans Distribution");
