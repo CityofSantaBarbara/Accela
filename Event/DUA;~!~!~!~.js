@@ -26,30 +26,14 @@ logDebug("Script 31 Email Staff on Document Update - Begin");
 activateTask("Plans Distribution");
 taskStatus("Plans Distribution","Revisions Received");
 
-var docArray = documentModelArray.toArray();
-var err = 0;
-
-var documentModel = null;
-var fileName = null;
-
-for (i = 0; i < docArray.length; i++) {
-	documentModel = docArray[i];
-	fileName = documentModel.getFileName();
-	logDebug("i = " + i + " & fileName = " + fileName);
-	logDebug("        documentNo = " + documentModel.getDocumentNo());
-	logDebug("        docType = " + documentModel.getDocType());
-	logDebug("*****************documentModel*******************");
-	printObjProperties(documentModel);
-	}
-
-
-
-
-
+// ensure that we have an assigned staff that will be notified
+var staff = getTaskAssignedStaff("Plans Distribution");
+if (!staff)
+	{ return 0;}
+else
+	{logDebug("staff = " + staff);}
 
 // prepare Notification parameters
-var staff = getTaskAssignedStaff("Plans Distribution");
-logDebug("staff = " + typeof(staff) + "   " + staff);
 var fromEmail = "noreply@SantaBarbaraCA.gov";
 var toEmail = staff.getEmail();
 var ccEmail = "eric@esilverliningsolutions.com";
@@ -62,12 +46,28 @@ addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
 addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
 
 
+// identify the doc(s) that were just uploaded and for each doc, send a notification
+var docArray = documentModelArray.toArray();
+var err = 0;
 
-// send Notification
-var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
-if (!sendResult) 
-	{ logDebug("UNABLE TO SEND NOTICE!  ERROR: "+sendResult); }
-else
-	{ logDebug("Sent Notification"); }  
+var documentModel = null;
+var fileName = null;
+
+for (i = 0; i < docArray.length; i++) {
+	documentModel = docArray[i];
+	addParameter(emailParameters, "$$docNo$$", documentModel.getDocumentNo());
+	addParameter(emailParameters, "$$docType$$", documentModel.getDocType());
+	addParameter(emailParameters, "$$docGroup$$", documentModel.getDocGroup());
+	addParameter(emailParameters, "$$docFileName$$", documentModel.getFileName());
+	addParameter(emailParameters, "$$docName$$", documentModel.getDocName());
+	addParameter(emailParameters, "$$docCategory$$", documentModel.getDocCategory());
+
+	// send Notification
+	var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
+	if (!sendResult) 
+		{ logDebug("UNABLE TO SEND NOTICE!  ERROR: "+sendResult); }
+	else
+		{ logDebug("Sent Notification"); }  
+}
 
 logDebug("Script 31 Email Staff on Document Update - End");
