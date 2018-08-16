@@ -30,7 +30,9 @@ updateTask("Plans Distribution","Revisions Received","auto updated by script","a
 var staff = getTaskAssignedStaff("Plans Distribution");
 if (staff)
 {
-	logDebug("staff = " + staff);
+	
+	logDebug("**************** staff = " + staff + "*****************************");
+	printObjProperties(staff);
 
 	// prepare Notification parameters
 	var fromEmail = "noreply@SantaBarbaraCA.gov";
@@ -62,8 +64,10 @@ if (staff)
 		addParameter(emailParameters, "$$docFileName$$", documentModel.getFileName());
 		addParameter(emailParameters, "$$docName$$", documentModel.getDocName());
 		addParameter(emailParameters, "$$docCategory$$", documentModel.getDocCategory());
-		addParameter(emailParameters, "$$docUploadBy$$", documentModel.getUpLoadBy());
-		addParameter(emailParameters, "$$docUploadDate$$", documentModel.getUpLoadDate());
+		addParameter(emailParameters, "$$docUploadBy$$", documentModel.getFileUpLoadBy());
+		addParameter(emailParameters, "$$docUploadDate$$", documentModel.getFileUpLoadDate());
+		addParameter(emailParameters, "$$staffTitle$$", staff.getTitle());
+
 
 		// send Notification
 		var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
