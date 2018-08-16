@@ -54,6 +54,8 @@ if (staff)
 
 	for (i = 0; i < docArray.length; i++) {
 		documentModel = docArray[i];
+		logDebug("************* doc Model ****************");
+		printObjProperties(documentModel);
 		addParameter(emailParameters, "$$docNo$$", documentModel.getDocumentNo());
 		addParameter(emailParameters, "$$docType$$", documentModel.getDocType());
 		addParameter(emailParameters, "$$docGroup$$", documentModel.getDocGroup());
@@ -69,6 +71,7 @@ if (staff)
 			{ logDebug("UNABLE TO SEND NOTICE!  ERROR: "+sendResult); }
 		else
 			{ logDebug("Sent Notification"); }  
+
 	}
 }
 
