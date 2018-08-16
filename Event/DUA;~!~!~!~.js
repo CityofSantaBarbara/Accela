@@ -29,7 +29,7 @@ taskStatus("Plans Distribution","Revisions Received");
 // ensure that we have an assigned staff that will be notified
 var staff = getTaskAssignedStaff("Plans Distribution");
 if (!staff)
-	{ return 0;}
+	{ return;}
 else
 	{logDebug("staff = " + staff);}
 
