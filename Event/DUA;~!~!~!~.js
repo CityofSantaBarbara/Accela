@@ -60,6 +60,8 @@ if (staff)
 		addParameter(emailParameters, "$$docFileName$$", documentModel.getFileName());
 		addParameter(emailParameters, "$$docName$$", documentModel.getDocName());
 		addParameter(emailParameters, "$$docCategory$$", documentModel.getDocCategory());
+		addParameter(emailParameters, "$$docUploadBy$$", documentModel.getUpLoadBy());
+		addParameter(emailParameters, "$$docUploadDate$$", documentModel.getUpLoadDate());
 
 		// send Notification
 		var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
