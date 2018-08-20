@@ -89,7 +89,18 @@ try {
 
 */
 
+
+email("chad@esilverliningsolutions.com","noreply@santabarbaraca.gov","aca debug1",debug);
+
+sumFeesAssessedBeforeInvoiceAndAddTechFee ();
+
+email("chad@esilverliningsolutions.com","noreply@santabarbaraca.gov","aca debug2",debug);
+
+
+
 // page flow custom code end
+
+
 
 
 if (debug.indexOf("**ERROR") > 0) {
@@ -110,7 +121,4 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ErrorMessage", debug);
 	}
 }
-
-sumFeesAssessedBeforeInvoiceAndAddTechFee ();
-
 
