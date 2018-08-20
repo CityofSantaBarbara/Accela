@@ -21,8 +21,10 @@ if (wfTask == "Close" && wfStatus == "Closed" ) {
 }
 if (wfTask == "Inspection" && wfStatus == "Final Inspection Complete" ){
 
- logDebug("For underground inspections an underground fireline permit and a Public Works fireline service permit are required.");
-  cancel();
+ showMessage = true;
+ comment("For underground inspections an underground fireline permit and a Public Works fireline service permit are required.");
+  cancel=true;
+ 
 }
 
 
