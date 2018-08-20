@@ -17,7 +17,11 @@
 logDebug("start of WTUB:Fire!Sprinkler System!Commercial - NFPA 13!NA");
 
 if (wfTask == "Close" && wfStatus == "Closed" ) {
-	checkSprinklerHeadAndCancel();
+ checkSprinklerHeadAndCancel();
+}
+if (wfTask == ‘Inspection’ && wfStatus == ‘Final Inspection Complete’ ){
+
+ logDebug("Hello World");
 }
 
 logDebug("end of WTUB:Fire!Sprinkler System!Commercial - NFPA 13!NA");
