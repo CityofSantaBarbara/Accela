@@ -31,7 +31,7 @@ function assessingFeesZeroBalanceValidation()
 	logDebug("Script Assessing Fees - Zero Balance Validation - Begin");
 	logDebug("BalanceDue = " + balanceDue);
 	
-	var appTypeArray == appTypeString.split("/");
+	var appTypeArray = appTypeString.split("/");
 	
 	// perform lookup with fully defined record type
 	if (controlString == "WorkflowTaskUpdateBefore")
