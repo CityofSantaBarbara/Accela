@@ -48,10 +48,11 @@ function assessingFeesZeroBalanceValidation()
 	// perform lookup with 3 levels of wild cards
 	if (!lookupValue)
 	{
+		logDebug("Script Assessing Fees - lookup with 3 wild cards");
 		if (controlString == "WorkflowTaskUpdateBefore")
 			{var lookupString = appTypeArray[0] + "*/*/*" + "|" + wfTask + "|" + wfStatus;}
-		else if (controlString == "InspectionResultUpdateBefore")
-			{var lookupString = appTypeArray[0] + "*/*/*" + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
+		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
+			  || controlString == "V360InspectionResultSubmitBefore")
 		
 		logDebug("lookupString = " + lookupString);
 
