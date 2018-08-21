@@ -20,13 +20,17 @@
 //         		Date		Name			Modification
 //				08/15/2018	Eric 			Initial Development
 //********************************************************************************************************
+
 logDebug("************* workflow revisions required email ****************");
-if (wfStatus == "Revisions Required" && wfTask == "Plans Coordination") {
+// ensure that we have an assigned staff that will be notified
+//var staff = getTaskAssignedStaff("Plans Distribution");
+//if (staff)
+	if (wfStatus == "Revisions Required" && wfTask == "Plans Coordination") {
 
 logDebug("Found revisions required");
 
 		var fromEmail = "noreply@SantaBarbaraCA.gov";
-		var toEmail = staff.getEmail();
+		var toEmail = "anares@santabarbaraca.gov";
 		var ccEmail = "anares@santabarbaraca.gov";
 		var reportFile = [];  // empty set for the file list
 		var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
@@ -43,4 +47,4 @@ logDebug("Found revisions required");
 			{ logDebug("Sent Notification"); }  
 
 	
-} 
+	} 
