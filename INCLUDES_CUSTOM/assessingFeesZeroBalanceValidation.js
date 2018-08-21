@@ -45,14 +45,47 @@ function assessingFeesZeroBalanceValidation()
 	var lookupValue = lookup("ValidationZeroBalance", lookupString);
 	logDebug("lookupValue = " + lookupValue);
 	
+	// perform lookup with 1 levels of wild cards
+	if (!lookupValue)
+	{
+		logDebug("Script Assessing Fees - lookup with 1 wild card");
+		if (controlString == "WorkflowTaskUpdateBefore")
+			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*" + "|" + wfTask + "|" + wfStatus;}
+		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
+			  || controlString == "V360InspectionResultSubmitBefore")
+			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*" + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
+		
+		logDebug("lookupString = " + lookupString);
+
+		var lookupValue = lookup("ValidationZeroBalance", lookupString);
+		logDebug("lookupValue = " + lookupValue);	
+	}
+
+	// perform lookup with 2 levels of wild cards
+	if (!lookupValue)
+	{
+		logDebug("Script Assessing Fees - lookup with 2 wild cards");
+		if (controlString == "WorkflowTaskUpdateBefore")
+			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/*/*" + "|" + wfTask + "|" + wfStatus;}
+		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
+			  || controlString == "V360InspectionResultSubmitBefore")
+			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/*/*" + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
+
+		logDebug("lookupString = " + lookupString);
+
+		var lookupValue = lookup("ValidationZeroBalance", lookupString);
+		logDebug("lookupValue = " + lookupValue);	
+	}
+
 	// perform lookup with 3 levels of wild cards
 	if (!lookupValue)
 	{
 		logDebug("Script Assessing Fees - lookup with 3 wild cards");
 		if (controlString == "WorkflowTaskUpdateBefore")
-			{var lookupString = appTypeArray[0] + "*/*/*" + "|" + wfTask + "|" + wfStatus;}
+			{var lookupString = appTypeArray[0] + "/*/*/*" + "|" + wfTask + "|" + wfStatus;}
 		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
 			  || controlString == "V360InspectionResultSubmitBefore")
+			{var lookupString = appTypeArray[0] + "/*/*/*" + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
 		
 		logDebug("lookupString = " + lookupString);
 
