@@ -24,7 +24,8 @@
 //********************************************************************************************************
 // Change Log
 //         		Date		Name			Modification
-//
+//				8/7/2018	Eric			Original Development
+//				8/21/2018	Eric			Added code to allow for record type wild cards
 //********************************************************************************************************
 function assessingFeesZeroBalanceValidation()
 {
