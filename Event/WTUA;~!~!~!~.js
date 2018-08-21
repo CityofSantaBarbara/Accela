@@ -44,7 +44,7 @@ logDebug("************* workflow revisions required email ****************");
 				{
 				logDebug("Successfully sent email to " + contactType);
 				var fromEmail = "noreply@SantaBarbaraCA.gov";
-				var ccEmail = "anares@santabarbaraca.gov";
+				var ccEmail = ""; //blank for now
 				var reportFile = [];  // empty set for the file list
 				var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
 				var emailParameters = aa.util.newHashtable();
