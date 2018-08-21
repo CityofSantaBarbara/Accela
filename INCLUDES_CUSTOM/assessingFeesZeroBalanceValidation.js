@@ -30,6 +30,7 @@ function assessingFeesZeroBalanceValidation()
 	showMessage = true;
 	logDebug("Script Assessing Fees - Zero Balance Validation - Begin");
 	logDebug("BalanceDue = " + balanceDue);
+	logDebug("controlString = " + controlString);
 	
 	var appTypeArray = appTypeString.split("/");
 	
