@@ -26,25 +26,46 @@ logDebug("************* workflow revisions required email ****************");
 //var staff = getTaskAssignedStaff("Plans Distribution");
 //if (staff)
 	if (wfStatus == "Revisions Required" && wfTask == "Plans Coordination") {
+		logDebug("Found revisions required");
+		var contactType = "Applicant"
+		var toEmail = "";
+		var capContactResult = aa.people.getCapContactByCapID(capId);
+		
+		if (capContactResult.getSuccess())
+			{
+			var Contacts = capContactResult.getOutput();
+			for (yy in Contacts)
+				if (contactType.equals(Contacts[yy].getCapContactModel().getPeople().getContactType()))
+					if (Contacts[yy].getEmail() != null)
+						toEmail = "" + Contacts[yy].getEmail();
 
-logDebug("Found revisions required");
 
-		var fromEmail = "noreply@SantaBarbaraCA.gov";
-		var toEmail = "anares@santabarbaraca.gov";
-		var ccEmail = "anares@santabarbaraca.gov";
-		var reportFile = [];  // empty set for the file list
-		var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
-		var emailParameters = aa.util.newHashtable();
-		var notificationTemplate = "WORKFLOW REVISIONS REQUIRED NOTICE";
+			if (toEmail.indexOf("@") > 0)
+				{
+				logDebug("Successfully sent email to " + contactType);
+				var fromEmail = "noreply@SantaBarbaraCA.gov";
+				var ccEmail = "anares@santabarbaraca.gov";
+				var reportFile = [];  // empty set for the file list
+				var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
+				var emailParameters = aa.util.newHashtable();
+				var notificationTemplate = "WORKFLOW REVISIONS REQUIRED NOTICE";
+			
+				addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
+				addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
+				// send Notification
+				var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
+				if (!sendResult) 
+					{ logDebug("UNABLE TO SEND NOTICE!  ERROR: "+sendResult); }
+				else
+					{ logDebug("Sent Notification"); }  
+				  
+				}
+			else
+				logDebug("Couldn't send email to " + contactType + ", no valid email address");
+			} 
+		}
+
+
+
+		
 	
-		addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
-		addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
-		// send Notification
-		var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
-		if (!sendResult) 
-			{ logDebug("UNABLE TO SEND NOTICE!  ERROR: "+sendResult); }
-		else
-			{ logDebug("Sent Notification"); }  
-
-	
-	} 
