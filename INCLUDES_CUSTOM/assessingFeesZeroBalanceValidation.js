@@ -30,7 +30,10 @@ function assessingFeesZeroBalanceValidation()
 	showMessage = true;
 	logDebug("Script Assessing Fees - Zero Balance Validation - Begin");
 	logDebug("BalanceDue = " + balanceDue);
-
+	
+	var appTypeArray == appTypeString.split("/");
+	
+	// perform lookup with fully defined record type
 	if (controlString == "WorkflowTaskUpdateBefore")
 		{var lookupString = appTypeString + "|" + wfTask + "|" + wfStatus;}
 	else if (controlString == "InspectionResultUpdateBefore")
@@ -40,6 +43,20 @@ function assessingFeesZeroBalanceValidation()
 
 	var lookupValue = lookup("ValidationZeroBalance", lookupString);
 	logDebug("lookupValue = " + lookupValue);
+	
+	// perform lookup with 3 levels of wild cards
+	if (!lookupValue)
+	{
+		if (controlString == "WorkflowTaskUpdateBefore")
+			{var lookupString = appTypeArray[0] + "*/*/*" + "|" + wfTask + "|" + wfStatus;}
+		else if (controlString == "InspectionResultUpdateBefore")
+			{var lookupString = appTypeArray[0] + "*/*/*" + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
+		
+		logDebug("lookupString = " + lookupString);
+
+		var lookupValue = lookup("ValidationZeroBalance", lookupString);
+		logDebug("lookupValue = " + lookupValue);	
+	}
 
 	if (lookupValue && balanceDue > 0)
 	{
