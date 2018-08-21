@@ -46,7 +46,8 @@ logDebug("end of 9 - Fire Sprinkler Monitoring");
 //********************************************************************************************************
 logDebug("start of 11 - Underground Fireline");
 
-if (wfTask == "Inspection" && wfStatus == "Final Inspection Complete" ){
+var asiUBO = getAppSpecific("Underground By Others");
+if ( asiUBO == "Yes" && wfTask == "Inspection" && wfStatus == "Final Inspection Complete" ){
 
  showMessage = true;
  comment("For underground inspections an underground fireline permit and a Public Works fireline service permit are required.");
