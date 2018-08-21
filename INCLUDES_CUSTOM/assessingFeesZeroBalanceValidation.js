@@ -36,7 +36,8 @@ function assessingFeesZeroBalanceValidation()
 	// perform lookup with fully defined record type
 	if (controlString == "WorkflowTaskUpdateBefore")
 		{var lookupString = appTypeString + "|" + wfTask + "|" + wfStatus;}
-	else if (controlString == "InspectionResultUpdateBefore")
+	else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
+		  || controlString == "V360InspectionResultSubmitBefore")
 		{var lookupString = appTypeString + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
 
 	logDebug("lookupString = " + lookupString);
