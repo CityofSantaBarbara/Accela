@@ -12,11 +12,12 @@
 //				format : appTypeString + "|" + wfTask + "|" + wfStatus
 //				example: Fire/Alarm System/NA/NA|Application Submittal|Accepted
 //				example: Building/Residential/New/NA|Permit Issuance|Issued
+//				example: Fire/*/*/*|Permit Issuance|Issued
 //
 //				For Inspections:
 //				format : appTypeString + "|" + inspGroup + "|" + InspType + "|" + inspResult
 //				example: Fire/Alarm System/NA/NA|FIRE_SA|Final|Passed
-//				example: Fire/Sprinkler/NA/NA|
+//				example: Fire/*/*/*|FIRE_SA|Fire Final|Passed
 //				example: Building/Residential/New/NA|BLD Residential|Building Final|OK for Service
 //
 //Created By: Silver Lining Solutions 
@@ -38,7 +39,7 @@ function assessingFeesZeroBalanceValidation()
 	if (controlString == "WorkflowTaskUpdateBefore")
 		{var lookupString = appTypeString + "|" + wfTask + "|" + wfStatus;}
 	else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
-		  || controlString == "V360InspectionResultSubmitBefore")
+		  || controlString == "V360InspectionResultSubmitBefore" || controlString == "InspectionResultSubmitBefore")
 		{var lookupString = appTypeString + "|" + inspGroup + "|" + inspType + "|" + inspResult;}
 
 	logDebug("lookupString = " + lookupString);
@@ -53,7 +54,7 @@ function assessingFeesZeroBalanceValidation()
 		if (controlString == "WorkflowTaskUpdateBefore")
 			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*" + "|" + wfTask + "|" + wfStatus;}
 		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
-			  || controlString == "V360InspectionResultSubmitBefore")
+     		  || controlString == "V360InspectionResultSubmitBefore" || controlString == "InspectionResultSubmitBefore")
 			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*" + "|" + inspGroup + "|" + inspType + "|" + inspResult;}
 		
 		logDebug("lookupString = " + lookupString);
@@ -69,7 +70,7 @@ function assessingFeesZeroBalanceValidation()
 		if (controlString == "WorkflowTaskUpdateBefore")
 			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/*/*" + "|" + wfTask + "|" + wfStatus;}
 		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
-			  || controlString == "V360InspectionResultSubmitBefore")
+     		  || controlString == "V360InspectionResultSubmitBefore" || controlString == "InspectionResultSubmitBefore")
 			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/*/*" + "|" + inspGroup + "|" + inspType + "|" + inspResult;}
 
 		logDebug("lookupString = " + lookupString);
