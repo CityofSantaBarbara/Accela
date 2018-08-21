@@ -38,7 +38,7 @@ function assessingFeesZeroBalanceValidation()
 		{var lookupString = appTypeString + "|" + wfTask + "|" + wfStatus;}
 	else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
 		  || controlString == "V360InspectionResultSubmitBefore")
-		{var lookupString = appTypeString + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
+		{var lookupString = appTypeString + "|" + inspGroup + "|" + inspType + "|" + inspResult;}
 
 	logDebug("lookupString = " + lookupString);
 
@@ -53,7 +53,7 @@ function assessingFeesZeroBalanceValidation()
 			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*" + "|" + wfTask + "|" + wfStatus;}
 		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
 			  || controlString == "V360InspectionResultSubmitBefore")
-			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*" + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
+			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*" + "|" + inspGroup + "|" + inspType + "|" + inspResult;}
 		
 		logDebug("lookupString = " + lookupString);
 
@@ -69,7 +69,7 @@ function assessingFeesZeroBalanceValidation()
 			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/*/*" + "|" + wfTask + "|" + wfStatus;}
 		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
 			  || controlString == "V360InspectionResultSubmitBefore")
-			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/*/*" + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
+			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/*/*" + "|" + inspGroup + "|" + inspType + "|" + inspResult;}
 
 		logDebug("lookupString = " + lookupString);
 
@@ -85,7 +85,7 @@ function assessingFeesZeroBalanceValidation()
 			{var lookupString = appTypeArray[0] + "/*/*/*" + "|" + wfTask + "|" + wfStatus;}
 		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
 			  || controlString == "V360InspectionResultSubmitBefore")
-			{var lookupString = appTypeArray[0] + "/*/*/*" + "|" + inspGroup + "|" + InspType + "|" + inspResult;}
+			{var lookupString = appTypeArray[0] + "/*/*/*" + "|" + inspGroup + "|" + inspType + "|" + inspResult;}
 		
 		logDebug("lookupString = " + lookupString);
 
