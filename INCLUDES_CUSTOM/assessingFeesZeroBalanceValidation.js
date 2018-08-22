@@ -27,20 +27,20 @@
 //				8/7/2018	Eric			Original Development
 //				8/21/2018	Eric			Added code to allow for record type wild cards
 //********************************************************************************************************
-function assessingFeesZeroBalanceValidation()
+function assessingFeesZeroBalanceValidation(triggerEvent)
 {
 	showMessage = true;
 	logDebug("Script Assessing Fees - Zero Balance Validation - Begin");
 	logDebug("BalanceDue = " + balanceDue);
 	logDebug("controlString = " + controlString);
+	logDebug("triggerEvent = " + triggerEvent);
 	
 	var appTypeArray = appTypeString.split("/");
 	
 	// perform lookup with fully defined record type
-	if (controlString == "WorkflowTaskUpdateBefore")
+	if (triggerEvent == "Workflow")
 		{var lookupString = appTypeString + "|" + wfTask + "|" + wfStatus;}
-	else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
-		  || controlString == "V360InspectionResultSubmitBefore" || controlString == "InspectionResultSubmitBefore")
+	else if (triggerEvent == "Inspection")
 		{var lookupString = appTypeString + "|" + inspGroup + "|" + inspType + "|" + inspResult;}
 
 	logDebug("lookupString = " + lookupString);
@@ -52,10 +52,9 @@ function assessingFeesZeroBalanceValidation()
 	if (!lookupValue)
 	{
 		logDebug("Script Assessing Fees - lookup with 1 wild card");
-		if (controlString == "WorkflowTaskUpdateBefore")
+		if (triggerEvent == "Workflow")
 			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*" + "|" + wfTask + "|" + wfStatus;}
-		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
-     		  || controlString == "V360InspectionResultSubmitBefore" || controlString == "InspectionResultSubmitBefore")
+		else if (triggerEvent == "Inspection")
 			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*" + "|" + inspGroup + "|" + inspType + "|" + inspResult;}
 		
 		logDebug("lookupString = " + lookupString);
@@ -68,10 +67,9 @@ function assessingFeesZeroBalanceValidation()
 	if (!lookupValue)
 	{
 		logDebug("Script Assessing Fees - lookup with 2 wild cards");
-		if (controlString == "WorkflowTaskUpdateBefore")
+		if (triggerEvent == "Workflow")
 			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/*/*" + "|" + wfTask + "|" + wfStatus;}
-		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
-     		  || controlString == "V360InspectionResultSubmitBefore" || controlString == "InspectionResultSubmitBefore")
+		else if (triggerEvent == "Inspection")
 			{var lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/*/*" + "|" + inspGroup + "|" + inspType + "|" + inspResult;}
 
 		logDebug("lookupString = " + lookupString);
@@ -84,10 +82,9 @@ function assessingFeesZeroBalanceValidation()
 	if (!lookupValue)
 	{
 		logDebug("Script Assessing Fees - lookup with 3 wild cards");
-		if (controlString == "WorkflowTaskUpdateBefore")
+		if (triggerEvent == "Workflow")
 			{var lookupString = appTypeArray[0] + "/*/*/*" + "|" + wfTask + "|" + wfStatus;}
-		else if (controlString == "InspectionResultUpdateBefore" || controlString == "InspectionResultModifyBefore"
-			  || controlString == "V360InspectionResultSubmitBefore")
+		else if (triggerEvent == "Inspection")
 			{var lookupString = appTypeArray[0] + "/*/*/*" + "|" + inspGroup + "|" + inspType + "|" + inspResult;}
 		
 		logDebug("lookupString = " + lookupString);
