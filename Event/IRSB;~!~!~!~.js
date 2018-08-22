@@ -1,1 +1,1 @@
-assessingFeesZeroBalanceValidation();
+assessingFeesZeroBalanceValidation("Inspection");
