@@ -29,9 +29,9 @@
 
 logDebug("start of IRSA:Fire!Recurring Event!~!~");
 
-if (inspGroup == "FIRE_FLS" && inspType == "General Inspection" && inspResult == "Passed")
+if (inspGroup == "FIRE_FLS" && inspType == "Prevention Inspection" && inspResult == "Passed")
 			{
-			scheduleInspection("Fire Final",730);
+			scheduleInspection("Prevention Inspection",730);
 			}
 
 
