@@ -45,13 +45,22 @@ logDebug("end of 9 - Fire Sprinkler Monitoring");
 //				08-21-18	EJ				Initial Draft
 //********************************************************************************************************
 logDebug("start of 11 - Underground Fireline");
-
+var valid = true;
 var asiUBO = getAppSpecific("Underground By Others");
 if ( asiUBO == "Yes" && wfTask == "Inspection" && wfStatus == "Final Inspection Complete" ){
+	var pCapType = "Fire/Sprinkler System/Underground Fire Line/NA";
+	var arrChild = getChildren(pCapType);
+	if(arrChild == null || arrChild.Length == 0) {
+		valid = false;
+		
+	} else { 
+	}
 
- showMessage = true;
- comment("For underground inspections an underground fireline permit and a Public Works fireline service permit are required.");
-  cancel=true;
+	if (valid == false)
+		{showMessage = true;
+		comment("For underground inspections an underground fireline permit and a Public Works fireline service permit are required.");
+		cancel=true;}
+ 
  
 }
 logDebug("start of 11 - Underground Fireline");
