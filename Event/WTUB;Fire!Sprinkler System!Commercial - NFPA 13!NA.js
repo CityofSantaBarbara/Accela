@@ -43,24 +43,44 @@ logDebug("end of 9 - Fire Sprinkler Monitoring");
 // Change Log
 //         		Date		Name			Modification
 //				08-21-18	EJ				Initial Draft
+//				08/23/18	ash				added in the check for PBW fireline
 //********************************************************************************************************
 logDebug("start of 11 - Underground Fireline");
-var valid = true;
+var UFLvalid = true;
+var PBWvalid = true;
 var asiUBO = getAppSpecific("Underground By Others");
-if ( asiUBO == "Yes" && wfTask == "Inspection" && wfStatus == "Final Inspection Complete" ){
+if ( asiUBO == "Yes" && wfTask == "Inspection" && wfStatus == "Final Inspection Complete" )
+    {
+// look for underground fire line record		
 	var pCapType = "Fire/Sprinkler System/Underground Fire Line/NA";
 	var arrChild = getChildren(pCapType);
-	if(arrChild == null || arrChild.Length == 0) {
-		valid = false;
-		
-	} else { 
-	}
-
-	if (valid == false)
-		{showMessage = true;
+	if(arrChild == null || arrChild.Length == 0) 
+		{
+			UFLvalid = false;
+		} 
+			else 
+		{
+			UFLvalid = true;
+		}
+// look for PBW Fireline	
+	var pCapType = "Fire/Sprinkler System/PBW/NA";
+	var arrChild = getChildren(pCapType);
+	if(arrChild == null || arrChild.Length == 0) 
+		{
+			PBWvalid = false;
+		}
+			else
+		{
+			PBWvalid = true;
+		}		
+// pass back error and cancel if either is not found	
+	if (UFLvalid == false || PBWvalid == false)
+		{
+		showMessage = true;
 		comment("For underground inspections an underground fireline permit and a Public Works fireline service permit are required.");
-		cancel=true;}
+		cancel=true;
+		}
  
  
-}
-logDebug("start of 11 - Underground Fireline");
+	}
+logDebug("end of 11 - Underground Fireline");
