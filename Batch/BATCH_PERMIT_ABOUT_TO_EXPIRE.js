@@ -44,13 +44,15 @@ aa.env.setValue("skipAppStatus","Void,Withdrawn,Inactive");
 aa.env.setValue("emailAddress","chad@esilverliningsolutions.com");  
 aa.env.setValue("sendEmailToContactTypes","Applicant");				
 aa.env.setValue("emailTemplate","PERMIT_ABOUT_TO_EXPIRE");			
-aa.env.setValue("deactivateLicense","N");							
-aa.env.setValue("lockParentLicense","N");							
-aa.env.setValue("createTempRenewalRecord","N");						
-aa.env.setValue("feeSched","");
-aa.env.setValue("feeList","");
-aa.env.setValue("feePeriod","");
 */
+// below are not used in this script...keep for examples 
+//aa.env.setValue("deactivateLicense","N");							
+//aa.env.setValue("lockParentLicense","N");							
+//aa.env.setValue("createTempRenewalRecord","N");						
+//aa.env.setValue("feeSched","");
+//aa.env.setValue("feeList","");
+//aa.env.setValue("feePeriod","");
+
 /*------------------------------------------------------------------------------------------------------/
 |
 | START: USER CONFIGURABLE PARAMETERS
