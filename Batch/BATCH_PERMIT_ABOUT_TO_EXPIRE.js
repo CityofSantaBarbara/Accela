@@ -65,7 +65,7 @@ var currentUserID = "ADMIN"
 /*------------------------------------------------------------------------------------------------------/
 | BEGIN Includes
 /------------------------------------------------------------------------------------------------------*/
-SCRIPT_VERSION = 2.0;
+SCRIPT_VERSION = 3.0;
 
 eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
 eval(getScriptText("INCLUDES_BATCH"));
