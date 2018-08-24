@@ -26,8 +26,8 @@
 // testing parameters, uncomment to use in script test
 /*
 aa.env.setValue("showDebug","Y");
-aa.env.setValue("fromDate","8/22/2018");
-aa.env.setValue("toDate","8/23/2018");
+aa.env.setValue("fromDate","");
+aa.env.setValue("toDate","");
 aa.env.setValue("lookAheadDays","0"); 
 aa.env.setValue("daySpan", "30"); 
 aa.env.setValue("appGroup","Building");
@@ -35,7 +35,7 @@ aa.env.setValue("appTypeType","*");
 aa.env.setValue("appSubtype","*");
 aa.env.setValue("appCategory","*");
 aa.env.setValue("expirationStatus","Active");  				
-aa.env.setValue("newExpirationStatus","About to Expire");	
+aa.env.setValue("newExpirationStatus","About To Expire");	
 aa.env.setValue("newApplicationStatus","");					
 aa.env.setValue("gracePeriodDays","0");						
 aa.env.setValue("setPrefix","");							
@@ -51,8 +51,6 @@ aa.env.setValue("feeSched","");
 aa.env.setValue("feeList","");
 aa.env.setValue("feePeriod","");
 */
-
-
 /*------------------------------------------------------------------------------------------------------/
 |
 | START: USER CONFIGURABLE PARAMETERS
@@ -196,6 +194,11 @@ logDebug("mainProcess START");
 	var setName;
 	var setDescription;
 
+	// because there is no function to get non-licenses with a null expiration status 
+	// you must insure that you have a ASA event script to set the expiration to 'Active' initially!
+	
+	
+	
 	var expResult = aa.expiration.getLicensesByDate(expStatus, fromDate, toDate);
 
 	if (expResult.getSuccess()) {
@@ -326,16 +329,13 @@ logDebug("mainProcess START");
 			var conTypeArray = sendEmailToContactTypes.split(",");
 			var conArray = getContactArray(capId);
 
-			logDebug("Have the contactArray");
-
 			for (thisCon in conArray) {
 				conEmail = null;
 				b3Contact = conArray[thisCon];
-//				logDebug("***b3Contact print out***"); 
-//				printObjProperties(b3Contact);
 				if (exists(b3Contact["contactType"], conTypeArray)) {
 					conEmail = b3Contact["email"];
 				}
+				else { continue; }
 
 				if (conEmail) {
 					emailParameters = aa.util.newHashtable();
