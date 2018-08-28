@@ -24,50 +24,59 @@
 logDebug("Script 31 Email Staff on Document Update - Begin");
 
 activateTask("Plans Distribution");
-taskStatus("Plans Distribution","Revisions Received");
+updateTask("Plans Distribution","Revisions Received","auto updated by script","auto updated by script");
 
-var docArray = documentModelArray.toArray();
-var err = 0;
-
-var documentModel = null;
-var fileName = null;
-
-for (i = 0; i < docArray.length; i++) {
-	documentModel = docArray[i];
-	fileName = documentModel.getFileName();
-	logDebug("i = " + i + " & fileName = " + fileName);
-	logDebug("        documentNo = " + documentModel.getDocumentNo());
-	logDebug("        docType = " + documentModel.getDocType());
-	logDebug("*****************documentModel*******************");
-	printObjProperties(documentModel);
-	}
-
-
-
-
-
-
-// prepare Notification parameters
+// ensure that we have an assigned staff that will be notified
 var staff = getTaskAssignedStaff("Plans Distribution");
-logDebug("staff = " + typeof(staff) + "   " + staff);
-var fromEmail = "noreply@SantaBarbaraCA.gov";
-var toEmail = staff.getEmail();
-var ccEmail = "eric@esilverliningsolutions.com";
-var notificationTemplate = "DOCUMENT UPDATE";
-var reportFile = [];  // empty set for the file list
-var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
-var emailParameters = aa.util.newHashtable();
+if (staff)
+{
+	
+	logDebug("**************** staff = " + staff + "*****************************");
+	printObjProperties(staff);
 
-addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
-addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
+	// prepare Notification parameters
+	var fromEmail = "noreply@SantaBarbaraCA.gov";
+	var toEmail = staff.getEmail();
+	var ccEmail = "eric@esilverliningsolutions.com";
+	var notificationTemplate = "DOCUMENT UPDATE";
+	var reportFile = [];  // empty set for the file list
+	var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
+	var emailParameters = aa.util.newHashtable();
+
+	addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
+	addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
 
 
+	// identify the doc(s) that were just uploaded and for each doc, send a notification
+	var docArray = documentModelArray.toArray();
+	var err = 0;
 
-// send Notification
-var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
-if (!sendResult) 
-	{ logDebug("UNABLE TO SEND NOTICE!  ERROR: "+sendResult); }
-else
-	{ logDebug("Sent Notification"); }  
+	var documentModel = null;
+	var fileName = null;
+
+	for (i = 0; i < docArray.length; i++) {
+		documentModel = docArray[i];
+		logDebug("************* doc Model ****************");
+		printObjProperties(documentModel);
+		addParameter(emailParameters, "$$docNo$$", documentModel.getDocumentNo());
+		addParameter(emailParameters, "$$docType$$", documentModel.getDocType());
+		addParameter(emailParameters, "$$docGroup$$", documentModel.getDocGroup());
+		addParameter(emailParameters, "$$docFileName$$", documentModel.getFileName());
+		addParameter(emailParameters, "$$docName$$", documentModel.getDocName());
+		addParameter(emailParameters, "$$docCategory$$", documentModel.getDocCategory());
+		addParameter(emailParameters, "$$docUploadBy$$", documentModel.getFileUpLoadBy());
+		addParameter(emailParameters, "$$docUploadDate$$", documentModel.getFileUpLoadDate());
+		addParameter(emailParameters, "$$staffTitle$$", staff.getTitle());
+
+
+		// send Notification
+		var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
+		if (!sendResult) 
+			{ logDebug("UNABLE TO SEND NOTICE!  ERROR: "+sendResult); }
+		else
+			{ logDebug("Sent Notification"); }  
+
+	}
+}
 
 logDebug("Script 31 Email Staff on Document Update - End");
