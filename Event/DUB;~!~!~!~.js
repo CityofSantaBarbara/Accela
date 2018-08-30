@@ -17,4 +17,8 @@
 //				08/15/2018	Eric 			Initial Development
 //********************************************************************************************************
 logDebug("DUB - Begin");
+var recordDocArray = null;
+recordDocArray = getDocumentList();
+logDebug("recordDocArray = " + recordDocArray);
+printObjProperties(recordDocArray);
 logDebug("DUB - End");
