@@ -3,7 +3,7 @@
 //Record Types:	​*/*/*/*
 //
 //Event: 		DUA
-//
+//                      Script # 31
 //Desc:			When a Revision Required Document gets resubmitted thru ACA. Email the Santa Barbara Staff 
 // 				that is assigned to the Plan Distributed Workflow Task. Also set the Workflow Task Plans 
 //				Distribution Status to Revisions Received.
