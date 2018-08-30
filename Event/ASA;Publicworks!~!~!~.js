@@ -4,7 +4,8 @@
 //
 // Event: 	ASA	
 //
-// Desc:	
+// Desc:	Script # 3
+//        Calculate an 8% fee item automatically on top of all fees assessed under that record.  
 //
 // Created By: Silver Lining Solutions
 // ********************************************************************************************************
