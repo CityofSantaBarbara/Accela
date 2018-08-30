@@ -3,6 +3,7 @@
 //Record Types:	​PBW / * / * / * 
 //
 //Event: 		DUA
+//                      Script #19
 //
 //Desc:			Design a script to take ACA applicant document resubmittal
 // 				Action button from "Returned to Applicant"  and "Incomplete
