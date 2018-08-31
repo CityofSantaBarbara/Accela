@@ -34,7 +34,7 @@ function getTask (taskName)
 // gets task status .. don't want this to run if null or resub already received
 	var taskSts = taskStatus(taskName);
 
-	if taskSts = "Returned to Applicant"
+	if (taskSts == "Returned to Applicant")
 	{
 		updateTask(taskName,"Re-Submittal Received","auto updated by script","auto updated by script");
 		closeTask(taskName);
