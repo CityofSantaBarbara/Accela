@@ -36,8 +36,9 @@ function getTask (taskName)
 
 	if (taskSts == "Returned to Applicant")
 	{
-		updateTask(taskName,"Re-Submittal Received","auto updated by script","auto updated by script");
-		closeTask(taskName);
+		var RSRd = "Re-Submittal Received";
+		updateTask(taskName,RSRd,"auto updated by script","auto updated by script");
+		closeTask(taskName,RSRd);
 	}
 logDebug("***Script 19 - End***");
 }
