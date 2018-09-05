@@ -46,7 +46,7 @@ function assessingFeesZeroBalanceValidation(triggerEvent)
 	logDebug("lookupString = " + lookupString);
 
 	var lookupValue = lookup("ValidationZeroBalance", lookupString);
-	logDebug("lookupValue = " + lookupValue);
+	logDebug("Full lookupValue = " + lookupValue);
 	
 	// perform lookup with 1 levels of wild cards
 	if (!lookupValue)
@@ -59,8 +59,8 @@ function assessingFeesZeroBalanceValidation(triggerEvent)
 		
 		logDebug("lookupString = " + lookupString);
 
-		var lookupValue = lookup("ValidationZeroBalance", lookupString);
-		logDebug("lookupValue = " + lookupValue);	
+		lookupValue = lookup("ValidationZeroBalance", lookupString);
+		logDebug("1 Wild lookupValue = " + lookupValue);	
 	}
 
 	// perform lookup with 2 levels of wild cards
@@ -74,8 +74,8 @@ function assessingFeesZeroBalanceValidation(triggerEvent)
 
 		logDebug("lookupString = " + lookupString);
 
-		var lookupValue = lookup("ValidationZeroBalance", lookupString);
-		logDebug("lookupValue = " + lookupValue);	
+		lookupValue = lookup("ValidationZeroBalance", lookupString);
+		logDebug("2 Wild lookupValue = " + lookupValue);	
 	}
 
 	// perform lookup with 3 levels of wild cards
@@ -89,8 +89,8 @@ function assessingFeesZeroBalanceValidation(triggerEvent)
 		
 		logDebug("lookupString = " + lookupString);
 
-		var lookupValue = lookup("ValidationZeroBalance", lookupString);
-		logDebug("lookupValue = " + lookupValue);	
+		lookupValue = lookup("ValidationZeroBalance", lookupString);
+		logDebug("3 Wild lookupValue = " + lookupValue);	
 	}
 
 	if (lookupValue && balanceDue > 0)
