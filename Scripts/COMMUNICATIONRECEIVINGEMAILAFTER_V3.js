@@ -22,8 +22,8 @@
 /------------------------------------------------------------------------------------------------------*/
 // only enable sendDebugEmail when debugging this script
 // when sendDebugEmail = true, the debug log will be emailed to the debugEmailAddress
-sendDebugEmail = false;
-debugEmailAddress = "NoReply@SantaBarbaraCA.gov";
+sendDebugEmail = true;
+debugEmailAddress = "chad@esilverliningsolutions.com";
 
 // set the bounceback subject and body
 bouncebackSubject = "Your message could not be accepted: ";
