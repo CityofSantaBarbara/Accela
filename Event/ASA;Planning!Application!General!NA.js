@@ -21,7 +21,9 @@ logDebug("start of ASA:Planning!Application!General!NA");
 useAppSpecificGroupName=true;
 var dNow = "" + dateAdd(null,0); 
 editAppSpecific("GMP RESIDENTIAL 2.Update Date",dNow)
+editAppSpecific("GMP RESIDENTIAL 2.Updated By",currentUserId);
 editAppSpecific("GMP NONRESIDENTIAL 2.Update Date",dNow)
+editAppSpecific("GMP NONRESIDENTIAL 2.Updated By",currentUserId);
 useAppSpecificGroupName=false;
 
 logDebug("end of ASA:Planning!Application!General!NA");
