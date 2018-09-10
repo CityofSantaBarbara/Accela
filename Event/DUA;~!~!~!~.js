@@ -23,6 +23,8 @@
 //********************************************************************************************************
 logDebug("Script 31 Email Staff on Document Update - Begin");
 
+
+/* rem out until other testing complete  
 activateTask("Plans Distribution");
 updateTask("Plans Distribution","Revisions Received","auto updated by script","auto updated by script");
 
@@ -78,5 +80,7 @@ if (staff)
 
 	}
 }
+*/
+//****************************************************************** end remark
 
 logDebug("Script 31 Email Staff on Document Update - End");
