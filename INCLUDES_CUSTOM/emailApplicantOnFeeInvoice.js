@@ -64,6 +64,7 @@ function handleFeeInvoiceNotificationEmail()
 
 	// fee invoice specific information
 	printObjProperties(FeeObjs);
+	printObjProperties(FeeObjs[0]);
 	// send Notification
 	var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
 	if (!sendResult) 
