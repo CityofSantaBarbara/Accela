@@ -20,7 +20,80 @@ function emailApplicantOnFeeInvoice()
 {
 	logDebug("Script 27 Email Applicant on Fee Invoice - Begin");
 
-
+	handleNotificationEmail();
 	logDebug("Script 27 Email Applicant on Fee Invoice - End");
 }
 
+function handleNotificationEmail()
+{
+	var toEmail = "";
+	var fromEmail = "noreply@SantaBarbaraCA.gov";
+	var ccEmail = "eric@esilverliningsolutions.com";
+	var notificationTemplate = "INVOICED FEES";
+	var reportFile = [];  // empty set for the file list
+	var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
+	var emailParameters = aa.util.newHashtable();
+	var staff = null;
+
+	// ensure that we have an assigned staff that will be notified
+	staff = getRecordAssignedStaffEmail();
+	if (staff){ccEmail += "; " + staff; logDebug("ccEmail: " + ccEmail);}
+
+	if (staff == "")
+	{
+		logDebug("No Staff identified for notification");
+		return null;
+	}
+
+	// get the Applicant email
+	var applicant = null;
+	var contactType = "Applicant"
+	var capContactResult = aa.people.getCapContactByCapID(capId);
+	if (capContactResult.getSuccess())
+	{
+		var Contacts = capContactResult.getOutput();
+		for (yy in Contacts)
+			if (contactType.equals(Contacts[yy].getCapContactModel().getPeople().getContactType()))
+				if (Contacts[yy].getEmail() != null)
+					toEmail = "" + Contacts[yy].getEmail();
+	}
+
+	// prepare Notification parameters
+	addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
+	addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
+
+	// send Notification
+	var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
+	if (!sendResult) 
+		{ logDebug("UNABLE TO SEND NOTICE!  ERROR: "+ sendResult); }
+	else
+		{ logDebug("Sent Notification"); }  
+
+}
+
+function emailContact(mSubj,mText)   // optional: Contact Type, default Applicant
+	{
+	var replyTo = "noreply@accela.com";
+	var contactType = "Applicant"
+	var emailAddress = "";
+
+	if (arguments.length == 3) contactType = arguments[2]; // use contact type specified
+
+	var capContactResult = aa.people.getCapContactByCapID(capId);
+	if (capContactResult.getSuccess())
+		{
+		var Contacts = capContactResult.getOutput();
+		for (yy in Contacts)
+			if (contactType.equals(Contacts[yy].getCapContactModel().getPeople().getContactType()))
+				if (Contacts[yy].getEmail() != null)
+					emailAddress = "" + Contacts[yy].getEmail();
+		}
+
+	if (emailAddress.indexOf("@") > 0)
+		{
+		aa.sendMail(replyTo, emailAddress, "", mSubj, mText);
+		logDebug("Successfully sent email to " + contactType);
+		}
+	else
+		logDebug("Couldn't send email to " + contactType + ", no valid email address");
+	} 
