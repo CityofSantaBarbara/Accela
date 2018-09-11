@@ -20,11 +20,11 @@ function emailApplicantOnFeeInvoice()
 {
 	logDebug("Script 27 Email Applicant on Fee Invoice - Begin");
 
-	handleNotificationEmail();
+	handleFeeInvoiceNotificationEmail();
 	logDebug("Script 27 Email Applicant on Fee Invoice - End");
 }
 
-function handleNotificationEmail()
+function handleFeeInvoiceNotificationEmail()
 {
 	var toEmail = "";
 	var fromEmail = "noreply@SantaBarbaraCA.gov";
