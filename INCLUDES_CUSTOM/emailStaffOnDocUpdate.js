@@ -26,10 +26,13 @@
 function emailStaffOnDocUpdate()
 {
 	logDebug("Script 31 Email Staff on Document Update - Begin");
-/*
-	activateTask("Plans Distribution");
-	updateTask("Plans Distribution","Revisions Received","auto updated by script","auto updated by script");
-*/
+
+	if (appMatch("Building/*/*/*"))
+	{
+		activateTask("Plans Distribution");
+		updateTask("Plans Distribution","Revisions Received","auto updated by script","auto updated by script");
+	}
+	
 	handleNotificationEmail();
 
 	logDebug("Script 31 Email Staff on Document Update - End");
@@ -39,7 +42,7 @@ function handleNotificationEmail()
 {
 	var toEmail = "";
 	var fromEmail = "noreply@SantaBarbaraCA.gov";
-	var ccEmail = "eric@esilverliningsolutions.com";
+	var ccEmail = "";
 	var notificationTemplate = "DOCUMENT UPDATE";
 	var reportFile = [];  // empty set for the file list
 	var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
@@ -107,8 +110,6 @@ function handleNotificationEmail()
 
 	for (i = 0; i < docArray.length; i++) {
 		documentModel = docArray[i];
-		logDebug("************* doc Model ****************");
-		printObjProperties(documentModel);
 		addParameter(emailParameters, "$$docNo$$", documentModel.getDocumentNo());
 		addParameter(emailParameters, "$$docType$$", documentModel.getDocType());
 		addParameter(emailParameters, "$$docGroup$$", documentModel.getDocGroup());
