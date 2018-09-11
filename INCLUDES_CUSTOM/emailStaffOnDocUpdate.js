@@ -37,7 +37,7 @@ function emailStaffOnDocUpdate()
 
 function handleNotificationEmail()
 {
-	var toEmail = null;
+	var toEmail = "";
 	var fromEmail = "noreply@SantaBarbaraCA.gov";
 	var ccEmail = "eric@esilverliningsolutions.com";
 	var notificationTemplate = "DOCUMENT UPDATE";
@@ -88,7 +88,7 @@ function handleNotificationEmail()
 	staff = getTaskAssignedStaffEmail("Initial Application Fees Paid");
 	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
 
-	if (!staff)
+	if (staff != "")
 	{
 		logDebug("No Staff identified for notification");
 		return null;
