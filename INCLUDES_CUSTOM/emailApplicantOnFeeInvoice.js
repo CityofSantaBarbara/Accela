@@ -34,7 +34,7 @@ function handleFeeInvoiceNotificationEmail()
 	var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
 	var emailParameters = aa.util.newHashtable();
 	var staff = null;
-
+	
 	// ensure that we have an assigned staff that will be notified
 	staff = getRecordAssignedStaffEmail();
 	if (staff){ccEmail += "; " + staff; logDebug("ccEmail: " + ccEmail);}
@@ -62,6 +62,8 @@ function handleFeeInvoiceNotificationEmail()
 	addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
 	addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
 
+	// fee invoice specific information
+	printObjProperties(FeeObjs);
 	// send Notification
 	var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
 	if (!sendResult) 
