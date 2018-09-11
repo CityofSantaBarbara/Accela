@@ -48,45 +48,45 @@ function handleNotificationEmail()
 
 	// ensure that we have an assigned staff that will be notified
 	staff = getRecordAssignedStaffEmail();
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Plans Distribution");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Application review");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Schedule and TTC Distribution");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Document Distribution");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Application Submittal");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("ODLA Package Distribution");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Initial Application");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("PreApp Assignment");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Sewer Lateral Inspection (SLIP) Video and Form submittal");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Map Review Distribution");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("VLM Review Distribution");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Sewer Tap Application");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Sewer Service Abandonment Application");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Sewer Lateral installation/repair Permit request");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Routing Coordination");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Routing for Comments");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Routing Coordinator");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Route Resubmittal");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 	staff = getTaskAssignedStaffEmail("Initial Application Fees Paid");
-	if (staff){toEmail += staff; logDebug("toEmail: " + toEmail);}
+	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 
 	if (staff == "")
 	{
@@ -117,7 +117,6 @@ function handleNotificationEmail()
 		addParameter(emailParameters, "$$docCategory$$", documentModel.getDocCategory());
 		addParameter(emailParameters, "$$docUploadBy$$", documentModel.getFileUpLoadBy());
 		addParameter(emailParameters, "$$docUploadDate$$", documentModel.getFileUpLoadDate());
-		addParameter(emailParameters, "$$staffTitle$$", staff.getTitle());
 
 
 		// send Notification
