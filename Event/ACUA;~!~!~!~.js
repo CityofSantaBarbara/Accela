@@ -31,7 +31,7 @@ var fieldpk;
 //if (x.getSuccess()) {
 //	printObjProperties(x.getoutput());
 //}
-printObjProperties(x);
+//printObjProperties(x);
 printObjProperties(fieldpk);
 
 
