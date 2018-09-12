@@ -15,4 +15,7 @@
 
 logDebug("ACAA Start");
 pop(conditionObj);
+var templateModel = conditionObj.getTemplateModel();
+pop(templateModel);
+
 logDebug("ACAA End");
