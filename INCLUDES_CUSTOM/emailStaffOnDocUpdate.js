@@ -100,7 +100,7 @@ function handleNotificationEmail()
 		for (yy in Contacts)
 			if (contactType.equals(Contacts[yy].getCapContactModel().getPeople().getContactType()))
 				if (Contacts[yy].getEmail() != null)
-					toEmail = "" + Contacts[yy].getEmail();
+					toEmail += ";" + Contacts[yy].getEmail();
 	}
 
 	if (toEmail == "")
