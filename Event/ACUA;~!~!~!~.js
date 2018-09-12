@@ -27,7 +27,7 @@ printObjProperties(pk);
 printObjProperties(templateForms);
 logDebug("templateModel = " + templateModel);
 var fieldpk;
-var x = aa.condition.getFields4TemplateForm(pk,fieldpk);
+var x = aa.capCondition.getFields4TemplateForm(pk,fieldpk);
 if (x.getSuccess()) {
 	printObjProperties(x.getoutput());
 }
