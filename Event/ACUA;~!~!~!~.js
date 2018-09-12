@@ -16,5 +16,8 @@
 logDebug("ACUA Start");
 pop(conditionObj);
 var templateModel = conditionObj.getTemplateModel();
-pop(templateModel);
+var statusDate = conditionObj.getStatusDate();
+var hearingDate = conditionObj.getEffectDate();
+//pop(templateModel);
+logDebug("templateModel = " + templateModel);
 logDebug("ACUA End");
