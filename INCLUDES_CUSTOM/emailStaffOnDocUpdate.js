@@ -91,9 +91,21 @@ function handleNotificationEmail()
 	staff = getTaskAssignedStaffEmail("Initial Application Fees Paid");
 	if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
 
-	if (staff == "")
+	var applicant = null;
+	var contactType = "Applicant"
+	var capContactResult = aa.people.getCapContactByCapID(capId);
+	if (capContactResult.getSuccess())
 	{
-		logDebug("No Staff identified for notification");
+		var Contacts = capContactResult.getOutput();
+		for (yy in Contacts)
+			if (contactType.equals(Contacts[yy].getCapContactModel().getPeople().getContactType()))
+				if (Contacts[yy].getEmail() != null)
+					toEmail = "" + Contacts[yy].getEmail();
+	}
+
+	if (toEmail == "")
+	{
+		logDebug("No Staff or Applicants identified for notification");
 		return null;
 	}
 	// prepare Notification parameters
