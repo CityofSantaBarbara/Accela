@@ -32,7 +32,7 @@ var fieldpk;
 //	printObjProperties(x.getoutput());
 //}
 //printObjProperties(x);
-printObjProperties(fieldpk);
+//printObjProperties(fieldpk);
 
 
 printObjProperties(aa.condition);
