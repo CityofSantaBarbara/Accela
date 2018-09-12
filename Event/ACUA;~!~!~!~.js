@@ -27,3 +27,5 @@ printObjProperties(templateForms);
 
 var condScript = aa.condition.getNewConditionScriptModel();
 printObjProperties(condScript);
+var mycs = condScript.getOutput();
+printObjProperties(mycs);
