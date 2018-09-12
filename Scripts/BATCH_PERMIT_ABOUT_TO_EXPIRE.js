@@ -193,8 +193,8 @@ logDebug("mainProcess START");
 	var capFilterStatus = 0;
 	var capDeactivated = 0;
 	var capCount = 0;
+	var setCode;
 	var setName;
-	var setDescription;
 
 	// because there is no function to get non-licenses with a null expiration status 
 	// you must insure that you have a ASA event script to set the expiration to 'Active' initially!
@@ -210,6 +210,33 @@ logDebug("mainProcess START");
 		logDebug("ERROR: Getting Expirations, reason is: " + expResult.getErrorType() + ":" + expResult.getErrorMessage());
 		return false;
 	}
+		// Create Set
+		if (setPrefix != "" && capCount == 1) {
+			var yy = startDate.getFullYear().toString().substr(2, 2);
+			var mm = (startDate.getMonth() + 1).toString();
+			if (mm.length < 2)
+				mm = "0" + mm;
+			var dd = startDate.getDate().toString();
+			if (dd.length < 2)
+				dd = "0" + dd;
+			var hh = startDate.getHours().toString();
+			if (hh.length < 2)
+				hh = "0" + hh;
+			var mi = startDate.getMinutes().toString();
+			if (mi.length < 2)
+				mi = "0" + mi;
+
+			var setCode = setPrefix.substr(0, 5) + yy + mm + dd + hh + mi;
+
+			setName = setPrefix + " : " + startDate.toLocaleString();
+				var setCreateResult = aa.set.createSet(setCode, setName);
+
+				if (setCreateResult.getSuccess()) {
+					logDebug("Set ID " + setCode + " created for CAPs processed by this batch job.");
+				} else {
+					logDebug("ERROR: Unable to create new Set ID " + setCode + " created for CAPs processed by this batch job.");
+				}
+		}
 
 	for (thisExp in myExp) // for each b1expiration (effectively, each license app)
 	{
@@ -264,33 +291,6 @@ logDebug("mainProcess START");
 
 		capCount++;
 
-		// Create Set
-		if (setPrefix != "" && capCount == 1) {
-			var yy = startDate.getFullYear().toString().substr(2, 2);
-			var mm = (startDate.getMonth() + 1).toString();
-			if (mm.length < 2)
-				mm = "0" + mm;
-			var dd = startDate.getDate().toString();
-			if (dd.length < 2)
-				dd = "0" + dd;
-			var hh = startDate.getHours().toString();
-			if (hh.length < 2)
-				hh = "0" + hh;
-			var mi = startDate.getMinutes().toString();
-			if (mi.length < 2)
-				mi = "0" + mi;
-
-			var setName = setPrefix.substr(0, 5) + yy + mm + dd + hh + mi;
-
-			setDescription = setPrefix + " : " + startDate.toLocaleString();
-				var setCreateResult = aa.set.createSet(setName, setDescription);
-
-				if (setCreateResult.getSuccess()) {
-					logDebug("Set ID " + setName + " created for CAPs processed by this batch job.");
-				} else {
-					logDebug("ERROR: Unable to create new Set ID " + setName + " created for CAPs processed by this batch job.");
-				}
-		}
 
 		// Actions start here:
 
@@ -325,6 +325,11 @@ logDebug("mainProcess START");
 				logDebug(altId + ": updated License expiration to " + newExpDate);
 			}
 		}
+		// Add to Set
+
+		if (setPrefix != "")
+			aa.set.add(setName, capId);
+
 
 		if (sendEmailToContactTypes.length > 0 && emailTemplate.length > 0) {
 
