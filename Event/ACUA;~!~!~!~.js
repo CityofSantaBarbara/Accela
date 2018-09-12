@@ -29,3 +29,5 @@ var condScript = aa.condition.getNewConditionScriptModel();
 printObjProperties(condScript);
 var mycs = condScript.getOutput();
 printObjProperties(mycs);
+var genTemp = aa.template.getTemplate(pk);
+printObjProperties(genTemp);
