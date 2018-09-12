@@ -28,6 +28,9 @@ printObjProperties(templateForms);
 logDebug("templateModel = " + templateModel);
 var fieldpk;
 var x = aa.condition.getFields4TemplateTable(pk,fieldpk);
+if (x.getSuccess()) {
+	printObjProperties(x.getoutput());
+}
 printObjProperties(x);
 printObjProperties(fieldpk);
 logDebug("ACUA End");
