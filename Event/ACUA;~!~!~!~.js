@@ -24,3 +24,6 @@ var templateForms = myTemplate.getTemplateForms();
 var pk = myTemplate.getEntityPKModel();
 printObjProperties(pk);
 printObjProperties(templateForms);
+
+var condScript = new aa.condition.getNewConditionScriptModel();
+printObjProperties(condScript);
