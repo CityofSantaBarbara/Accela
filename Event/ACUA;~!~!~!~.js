@@ -20,3 +20,7 @@ printObjProperties(myCapConditionModel);
 var myTemplate = myCapConditionModel.getTemplate();
 printObjProperties(myTemplate);
 logDebug("ACUA End");
+var templateForms = myTemplate.getTemplateForms();
+var pk = myTemplate.getEntityPKModel();
+printObjProperties(pk);
+printObjProperties(templateForms);
