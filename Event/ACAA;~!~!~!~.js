@@ -14,4 +14,5 @@
 // ********************************************************************************************************
 
 logDebug("ACAA Start");
+printObjProperties(conditionObj);
 logDebug("ACAA End");
