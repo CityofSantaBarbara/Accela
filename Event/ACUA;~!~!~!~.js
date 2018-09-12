@@ -14,5 +14,5 @@
 // ********************************************************************************************************
 
 logDebug("ACUA Start");
-printObjProperties(conditionObj);
+pop(conditionObj);
 logDebug("ACUA End");
