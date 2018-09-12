@@ -17,5 +17,6 @@ logDebug("ACUA Start");
 printObjProperties(conditionObj);
 var myCapConditionModel = conditionObj.getCapConditionModel();
 printObjProperties(myCapConditionModel);
-
+var myTemplate = myCapConditionModel.getTemplate();
+printObjProperties(myTemplate);
 logDebug("ACUA End");
