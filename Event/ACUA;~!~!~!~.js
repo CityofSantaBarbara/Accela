@@ -20,5 +20,7 @@ var statusDate = conditionObj.getStatusDate();
 var hearingDate = conditionObj.getEffectDate();
 //pop(templateModel);
 printObjProperties(templateModel);
+var templateForms = templateModel.getTemplateForms();
+printObjProperties(templateForms);
 logDebug("templateModel = " + templateModel);
 logDebug("ACUA End");
