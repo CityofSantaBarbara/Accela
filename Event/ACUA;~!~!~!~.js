@@ -15,25 +15,7 @@
 
 logDebug("ACUA Start");
 printObjProperties(conditionObj);
-var templateModel = conditionObj.getTemplateModel();
-var statusDate = conditionObj.getStatusDate();
-var hearingDate = conditionObj.getEffectDate();
-logDebug("statusDate = " + statusDate + "  hearingDate = " + hearingDate);
-//pop(templateModel);
-printObjProperties(templateModel);
-var templateForms = templateModel.getTemplateForms();
-var pk = templateModel.getEntityPKModel();
-printObjProperties(pk);
-printObjProperties(templateForms);
-logDebug("templateModel = " + templateModel);
-var fieldpk;
-//var x = aa.capCondition.getFields4TemplateForm(pk,fieldpk);
-//if (x.getSuccess()) {
-//	printObjProperties(x.getoutput());
-//}
-//printObjProperties(x);
-//printObjProperties(fieldpk);
+var myCapConditionModel = conditionObj.getCapConditionModel();
+printObjProperties(myCapConditionModel);
 
-
-printObjProperties(aa.condition);
 logDebug("ACUA End");
