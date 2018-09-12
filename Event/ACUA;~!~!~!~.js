@@ -27,10 +27,13 @@ printObjProperties(pk);
 printObjProperties(templateForms);
 logDebug("templateModel = " + templateModel);
 var fieldpk;
-var x = aa.capCondition.getFields4TemplateForm(pk,fieldpk);
-if (x.getSuccess()) {
-	printObjProperties(x.getoutput());
-}
+//var x = aa.capCondition.getFields4TemplateForm(pk,fieldpk);
+//if (x.getSuccess()) {
+//	printObjProperties(x.getoutput());
+//}
 printObjProperties(x);
 printObjProperties(fieldpk);
+
+
+printObjProperties(aa.condition);
 logDebug("ACUA End");
