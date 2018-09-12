@@ -14,10 +14,11 @@
 // ********************************************************************************************************
 
 logDebug("ACUA Start");
-pop(conditionObj);
+printObjProperties(conditionObj);
 var templateModel = conditionObj.getTemplateModel();
 var statusDate = conditionObj.getStatusDate();
 var hearingDate = conditionObj.getEffectDate();
 //pop(templateModel);
+printObjProperties(templateModel);
 logDebug("templateModel = " + templateModel);
 logDebug("ACUA End");
