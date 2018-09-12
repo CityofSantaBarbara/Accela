@@ -26,4 +26,8 @@ var pk = templateModel.getEntityPKModel();
 printObjProperties(pk);
 printObjProperties(templateForms);
 logDebug("templateModel = " + templateModel);
+var fieldpk;
+var x = aa.condition.getFields4TemplateTable(pk,fieldpk);
+printObjProperties(x);
+printObjProperties(fieldpk);
 logDebug("ACUA End");
