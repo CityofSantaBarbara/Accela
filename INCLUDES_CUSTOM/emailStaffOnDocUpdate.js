@@ -100,9 +100,11 @@ function handleNotificationEmail()
 		for (yy in Contacts)
 			if (contactType.equals(Contacts[yy].getCapContactModel().getPeople().getContactType()))
 				if (Contacts[yy].getEmail() != null)
+				{
 					toEmail += ";" + Contacts[yy].getEmail();
+					logDebug("toEmail: " + toEmail);
+				}
 	}
-
 	if (toEmail == "")
 	{
 		logDebug("No Staff or Applicants identified for notification");
