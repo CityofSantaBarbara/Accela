@@ -44,4 +44,4 @@ logDebug("***Script 19 - End***");
 }
 
 getTask("Returned to Applicant");
-getTask("Incomplete to Applicant");
+//getTask("Incomplete to Applicant");
