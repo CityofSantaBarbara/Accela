@@ -37,8 +37,8 @@ logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 
 	if (taskSts == "Returned to Applicant")
 	{
-		var RSRd = "Re-Submittal Received";
-		updateTask(taskName,RSRd,"auto updated by script","auto updated by script");
+		var RSRd = "Re-Submittal Received"; //task status
+		//updateTask(taskName,RSRd,"auto updated by script","auto updated by script");
 		closeTask(taskName,RSRd);
 	}
 logDebug("***Script 19 - End***");
