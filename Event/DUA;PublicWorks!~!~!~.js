@@ -40,7 +40,7 @@ logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 	{
 		var RSRd = "Re-Submittal received"; //task status
 		//updateTask(taskName,RSRd,"auto updated by script","auto updated by script");
-		closeTask(taskName,RSRd,"auto updated by script","auto updated by script"));
+		closeTask(taskName,RSRd,"auto updated by script","auto updated by script");
 	}
 logDebug("***Script 19 - End***");
 //}
