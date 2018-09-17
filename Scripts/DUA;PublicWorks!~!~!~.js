@@ -23,25 +23,27 @@
 //         		Date		Name			Modification
 //				08/22/2018	Adam Nares		Initial Development
 //				08/31/2018  Adam Nares		Added taskStatus to get only if "Returned to Applicant" 
+//				09/17/2018  Adam Nares		closing task with "Re-Submittal Received"
 //********************************************************************************************************
 */
-logDebug("****Script 19 to Applicant - Resubmittal Received ACA***");
+logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 
 // This function gets the two tasks "Returned to Applicant" and "Incomplete to Applicant"
-function getTask (taskName)
-{
+//function getTask (taskName)
+//{
+	var taskName = "Returned to Applicant";
 	activateTask(taskName);
 // gets task status .. don't want this to run if null or resub already received
 	var taskSts = taskStatus(taskName);
 
-	if (taskSts == "Returned to Applicant")
-	{
-		var RSRd = "Re-Submittal Received";
-		updateTask(taskName,RSRd,"auto updated by script","auto updated by script");
-		closeTask(taskName,RSRd);
-	}
+	//if (taskSts == "Returned to Applicant")
+	//{
+		var RSRd = "Re-Submittal received"; //task status
+		//updateTask(taskName,RSRd,"auto updated by script","auto updated by script");
+		closeTask(taskName,RSRd,"auto updated by script","auto updated by script");
+	//}
 logDebug("***Script 19 - End***");
-}
+//}
 
-getTask("Returned to Applicant");
-getTask("Incomplete to Applicant");
+//getTask("Returned to Applicant");
+//getTask("Incomplete to Applicant");
