@@ -24,6 +24,7 @@
 //				08/22/2018	Adam Nares		Initial Development
 //				08/31/2018  Adam Nares		Added taskStatus to get only if "Returned to Applicant" 
 //				09/17/2018  Adam Nares		closing task with "Re-Submittal Received"
+//				09/17/2018 	Adam Nares		Added "Incomplete to Applicant" task 
 //********************************************************************************************************
 */
 logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
@@ -32,7 +33,7 @@ logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 //function getTask (taskName)
 //{
 	var taskName = "Returned to Applicant";
-	if (isTaskActive(taskName) == true)
+	if (isTaskActive(taskName) == true) // checks to see if "Returned to Applicant" is active
 	{
 	//activateTask(taskName);
 		// gets task status .. don't want this to run if null or resub already received
@@ -41,8 +42,20 @@ logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 		if (taskSts == "Returned to Applicant")
 		{
 			var RSRd = "Re-Submittal received"; //task status
-			//updateTask(taskName,RSRd,"auto updated by script","auto updated by script");
-			closeTask(taskName,RSRd,"auto updated by script","auto updated by script");
+			closeTask(taskName,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
+		}
+		//checks to see if "Incomplete to Applicant" is active
+		var taskName = "Incomplete to Applicant";
+		if (isTaskActive(taskName) == true) 
+		{
+			// gets task status .. don't want this to run if null or resub already received
+			var taskSts = taskStatus(taskName);
+
+			if (taskSts == "Returned to Applicant")
+			{
+				var RSRd = "Re-Submittal received"; //task status
+				closeTask(taskName,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
+			}
 		}
 	}
 logDebug("***Script 19 - End***");
