@@ -32,16 +32,19 @@ logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 //function getTask (taskName)
 //{
 	var taskName = "Returned to Applicant";
-	activateTask(taskName);
-// gets task status .. don't want this to run if null or resub already received
-	var taskSts = taskStatus(taskName);
+	if isTaskActive(taskName) = true
+	{
+	//activateTask(taskName);
+		// gets task status .. don't want this to run if null or resub already received
+		var taskSts = taskStatus(taskName);
 
-	//if (taskSts == "Returned to Applicant")
-	//{
-		var RSRd = "Re-Submittal received"; //task status
-		//updateTask(taskName,RSRd,"auto updated by script","auto updated by script");
-		closeTask(taskName,RSRd,"auto updated by script","auto updated by script");
-	//}
+		if (taskSts == "Returned to Applicant")
+		{
+			var RSRd = "Re-Submittal received"; //task status
+			//updateTask(taskName,RSRd,"auto updated by script","auto updated by script");
+			closeTask(taskName,RSRd,"auto updated by script","auto updated by script");
+		}
+	{
 logDebug("***Script 19 - End***");
 //}
 
