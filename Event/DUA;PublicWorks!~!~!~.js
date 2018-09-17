@@ -23,6 +23,7 @@
 //         		Date		Name			Modification
 //				08/22/2018	Adam Nares		Initial Development
 //				08/31/2018  Adam Nares		Added taskStatus to get only if "Returned to Applicant" 
+//				09/17/2018  Adam Nares		closing task with "Re-Submittal Received"
 //********************************************************************************************************
 */
 logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
@@ -37,9 +38,9 @@ logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 
 	if (taskSts == "Returned to Applicant")
 	{
-		var RSRd = "Re-Submittal Received"; //task status
+		var RSRd = "Re-Submittal received"; //task status
 		//updateTask(taskName,RSRd,"auto updated by script","auto updated by script");
-		closeTask(taskName,RSRd);
+		closeTask(taskName,RSRd,"auto updated by script","auto updated by script"));
 	}
 logDebug("***Script 19 - End***");
 //}
