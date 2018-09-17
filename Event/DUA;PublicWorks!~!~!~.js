@@ -32,7 +32,7 @@ logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 //function getTask (taskName)
 //{
 	var taskName = "Returned to Applicant";
-	if isTaskActive(taskName) = true
+	if (isTaskActive(taskName) == true)
 	{
 	//activateTask(taskName);
 		// gets task status .. don't want this to run if null or resub already received
