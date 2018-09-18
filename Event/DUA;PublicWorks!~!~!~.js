@@ -46,21 +46,19 @@ logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 		}
 		//checks to see if "Incomplete to Applicant" is active
 	}
-	else
+	var taskName2 = "Incomplete to Applicant";
+	if (isTaskActive(taskName2) == true) 
 	{
-		var taskName2 = "Incomplete to Applicant";
-		if (isTaskActive(taskName2) == true) 
-		{
-			// gets task status .. don't want this to run if null or resub already received
-			var taskSts = taskStatus(taskName);
+		// gets task status .. don't want this to run if null or resub already received
+		var taskSts = taskStatus(taskName2);
 			
-			if (taskSts == "Incomplete to Applicant")
-			{
-				var RSRd = "Re-Submittal received"; //task status
-				closeTask(taskName,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
-			}
+		if (taskSts == "Incomplete to Applicant")
+		{
+			var RSRd = "Re-Submittal received"; //task status
+			closeTask(taskName,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
 		}
 	}
+	
 	
 logDebug("***Script 19 - End***");
 //}
