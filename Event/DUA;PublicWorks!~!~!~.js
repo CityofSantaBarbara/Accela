@@ -44,18 +44,18 @@ logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 			var RSRd = "Re-Submittal received"; //task status
 			closeTask(taskName,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
 		}
-		//checks to see if "Incomplete to Applicant" is active
+		
 	}
-	var taskName2 = "Incomplete to Applicant";
-	if (isTaskActive(taskName2) == true) 
+	var taskName2 = "Incomplete to Applicant"; 
+	if (isTaskActive(taskName2) == true) //checks to see if "Incomplete to Applicant" is active
 	{
 		// gets task status .. don't want this to run if null or resub already received
-		var taskSts = taskStatus(taskName2);
+		var taskSts2 = taskStatus(taskName2);
 			
-		if (taskSts == "Incomplete to Applicant")
+		if (taskSts2 == "Incomplete to Applicant")
 		{
-			var RSRd = "Re-Submittal received"; //task status
-			closeTask(taskName,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
+			var RSRd2 = "Re-Submittal received"; //task status
+			closeTask(taskName,RSRd2,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
 		}
 	}
 	
