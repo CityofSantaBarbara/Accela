@@ -29,39 +29,21 @@
 */
 logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 
-// This function gets the two tasks "Returned to Applicant" and "Incomplete to Applicant"
-//function getTask (taskName)
-//{
 	var taskName = "Returned to Applicant";
-	if (isTaskActive(taskName) == true) // checks to see if "Returned to Applicant" is active
-	{
-	//activateTask(taskName);
-		// gets task status .. don't want this to run if null or resub already received
-		var taskSts = taskStatus(taskName);
-
-		if (taskSts == "Returned to Applicant")
-		{
-			var RSRd = "Re-Submittal received"; //task status
-			closeTask(taskName,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
-		}
-		
-	}
+	var taskSts = "Returned to Applicant";
 	var taskName2 = "Incomplete to Applicant"; 
-	if (isTaskActive(taskName2) == true) //checks to see if "Incomplete to Applicant" is active
+	var taskSts2 = "Incomplete to Applicant";
+	var RSRd = "Re-Submittal received"; //task status
+	
+	if (isTaskStatus(taskName,taskSts) == true) // checks to see if "Returned to Applicant" is active
 	{
-		// gets task status .. don't want this to run if null or resub already received
-		var taskSts2 = taskStatus(taskName2);
-			
-		if (taskSts2 == "Incomplete to Applicant")
-		{
-			var RSRd2 = "Re-Submittal received"; //task status
-			closeTask(taskName,RSRd2,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
-		}
+		closeTask(taskName,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
 	}
 	
+	if (isTaskStatus(taskName2,taskSts2) == true) // checks to see if "Incomplete to Applicant" is active
+	{
+		closeTask(taskName2,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
+	}
+		
 	
 logDebug("***Script 19 - End***");
-//}
-
-//getTask("Returned to Applicant");
-//getTask("Incomplete to Applicant");
