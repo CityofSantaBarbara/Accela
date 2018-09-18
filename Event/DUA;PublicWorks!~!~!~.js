@@ -15,7 +15,7 @@
 // 				use Document Update Notification template created by Eric K
 
 //				if wftask = "Returned to Applicant" or "Incomplete to Applicant"
-//				  then  activateTask(City task)
+//				  then  closeTask(City task)
 //
 //Created By: Silver Lining Solutions / City of SB - Adam Nares
 //********************************************************************************************************
@@ -51,7 +51,7 @@ logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 			// gets task status .. don't want this to run if null or resub already received
 			var taskSts = taskStatus(taskName);
 
-			if (taskSts == "Returned to Applicant")
+			if (taskSts == "Incomplete to Applicant")
 			{
 				var RSRd = "Re-Submittal received"; //task status
 				closeTask(taskName,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
