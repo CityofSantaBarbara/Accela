@@ -23,16 +23,20 @@ function checkSprinklerHeadAndCancel() {
 	if (numSprinklerHeads > 6) {
 		logDebug("checkSprinklerHeadAndCancel: number of sprinkler heads is greater than 6!");
 		
-		var siblingFireSpklrMonitorAlarm = childGetByCapType("Fire/Alarm System/NA/NA", getParent(), capId)
-		logDebug("checkSprinklerHeadAndCancel: got sibling of:"+siblingFireSpklrMonitorAlarm);
+		var sprkParent = getParent();
 		
-		var isSiblingFireSpklrMonitorAlarmClosed = taskStatus("Close","",siblingFireSpklrMonitorAlarm);
-		logDebug("checkSprinklerHeadAndCancel: got Close wf status of:"+isSiblingFireSpklrMonitorAlarmClosed);
-		
-		if (isSiblingFireSpklrMonitorAlarmClosed != "Closed") {
-			cancel = true;
-			comment("<font color=red><b>Number of Sprinkler Heads is Greater than 6 AND Related Fire Alarm is Not Complete!</b></font>")
-			logDebug("checkSprinklerHeadAndCancel: canceling!");
+		if (sprkParent) {
+			var siblingFireSpklrMonitorAlarm = childGetByCapType("Fire/Alarm System/NA/NA", sprkParent, capId)
+			logDebug("checkSprinklerHeadAndCancel: got sibling of:"+siblingFireSpklrMonitorAlarm);
+
+			var isSiblingFireSpklrMonitorAlarmClosed = taskStatus("Close","",siblingFireSpklrMonitorAlarm);
+			logDebug("checkSprinklerHeadAndCancel: got Close wf status of:"+isSiblingFireSpklrMonitorAlarmClosed);
+
+			if (isSiblingFireSpklrMonitorAlarmClosed != "Closed") {
+				cancel = true;
+				comment("<font color=red><b>Number of Sprinkler Heads is Greater than 6 AND Related Fire Alarm is Not Complete!</b></font>")
+				logDebug("checkSprinklerHeadAndCancel: canceling!");
+			}
 		}
 	}
 	logDebug("END of checkSprinklerHeadAndCancel");
