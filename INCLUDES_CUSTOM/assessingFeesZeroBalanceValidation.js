@@ -1,5 +1,5 @@
 //********************************************************************************************************
-//Script 		Assessing Fees - Zero Balance Validation
+//Script 		Assessing Fees - Zero Balance Validation  *** Script # 7 
 //Record Types:	​*/*/*/*
 //
 //Event: 		this script may be triggered from IRSB & WTUB
@@ -102,3 +102,5 @@ function assessingFeesZeroBalanceValidation(triggerEvent)
 
 	logDebug("Script Assessing Fees - Zero Balance Validation - End");
 }
+
+// Script # &
