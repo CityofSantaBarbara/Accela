@@ -1,5 +1,5 @@
 //********************************************************************************************************
-//Script 		Email Applicant on Fee Invoice
+//Script 		Email Applicant on Fee Invoice  ********* Script #27
 //Record Types:	​*/*/*/*
 //
 //Event: 		IFA
@@ -100,3 +100,4 @@ function emailContact(mSubj,mText)   // optional: Contact Type, default Applican
 	else
 		logDebug("Couldn't send email to " + contactType + ", no valid email address");
 	} 
+// **** script # 27
