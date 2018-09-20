@@ -18,7 +18,7 @@
 
 logDebug("start of IRSA:Fire!Sprinkler System!Commercial - NFPA 13!NA");
 
-if (InspectionType == "Final" && InspectionResult == "Passed" ) {
+if (inspType == "Fire Final" && inspResult == "Passed) {
 	var donotCloseRecord = checkSprinklerHeadAndCancel();
 	cancel = false; // need to reset this so the event doesn't cancel because of the checkSprinklerHeadAndCancel call
 	 
