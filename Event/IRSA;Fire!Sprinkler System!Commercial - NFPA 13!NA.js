@@ -27,8 +27,8 @@ if (InspectionType == "Final" && InspectionResult == "Passed" ) {
 	} else {
 		logDebug("IRSA:Fire!Sprinkler System!Commercial - NFPA 13!NA - final inspection complete, closing inspection workflow task")
 		closeTask("Inspection","Final Inspection Complete", "Final inspection completed, closed by script");
-		
-		// you could expand this to check for balance due and if none close the whole workflow and record.
+		closeTask("Close","Closed","Auto Closed by Script","Auto Closed by Script");
+		updateAppStatus("Closed","Auto Closed by Script");
 	}
 }
 
