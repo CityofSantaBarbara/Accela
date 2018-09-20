@@ -1,3 +1,6 @@
+//***
+// added script 9 logic here to keep this script from closing tasks for NFPA 13 record types here
+
 //********************************************************************************************************
 //Script 		73 FIR - Close out cases 
 //Record Types:	Fire!~!~!~ 
@@ -22,7 +25,7 @@
 
 logDebug("start of IRSA:Fire!~!~!~");
 
-if (inspType == "Fire Final" && inspResult == "Passed") {
+if (inspType == "Fire Final" && inspResult == "Passed" && appTypeString != "Fire/Sprinkler System/Commercial - NFPA 13/NA" ) {
 	logDebug("Criteria met at inspection type of fire final");
 	closeTask("Inspection","Final Inspection Passed","Auto Closed by Script","Auto Closed by Script");
 	closeTask("Close","Closed","Auto Closed by Script","Auto Closed by Script");
