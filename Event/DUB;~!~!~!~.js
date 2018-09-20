@@ -18,7 +18,7 @@
 //				08/15/2018	Eric 			Initial Development
 // 				9/21/2018       Alec			use for testing. 
 //********************************************************************************************************
-logDebug("DUB - Begin");
+logDebug("DUB - Begin- Script 59");
 
 var recordDocArray = null;
 var recDocModel = null;
@@ -33,4 +33,4 @@ for (i = 0; i < recordDocArray.length; i++) {
 	printObjProperties(recDocModel);
 }
 
-logDebug("DUB - End");
+logDebug("DUB - End - Script 59");
