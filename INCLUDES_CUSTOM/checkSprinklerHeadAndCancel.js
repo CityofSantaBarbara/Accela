@@ -38,6 +38,11 @@ function checkSprinklerHeadAndCancel() {
 				logDebug("checkSprinklerHeadAndCancel: canceling!");
 			}
 		}
+		else {
+			cancel = true;
+			comment("<font color=red><b>There is no Parent Building Record! Please relate and update Inspection Workflow Task manually!</b></font>")
+			logDebug("checkSprinklerHeadAndCancel: canceling!");
+		}
 	}
 	logDebug("END of checkSprinklerHeadAndCancel");
 	return cancel;
