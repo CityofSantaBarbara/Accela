@@ -18,7 +18,8 @@ if(vEventName.equals("FeeEstimateAfter4ACA"))
 | END Custom Parameters
 /------------------------------------------------------------------------------------------------------*/
 
-if (matches(currentUserID, "ADMIN", "JJACKSON", "CWEIFFENBACH", "EKOONTZ","AHARDY","EJUST","MDOUVILLE","ANARES","TBOLTON")) {
+if (matches(currentUserID, "ADMIN", "JJACKSON", "CWEIFFENBACH", "EKOONTZ","AHARDY","EJUST","MDOUVILLE","ANARES","TBOLTON","MDurousseau")) 
+{
 showDebug = 3;
 showMessage = true;
 }
