@@ -23,31 +23,20 @@ function checkSprinklerHeadAndCancel() {
 	if (numSprinklerHeads > 6) {
 		logDebug("checkSprinklerHeadAndCancel: number of sprinkler heads is greater than 6!");
 		
-		var sprkParent = getParent();
+		var sprkFireAlarmSys = getChildren("Fire/Alarm System/NA/NA");
 		
-		if (sprkParent) {
-			var siblingFireSpklrMonitorAlarm = childGetByCapType("Fire/Alarm System/NA/NA", sprkParent, capId);
-			logDebug("checkSprinklerHeadAndCancel: got sibling of:"+siblingFireSpklrMonitorAlarm);
+		if (sprkFireAlarmSys) {
+			var isSiblingFireSpklrMonitorAlarmClosed = taskStatus("Close","",sprkFireAlarmSys);
+			logDebug("checkSprinklerHeadAndCancel: got Close wf status of:"+isSiblingFireSpklrMonitorAlarmClosed);
 
-			if (siblingFireSpklrMonitorAlarm) {
-				var isSiblingFireSpklrMonitorAlarmClosed = taskStatus("Close","",siblingFireSpklrMonitorAlarm);
-				logDebug("checkSprinklerHeadAndCancel: got Close wf status of:"+isSiblingFireSpklrMonitorAlarmClosed);
-
-				if (isSiblingFireSpklrMonitorAlarmClosed != "Closed") {
-					cancel = true;
-					comment("<font color=red><b>Number of Sprinkler Heads is Greater than 6 AND Related Fire Alarm is Not Complete!</b></font>")
-					logDebug("checkSprinklerHeadAndCancel: canceling!");
-				}
-			}
-			else {
+			if (isSiblingFireSpklrMonitorAlarmClosed != "Closed") {
 				cancel = true;
-				comment("<font color=red><b>There is no Alarm System related to the Building Record! Please relate and update Inspection Workflow Task manually!</b></font>")
+				comment("<font color=red><b>Number of Sprinkler Heads is Greater than 6 AND Related Fire Alarm is Not Complete!</b></font>")
 				logDebug("checkSprinklerHeadAndCancel: canceling!");
-			}
 		}
 		else {
 			cancel = true;
-			comment("<font color=red><b>There is no Parent Building Record! Please relate and update Inspection Workflow Task manually!</b></font>")
+			comment("<font color=red><b>There is no Alarm System related to this Record! Please relate and update Inspection Workflow Task manually!</b></font>")
 			logDebug("checkSprinklerHeadAndCancel: canceling!");
 		}
 	}
