@@ -33,6 +33,7 @@ function checkSprinklerHeadAndCancel() {
 				cancel = true;
 				comment("<font color=red><b>Number of Sprinkler Heads is Greater than 6 AND Related Fire Alarm is Not Complete!</b></font>")
 				logDebug("checkSprinklerHeadAndCancel: canceling!");
+			}
 		}
 		else {
 			cancel = true;
