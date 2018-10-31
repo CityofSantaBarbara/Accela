@@ -1,6 +1,6 @@
 //********************************************************************************************************
 //Script 		script tracker 9 - Fire Sprinkler Monitoring
-//Record Types:	F​ire!Sprinkler System!Commercial - NFPA 13!NA 
+//Record Types:	Fire!Sprinkler System!Commercial - NFPA 13!NA 
 //
 //Event: 		this script may be triggered from WTUB and IRSA (b/c IRSA can close tasks and records)
 //
@@ -12,7 +12,8 @@
 //********************************************************************************************************
 // Change Log
 //         		Date		Name			Modification
-//				08-04-2018	Chad			Initial Draft
+//			08-04-2018	Chad			Initial Draft
+//			10-31-2018	Chad			Fixed bug where getChildren array was not handled properly
 //********************************************************************************************************
 
 function checkSprinklerHeadAndCancel() {
@@ -26,7 +27,7 @@ function checkSprinklerHeadAndCancel() {
 		var sprkFireAlarmSys = getChildren("Fire/Alarm System/NA/NA");
 		
 		if (sprkFireAlarmSys) {
-			var isSiblingFireSpklrMonitorAlarmClosed = taskStatus("Close","",sprkFireAlarmSys);
+			var isSiblingFireSpklrMonitorAlarmClosed = taskStatus("Close","",sprkFireAlarmSys[0]);
 			logDebug("checkSprinklerHeadAndCancel: got Close wf status of:"+isSiblingFireSpklrMonitorAlarmClosed);
 
 			if (isSiblingFireSpklrMonitorAlarmClosed != "Closed") {
@@ -44,4 +45,3 @@ function checkSprinklerHeadAndCancel() {
 	logDebug("END of checkSprinklerHeadAndCancel");
 	return cancel;
 }
-
