@@ -28,7 +28,7 @@ function handleFeeInvoiceNotificationEmail()
 {
 	var toEmail = "";
 	var fromEmail = "noreply@SantaBarbaraCA.gov";
-	var ccEmail = "eric@esilverliningsolutions.com";
+	var ccEmail = "eric@esilverliningsolutions.com;ahardy@santabarbaraca.gov;dkato@santabarbaraca.gov";
 	var notificationTemplate = "INVOICED FEES";
 	var reportFile = [];  // empty set for the file list
 	var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
