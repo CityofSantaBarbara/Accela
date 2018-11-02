@@ -41,7 +41,7 @@ function emailStaffOnDocUpdate()
 function handleNotificationEmail()
 {
 	var toEmail = "";
-	var fromEmail = "noreply@SantaBarbaraCA.gov";
+	var fromEmail = scriptAgencyEmailFrom;
 	var ccEmail = "";
 	var notificationTemplate = "DOCUMENT UPDATE";
 	var reportFile = [];  // empty set for the file list
