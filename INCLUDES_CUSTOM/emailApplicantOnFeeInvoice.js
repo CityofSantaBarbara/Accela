@@ -27,7 +27,7 @@ function emailApplicantOnFeeInvoice()
 function handleFeeInvoiceNotificationEmail()
 {
 	var toEmail = "";
-	var fromEmail = "noreply@SantaBarbaraCA.gov";
+	var fromEmail = scriptAgencyEmailFrom;
 	var ccEmail = "ahardy@santabarbaraca.gov";
 	var notificationTemplate = "INVOICED FEES";
 	var reportFile = [];  // empty set for the file list
@@ -76,7 +76,7 @@ function handleFeeInvoiceNotificationEmail()
 
 function emailContact(mSubj,mText)   // optional: Contact Type, default Applicant
 	{
-	var replyTo = "noreply@accela.com";
+	var replyTo = scriptAgencyEmailFrom;
 	var contactType = "Applicant"
 	var emailAddress = "";
 
