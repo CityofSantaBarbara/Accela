@@ -20,6 +20,7 @@
 // Change Log
 //				Date		Name		Modification
 //				08-22-2018	Chad		Initial Draft
+//				11-02-2018	Chad		Changed email from to use agency lookup 
 // ********************************************************************************************************
 
 
@@ -148,7 +149,7 @@ if (!fromDate.length) { // no "from" date, assume today
 if (!toDate.length) { // no "to" date, assume today + number of look ahead days + span
 	toDate = dateAdd(null, parseInt(lookAheadDays) + parseInt(daySpan));
 }
-var mailFrom = lookup("ACA_EMAIL_TO_AND_FROM_SETTING", "RENEW_LICENSE_AUTO_ISSUANCE_MAILFROM");
+var mailFrom = lookuplookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");
 var acaSite = lookup("ACA_CONFIGS", "ACA_SITE");
 acaSite = acaSite.substr(0, acaSite.toUpperCase().indexOf("/ADMIN"));
 
@@ -179,7 +180,7 @@ try {
 logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
 
 if (emailAddress.length)
-	aa.sendMail("noreply@accela.com", emailAddress, "", batchJobName + " Results", emailText);
+	aa.sendMail(scriptAgencyEmailFrom, emailAddress, "", batchJobName + " Results", emailText);
 
 /*------------------------------------------------------------------------------------------------------/
 | <===========END=Main=Loop================>
