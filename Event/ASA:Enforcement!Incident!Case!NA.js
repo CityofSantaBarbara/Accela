@@ -23,3 +23,5 @@ if(!publicUser){
 emailToASIDepartmentUser();
 }
 //logDebug("end of ASA:Enforcement!Incident!Case!NA");
+
+aa.print("hello world");
