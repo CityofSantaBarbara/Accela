@@ -2,6 +2,7 @@
 //Script 		Script tracker 37
 //Record Types:	Enforcement!Incident!Case!NA 
 //
+// 
 //Event: 		ASA
 //
 //Desc:			Assign user to workflow task 'Request Status'
@@ -14,6 +15,7 @@
 // Change Log
 //         		Date		Name			Modification
 //				08-15-2018	Michael			Initial Draft
+//        11-06-2018  alec      upload for testing
 //********************************************************************************************************
 
 //logDebug("start of ASA:Enforcement!Incident!Case!NA");
