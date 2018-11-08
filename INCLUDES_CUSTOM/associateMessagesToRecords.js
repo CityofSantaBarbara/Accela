@@ -28,16 +28,16 @@ function associateMessagesToRecords(messages)
 			else
 			{
 				logDebug("Record ID not found, sending bounce back email.");
-				email(messageFrom, messageTo, bouncebackSubject + ": " + content, bouncebackBody + ": <br><br>" + messageBody);
+				email(scriptAgencyEmailFrom, messageTo, bouncebackSubject + ": " + content, bouncebackBody + ": <br><br>" + messageBody);
 				
-				if (sendDebugEmail)
-				{
-					email(debugEmailAddress, messageTo, "Debug log from CommunicationReceivingEmailAfter Event Script", debug);
-				}
 						
 				return false;
 			}
 			i++;						
 		}
+	}
+	if (sendDebugEmail)
+	{
+		email(scriptAgencyEmailFrom, debugEmailAddress, "Debug log from CommunicationReceivingEmailAfter Event Script", debug);
 	}
 }
