@@ -18,7 +18,9 @@ function associateMessagesToRecords(messages)
 			logDebug("Subject: " + content);
 			logDebug("Record ID from the Subject Line: " + altIdMatch);
 			
-			var altId = altIdMatch[1];
+			var altIdStrArr = altIdMatch[1].split(' ');
+			var altId = altIdStrArr[0].toUpperCase();
+			
 			if (altId)
 			{
 				aa.communication.associateEnities(cmId, altId, 'RECORD');
