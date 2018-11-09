@@ -1,10 +1,11 @@
-function parseAltIdFromContent(content)
+function parseAltIdFromContent(ctnt)
 {       
 		//This is just a sample.
 		//Note, please customize the RegExp for actual AlternateID.
-        var altIdFormat = /Record ID #(...\d+-\d+)+/ig;
-//        var altIdFormat = /Record ID #(.*\w)+/; 		this is original from Accela
-		var result = altIdFormat.exec(content);
+//        var altIdFormat = /Record ID #(.*\w)+/ig; 		
+        var altIdFormat = /RECORD ID #(...\d+-\d+)+/ig;
+		var upContent = ctnt.toUpperCase();
+		var result = altIdFormat.exec(upContent);
 		if(result){
 			return result;
 		}
