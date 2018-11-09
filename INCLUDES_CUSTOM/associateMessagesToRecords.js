@@ -46,15 +46,15 @@ function associateMessagesToRecords(messages)
 	{
 //		var bugDte = new Date();
 		var bugDte = "11-09-2018 at the time I say";
-		var debugTitle = "Debug log from CommunicationReceivingEmailAfter Event Script on " + bugDte;
+		var debugTitle = "Debug log from INCLUDES CUSTOM CommunicationReceivingEmailAfter Event Script on " + bugDte;
 		
-		logDebug("<br>"+"trying to send an DEBUG email from inside .CommunicationReceivingEmailAfter_SLS.associateMessagesToRecords");
+		logDebug("<br>"+"trying to send an DEBUG email from inside .INCLUDES CUSTOM.associateMessagesToRecords");
 		logDebug("<br>"+">>>>>>>>>>>>>> debugEmailAddress:"+debugEmailAddress);
 		logDebug("<br>"+">>>>>>>>>>>>>> scriptAgencyEmailFrom:"+scriptAgencyEmailFrom);
 		logDebug("<br>"+">>>>>>>>>>>>>> debugTitle:"+debugTitle);
 		logDebug("<br>"+">>>>>>>>>>>>>> assocSuccessCnt:"+assocSuccessCnt);
 		
-		email(debugEmailAddress, scriptAgencyEmailFrom, "no debug date in CommunicationReceivingEmailAfter_SLS.associateMessagesToRecords", debug);
+		email(debugEmailAddress, scriptAgencyEmailFrom, "no debug date in INCLUDES CUSTOM.associateMessagesToRecords", debug);
 //		email(debugEmailAddress, scriptAgencyEmailFrom, debugTitle, debug);
 	}
 	if ( assocSuccessCnt > 0 ) {
