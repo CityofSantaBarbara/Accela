@@ -2,8 +2,11 @@ function associateMessagesToRecords(messages)
 {
 	if(messages){
 		var i = 0;  var len = messages.length; 
+		logDebug("<br> PROCESSING "+len+" MESSAGES THIS TIME!");
+		var assocSuccessCnt = 0;
 		while(i < len)
 		{
+			logDebug("<br> Now processing message number:"+i);
 			var message = messages[i];
 			var content = message.getTitle();
 			var cmId = message.getCmId();
@@ -13,33 +16,51 @@ function associateMessagesToRecords(messages)
 			var messageFrom = messageModel.getFromString();
 			var messageTo = messageModel.getToString();
 			
-			var altIdResult= new String(parseAltIdFromContent(content));
-			var altIdMatch = altIdResult.split(',');
-			logDebug("Subject: " + content);
-			logDebug("Record ID from the Subject Line: " + altIdMatch);
-			
-			var altIdStrArr = altIdMatch[1].split(' ');
-			var altId = altIdStrArr[0].toUpperCase();
-			
 			if (altId)
 			{
+				var altIdResult= new String(parseAltIdFromContent(content));
+				var altIdMatch = altIdResult.split(',');
+				logDebug("<br> Subject: " + content);
+				logDebug("<br> Record ID from the Subject Line: " + altIdMatch);
+				logDebug("<br> msg from:"+messageFrom);
+				logDebug("<br> msg Body:"+messageBody);
+				
+				var altIdStrArr = altIdMatch[1].split(' ');
+				var altId = altIdStrArr[0].toUpperCase();
+
 				aa.communication.associateEnities(cmId, altId, 'RECORD');
-				logDebug("Successfully associated message with Record: " + altId);
-				return true;
+				logDebug("<br> Successfully associated message with Record: " + altId + " TO THE COMM ID:"+cmId);
+				assocSuccessCnt += 1; 
+				break;
 			}
 			else
 			{
-				logDebug("Record ID not found, sending bounce back email.");
-				email(scriptAgencyEmailFrom, messageTo, bouncebackSubject + ": " + content, bouncebackBody + ": <br><br>" + messageBody);
-				
-						
-				return false;
+				logDebug("<br> Record ID not found, sending bounce back email.");
+				email(messageTo, scriptAgencyEmailFrom, bouncebackSubject + ": " + content, bouncebackBody + ": <br><br>" + messageBody);
+				break;
 			}
-			i++;						
+			i++;
 		}
 	}
 	if (sendDebugEmail)
 	{
-		email(scriptAgencyEmailFrom, debugEmailAddress, "Debug log from CommunicationReceivingEmailAfter Event Script", debug);
+//		var bugDte = new Date();
+		var bugDte = "11-09-2018 at the time I say";
+		var debugTitle = "Debug log from CommunicationReceivingEmailAfter Event Script on " + bugDte;
+		
+		logDebug("<br>"+"trying to send an DEBUG email from inside .CommunicationReceivingEmailAfter_SLS.associateMessagesToRecords");
+		logDebug("<br>"+">>>>>>>>>>>>>> debugEmailAddress:"+debugEmailAddress);
+		logDebug("<br>"+">>>>>>>>>>>>>> scriptAgencyEmailFrom:"+scriptAgencyEmailFrom);
+		logDebug("<br>"+">>>>>>>>>>>>>> debugTitle:"+debugTitle);
+		logDebug("<br>"+">>>>>>>>>>>>>> assocSuccessCnt:"+assocSuccessCnt);
+		
+		email(debugEmailAddress, scriptAgencyEmailFrom, "no debug date in CommunicationReceivingEmailAfter_SLS.associateMessagesToRecords", debug);
+//		email(debugEmailAddress, scriptAgencyEmailFrom, debugTitle, debug);
+	}
+	if ( assocSuccessCnt > 0 ) {
+		return true;
+	}
+	else {
+		return false;
 	}
 }
