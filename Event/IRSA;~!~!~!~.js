@@ -21,7 +21,7 @@ if (thisExpModelList.getSuccess()) {
 	var thisExp = thisExpModel.getB1Expiration();
 	if (thisExp != null ) { 
 		var thisExpCurrentStatus = thisExpModel.getExpStatus();
-		if (!thisExpCurrentStatus || thisExpCurrentStatus == "" ) {
+//		if (!thisExpCurrentStatus || thisExpCurrentStatus == "" ) {
 			thisExpModel.setExpStatus("Active");
 			thisB1ExpModel = thisExpModel.getB1Expiration();
 			var result = aa.expiration.editB1Expiration(thisB1ExpModel);
@@ -35,6 +35,6 @@ if (thisExpModelList.getSuccess()) {
 				var result = aa.expiration.editB1Expiration(thisExpModel.getB1Expiration());
 				comment("setting active AND setting expire date to:"+newExpDate);
 			}
-		} 
+//		} 
 	}
 }
