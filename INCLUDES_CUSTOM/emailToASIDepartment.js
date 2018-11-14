@@ -65,7 +65,9 @@ function emailToASIDepartmentUser(){
 
 	//send Email to related user address
 	var emailSubj=  "Record Creation : " + capIDString ;
-	var emailContent =" Please review this record " + "<a href=\"https:\//landuse-dt.santabarbaraca.gov\/CitizenAccessDev\/urlrouting.ashx?type=1000&agency=SANTABARBARA&capID1="+capId.getID1()+"&capID2="+capId.getID2()+"&capID3="+capId.getID3()+"&Module="+cap.getCapModel().getModuleName()+"&culture=en-US&FromACA=Y\">" + capIDString + "<\/a> with more detail."
+	//var emailContent =" Please review this record " + "<a href=\"https:\//landuse-dt.santabarbaraca.gov\/CitizenAccessDev\/urlrouting.ashx?type=1000&agency=SANTABARBARA&capID1="+capId.getID1()+"&capID2="+capId.getID2()+"&capID3="+capId.getID3()+"&Module="+cap.getCapModel().getModuleName()+"&culture=en-US&FromACA=Y\">" + capIDString + "<\/a> with more detail."
+	var emailContent =" Please review this record " + "<a href=\"https:\//landuse-web-dev.ch.sbcity.com\/portlets\/reports\/adHocReport.do?mode=deepLink&reportCommand=recordDetail&altID="+capIDString+"\">" +capIDString + "<\/a> with more detail."
+
 	aa.sendMail(scriptAgencyEmailFrom, lookupValue, "", emailSubj,emailContent);
 
 }
