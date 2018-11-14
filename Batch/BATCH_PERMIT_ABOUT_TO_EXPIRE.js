@@ -149,7 +149,7 @@ if (!fromDate.length) { // no "from" date, assume today
 if (!toDate.length) { // no "to" date, assume today + number of look ahead days + span
 	toDate = dateAdd(null, parseInt(lookAheadDays) + parseInt(daySpan));
 }
-var mailFrom = lookuplookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");
+var mailFrom = lookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");
 var acaSite = lookup("ACA_CONFIGS", "ACA_SITE");
 acaSite = acaSite.substr(0, acaSite.toUpperCase().indexOf("/ADMIN"));
 
