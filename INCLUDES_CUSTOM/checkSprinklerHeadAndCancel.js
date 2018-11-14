@@ -27,7 +27,7 @@ function checkSprinklerHeadAndCancel() {
 		var sprkFireAlarmSys = getChildren("Fire/Alarm System/NA/NA");
 		
 		if (sprkFireAlarmSys) {
-			var isSiblingFireSpklrMonitorAlarmClosed = taskStatus("Close","",sprkFireAlarmSys[0]);
+			var isSiblingFireSpklrMonitorAlarmClosed = taskStatus("Closed","",sprkFireAlarmSys[0]);
 			logDebug("checkSprinklerHeadAndCancel: got Close wf status of:"+isSiblingFireSpklrMonitorAlarmClosed);
 
 			if (isSiblingFireSpklrMonitorAlarmClosed != "Closed") {
