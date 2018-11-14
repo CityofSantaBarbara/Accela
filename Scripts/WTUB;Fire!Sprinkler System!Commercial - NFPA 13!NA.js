@@ -16,7 +16,7 @@
 
 logDebug("start of 9 - Fire Sprinkler Monitoring");
 
-if (wfTask == "Close" && wfStatus == "Closed" ) {
+if (wfTask == "Inspection" && wfStatus == "Final Inspection Complete" ) {
  checkSprinklerHeadAndCancel();
 }
 

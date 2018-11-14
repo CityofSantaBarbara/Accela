@@ -1,6 +1,6 @@
 // ********************************************************************************************************
 // Script 		BATCH_PERMIT_ABOUT_TO_EXPIRE.js
-//
+//			script # 12
 //
 // Record Types: BLD
 //
@@ -20,7 +20,7 @@
 // Change Log
 //				Date		Name		Modification
 //				08-22-2018	Chad		Initial Draft
-//				11-02-2018	Chad		Changed email from to use agency lookup 
+//				11-02-2018	Chad		Changed FROM email
 // ********************************************************************************************************
 
 
@@ -180,7 +180,7 @@ try {
 logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
 
 if (emailAddress.length)
-	aa.sendMail(scriptAgencyEmailFrom, emailAddress, "", batchJobName + " Results", emailText);
+	aa.sendMail(mailFrom, emailAddress, "", batchJobName + " Results", emailText);
 
 /*------------------------------------------------------------------------------------------------------/
 | <===========END=Main=Loop================>

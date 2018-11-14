@@ -5,6 +5,8 @@
 | Usage   : Accela Custom Includes.  Required for all Custom Parameters
 |
 | Notes   : 
+|              11-02-2018: CW - added scriptAgencyEmailFrom so that we can use this to 
+|                               send all email message from scripts FROM this variable
 |
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
@@ -18,7 +20,10 @@ if(vEventName.equals("FeeEstimateAfter4ACA"))
 | END Custom Parameters
 /------------------------------------------------------------------------------------------------------*/
 
-if (matches(currentUserID, "ADMIN", "JJACKSON", "CWEIFFENBACH", "EKOONTZ","AHARDY","EJUST","MDOUVILLE","ANARES","TBOLTON")) {
+if (matches(currentUserID, "ADMIN", "JJACKSON", "CWEIFFENBACH", "EKOONTZ","AHARDY","EJUST","MDOUVILLE","ANARES","TBOLTON","MDurousseau", "DKATO")) 
+{
 showDebug = 3;
 showMessage = true;
 }
+
+var scriptAgencyEmailFrom = lookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");

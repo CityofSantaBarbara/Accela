@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program : CommunicationReceivingEmailAfterV3.0.js
+| Program : CommunicationReceivingEmailAfter_SLS.js
 | Event   : CommunicationReceivingEmailAfter
 |
 | Usage   : CommunicationReceivingEmailAfter master script
@@ -8,6 +8,9 @@
 | Action# : N/A
 |
 | Notes   :
+|
+|
+|			CW: changing debug emails  - otherwise same as master script!
 |
 |
 /------------------------------------------------------------------------------------------------------*/
@@ -25,13 +28,14 @@
 sendDebugEmail = true;
 debugEmailAddress = "chad@esilverliningsolutions.com";
 
+
 // set the bounceback subject and body
 bouncebackSubject = "Your message could not be accepted: ";
 bouncebackBody = "Please make sure the Record ID #XXXXXX is in the subject line when replying to a message. ";
 
 var controlString = "CommunicationReceivingEmailAfter"; 				// Standard choice for control
-var showMessage = false;		// Set to true to see results in popup window
-var showDebug = false;			// Set to true to see debug messages in popup window
+var showMessage = true;		// Set to true to see results in popup window
+var showDebug = true;			// Set to true to see debug messages in popup window
 var disableTokens = false;		// turn off tokenizing of std choices (enables use of "{} and []")
 var useAppSpecificGroupName = false;	// Use Group name when populating App Specific Info Values
 var useTaskSpecificGroupName = false;	// Use Group name when populating Task Specific Info Values
@@ -113,6 +117,8 @@ logDebug("SCRIPT VERSION : " + SCRIPT_VERSION);
 
 var prefix = lookup("EMSE_VARIABLE_BRANCH_PREFIX",vEventName);
 
+var scriptAgencyEmailFrom = "acceladev@santabarbaraca.gov";
+
 var controlFlagStdChoice = "EMSE_EXECUTE_OPTIONS";
 var doStdChoices = true;  // compatibility default
 var doScripts = false;
@@ -145,43 +151,91 @@ function associateMessagesToRecords(messages)
 {
 	if(messages){
 		var i = 0;  var len = messages.length; 
+		logDebug("<br> PROCESSING "+len+" MESSAGES THIS TIME!");
+		var assocSuccessCnt = 0;
 		while(i < len)
 		{
+			logDebug("<br> Now processing message number:"+i);
 			var message = messages[i];
 			var content = message.getTitle();
-			var cmId = message.getCmId();
-			var altId = parseAltIdFromContent(content);
-			var messageBody = message.getContent();
-			var messageModel = message.getModel();
-			var messageFrom = messageModel.getFromString();
-			var messageTo = messageModel.getToString();
+
+//			var checkForAutoReply =  content.indexOf("Automatic reply");
+//			var checkForUndeliver =  content.indexOf("Undeliver");
+//			var checkForNotDeliver =  content.indexOf("Your message could not be accepted");
 			
-			var altIdResult= new String(parseAltIdFromContent(content));
-			var altIdMatch = altIdResult.split(',');
-			logDebug("Subject: " + content);
-			logDebug("Record ID from the Subject Line: " + altIdMatch);
+			var checkIgnoreStrs = lookup("EMAIL_SUBJECTS_TO_IGNORE_INBOUND","Subjects to Ignore");
+			var checkIgnoreStrsArr = checkIgnoreStrs.split("|");
+
+			var checkForAutoReply = -1; var subjToCheck = content.toLowerCase();
+
 			
-			var altId = altIdMatch[1];
-			if (altId)
-			{
-				aa.communication.associateEnities(cmId, altId, 'RECORD');
-				logDebug("Successfully associated message with Record: " + altId);
-				return true;
-			}
-			else
-			{
-				logDebug("Record ID not found, sending bounce back email.");
-				email(messageFrom, messageTo, bouncebackSubject + ": " + content, bouncebackBody + ": <br><br>" + messageBody);
+			for ( ig in checkIgnoreStrsArr ) {
+				var thisSubjIgnore = checkIgnoreStrsArr[ig].toLowerCase();
+
+				var checkForAutoReply =  content.toLowerCase().indexOf(thisSubjIgnore);
 				
-				if (sendDebugEmail)
-				{
-					email(debugEmailAddress, messageTo, "Debug log from CommunicationReceivingEmailAfter Event Script", debug);
-				}
-						
-				return false;
+				logDebug("just subject ignore checked for >"+thisSubjIgnore+"< and the index counter is:"+checkForAutoReply);
+				
+				if ( checkForAutoReply >= 0 ) break;
 			}
-			i++;						
+			
+			if ( checkForAutoReply < 0 ) {
+				var cmId = message.getCmId();
+				var altId = parseAltIdFromContent(content);
+				var messageBody = message.getContent();
+				var messageModel = message.getModel();
+				var messageFrom = messageModel.getFromString();
+				var messageTo = messageModel.getToString();
+
+			
+				if (altId)
+				{
+					var altIdResult= new String(parseAltIdFromContent(content));
+					var altIdMatch = altIdResult.split(',');
+					var altIdStrArr = altIdMatch[1].split(' ');
+					var altId = altIdStrArr[0].toUpperCase();
+					logDebug("<br> Subject: " + content);
+					logDebug("<br> Record ID from the Subject Line: " + altId);
+					logDebug("<br> msg from:"+messageFrom);
+					logDebug("<br> msg Body:"+messageBody);
+
+					aa.communication.associateEnities(cmId, altId, 'RECORD');
+					logDebug("<br> Successfully associated message with Record: " + altId + " TO THE COMM ID:"+cmId);
+					assocSuccessCnt += 1; 
+//					break;
+				}
+				else
+				{
+					logDebug("<br> Record ID not found, sending bounce back email.");
+					email(messageTo, scriptAgencyEmailFrom, bouncebackSubject + ": " + content, bouncebackBody + ": <br><br>" + messageBody);
+//					break;
+				}
+			}
+			i++;
 		}
+	}
+	if (sendDebugEmail)
+	{
+		var bugDteObj = new Date();
+		var bugDte = new String(convertDate(bugDteObj));
+//		var bugDte = "11-09-2018 at the time I say";
+		var debugTitle = "";
+		debugTitle += "Debug log from CREA_SLS Event Script on " + bugDte;
+		
+		logDebug("<br>"+"trying to send an DEBUG email from inside **CommunicationReceivingEmailAfter_SLS.associateMessagesToRecords **");
+		logDebug("<br>"+">>>>>>>>>>>>>> debugEmailAddress:"+debugEmailAddress);
+		logDebug("<br>"+">>>>>>>>>>>>>> scriptAgencyEmailFrom:"+scriptAgencyEmailFrom);
+		logDebug("<br>"+">>>>>>>>>>>>>> debugTitle:"+debugTitle);
+		logDebug("<br>"+">>>>>>>>>>>>>> assocSuccessCnt:"+assocSuccessCnt);
+		
+//		email(debugEmailAddress, scriptAgencyEmailFrom, "no debug date in CommunicationReceivingEmailAfter_SLS.associateMessagesToRecords", debug);
+		email(debugEmailAddress, scriptAgencyEmailFrom, debugTitle, debug);
+	}
+	if ( assocSuccessCnt > 0 ) {
+		return true;
+	}
+	else {
+		return false;
 	}
 }
 
@@ -190,12 +244,17 @@ function parseAltIdFromContent(content)
 {       
 		//This is just a sample.
 		//Note, please customize the RegExp for actual AlternateID.
-        var altIdFormat = /Record ID #(.*\w)+/; 		
+        var altIdFormat = /Record ID #([a-zA-Z]{3}\d+-\d+)+/ig;
+//        var altIdFormat = /Record ID #(.*\w)+/; 		this is original from Accela
 		var result = altIdFormat.exec(content);
 		if(result){
 			return result;
 		}
-		aa.print('No record id has been parsed from content.');
+		else {
+			aa.print('No record id has been parsed from content.'+content);
+			logDebug('No record id has been parsed from content. content was:'+content);
+			return null;
+		}
 }
 /*------------------------------------------------------------------------------------------------------/
 | BEGIN Event Specific Variables
@@ -224,6 +283,24 @@ if (doStdChoices) doStandardChoiceActions(controlString,true,0);
 
 if (doScripts) include(prefix + ":" + "*/*/*/*")
 //if (doScripts) doScriptActions();
+
+if (sendDebugEmail)
+{
+//	var bugDte = new Date();
+//	var bugDte = "11-09-2018 at the time I say";
+//	var debugTitle = "Debug log from CommunicationReceivingEmailAfter Event Script on " + bugDte;
+	
+//	logDebug("<br>"+"trying to send an DEBUG email from inside .CommunicationReceivingEmailAfter_SLS.associateMessagesToRecords");
+//	logDebug("<br>"+">>>>>>>>>>>>>> debugEmailAddress:"+debugEmailAddress);
+//	logDebug("<br>"+">>>>>>>>>>>>>> scriptAgencyEmailFrom:"+scriptAgencyEmailFrom);
+//	logDebug("<br>"+">>>>>>>>>>>>>> debugTitle:"+debugTitle);
+	
+//	aa.print(debug);
+//	email(debugEmailAddress, scriptAgencyEmailFrom, debugTitle, debug);
+//	email(debugEmailAddress, scriptAgencyEmailFrom, "no debug date in CommunicationReceivingEmailAfter_SLS", debug);
+}
+
+
 
 aa.env.setValue("ScriptReturnCode","0");
 aa.env.setValue("ScriptReturnMessage",'The output below:');

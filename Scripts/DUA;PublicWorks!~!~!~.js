@@ -15,7 +15,7 @@
 // 				use Document Update Notification template created by Eric K
 
 //				if wftask = "Returned to Applicant" or "Incomplete to Applicant"
-//				  then  activateTask(City task)
+//				  then  closeTask(City task)
 //
 //Created By: Silver Lining Solutions / City of SB - Adam Nares
 //********************************************************************************************************
@@ -24,26 +24,32 @@
 //				08/22/2018	Adam Nares		Initial Development
 //				08/31/2018  Adam Nares		Added taskStatus to get only if "Returned to Applicant" 
 //				09/17/2018  Adam Nares		closing task with "Re-Submittal Received"
+//				09/17/2018 	Adam Nares		Added "Incomplete to Applicant" task 
+//				09/18/2018 	Adam Nares		Using isTaskStatus function
 //********************************************************************************************************
 */
 logDebug("*******Script 19 to Applicant - Resubmittal Received ACA********");
 
-// This function gets the two tasks "Returned to Applicant" and "Incomplete to Applicant"
-//function getTask (taskName)
-//{
 	var taskName = "Returned to Applicant";
-	activateTask(taskName);
-// gets task status .. don't want this to run if null or resub already received
-	var taskSts = taskStatus(taskName);
-
-	//if (taskSts == "Returned to Applicant")
-	//{
-		var RSRd = "Re-Submittal received"; //task status
-		//updateTask(taskName,RSRd,"auto updated by script","auto updated by script");
-		closeTask(taskName,RSRd,"auto updated by script","auto updated by script");
-	//}
+	var taskSts = "Returned to Applicant";
+	var taskName2 = "Incomplete to Applicant"; 
+	var taskSts2 = "Incomplete to Applicant";
+	var RSRd = "Re-Submittal received"; //task status
+	
+	if (isTaskActive(taskName) == true) // checks to see if "Returned to Applicant" is active
+	{
+	
+		if (isTaskStatus(taskName,taskSts) == true) // checks to see if "Returned to Applicant" is active
+		{
+			closeTask(taskName,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
+		}
+	}
+	if (isTaskActive(taskName2) == true) //checks to see if "Incomplete to Applicant" is active
+	{
+		if (isTaskStatus(taskName2,taskSts2) == true) // checks to see if "Incomplete to Applicant" is active
+		{
+			closeTask(taskName2,RSRd,"auto updated by script","auto updated by script"); //closes task and goes to next task in workflow
+		}
+	}	
+	
 logDebug("***Script 19 - End***");
-//}
-
-//getTask("Returned to Applicant");
-//getTask("Incomplete to Applicant");
