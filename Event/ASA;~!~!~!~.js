@@ -40,7 +40,7 @@ if (thisExpModelList.getSuccess()) {
 				comment("setting active AND setting expire date to:"+newExpDate);
 
 				// update asi 
-				logDebug(altId + ": updating ASI Application Expiration Date to:" + newExpDate);
+				logDebug("updating ASI Application Expiration Date to:" + newExpDate);
 				editAppSpecific("Application Expiration Date",newExpDate);
 			}
 		} 
