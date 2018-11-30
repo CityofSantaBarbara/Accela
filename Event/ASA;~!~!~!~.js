@@ -37,6 +37,10 @@ if (thisExpModelList.getSuccess()) {
 				thisExpModel.setExpDate(aa.date.parseDate(newExpDate));
 				var result = aa.expiration.editB1Expiration(thisExpModel.getB1Expiration());
 				comment("setting active AND setting expire date to:"+newExpDate);
+
+				// update asi 
+				logDebug(altId + ": updating ASI Application Expiration Date to:" + newExpDate);
+				editAppSpecific("Application Expiration Date",newExpDate);
 			}
 		} 
 	}
