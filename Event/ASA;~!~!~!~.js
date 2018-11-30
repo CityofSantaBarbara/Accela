@@ -14,6 +14,7 @@
 //			08-08-2018	Chad			changed header, can't have slash star in headers
 //			11-12-2018	Chad			Added logic for Script 90
 // ********************************************************************************************************
+logDebug("Start of ASA:*/*/*/*");
 
 var GISService = "SANTABARBARA";
 
@@ -94,5 +95,5 @@ mapGISAttribToASI("SANTABARBARA", "FEMA Flood 2015", "FLD_ZONE", "Flood Zone");
 // parcel sq ft
 mapGISAttribToASI("SANTABARBARA", "Assessors Parcels", "Shape.STArea()", "Parcel Sq Ft");
 
-
+logDebug("END of ASA:*/*/*/*");
 
