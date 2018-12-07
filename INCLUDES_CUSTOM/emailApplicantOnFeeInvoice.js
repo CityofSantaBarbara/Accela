@@ -13,8 +13,9 @@
 //Created By: Silver Lining Solutions 
 //********************************************************************************************************
 // Change Log
-//         		Date		Name			Modification
-//				09/11/2018	Eric			orig
+//         		Date		Name		Modification
+//			09/11/2018	Eric		orig
+//			112/07/2018	Chad		took out "return null" when no staff found, send email anyway
 //********************************************************************************************************
 function emailApplicantOnFeeInvoice()
 {
@@ -35,6 +36,15 @@ function handleFeeInvoiceNotificationEmail()
 	var emailParameters = aa.util.newHashtable();
 	var staff = null;
 	
+	// prepare Notification parameters
+	addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
+	addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
+
+	// fee invoice specific information: use these objects if you want to include fee info in email
+	//	printObjProperties(FeeObjs); 
+	//	printObjProperties(FeeObjs[0]);
+
+	
 	// ensure that we have an assigned staff that will be notified
 	staff = getRecordAssignedStaffEmail();
 	if (staff){ccEmail += "; " + staff; logDebug("ccEmail: " + ccEmail);}
@@ -42,7 +52,7 @@ function handleFeeInvoiceNotificationEmail()
 	if (staff == "")
 	{
 		logDebug("No Staff identified for notification");
-		return null;
+//		return null;
 	}
 
 	// get the Applicant email
@@ -53,24 +63,22 @@ function handleFeeInvoiceNotificationEmail()
 	{
 		var Contacts = capContactResult.getOutput();
 		for (yy in Contacts)
+		{
 			if (contactType.equals(Contacts[yy].getCapContactModel().getPeople().getContactType()))
+			{
 				if (Contacts[yy].getEmail() != null)
+				{
 					toEmail = "" + Contacts[yy].getEmail();
+
+					// send Notification
+					var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
+					if (!sendResult) { logDebug("UNABLE TO SEND NOTICE!  ERROR: "+ sendResult); }
+					else { logDebug("Sent Notification"); }  
+				}
+			}
+		}
 	}
 
-	// prepare Notification parameters
-	addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
-	addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
-
-	// fee invoice specific information
-	printObjProperties(FeeObjs);
-	printObjProperties(FeeObjs[0]);
-	// send Notification
-	var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
-	if (!sendResult) 
-		{ logDebug("UNABLE TO SEND NOTICE!  ERROR: "+ sendResult); }
-	else
-		{ logDebug("Sent Notification"); }  
 
 }
 
