@@ -1,6 +1,10 @@
 function updatePLNConditiontemplateDates() {
-	logDebug("START updatePLNConditiontemplateDates");
+	logDebug("inside updatePLNConditiontemplateDates and the date to add to is:"+updatePLNCondDateTo);
 
+	// added this little gem because dateAddHC3 is altering the date you send in.
+	var safeDateKeeper = new Date(updatePLNCondDateTo);
+	var fixaDate = null;							
+	
 	var myEntity = conditionObj.getEntityPK();
 	var chkIssuedDate = conditionObj.getIssuedDate();
 	var chkCondType = conditionObj.getConditionType();
@@ -31,7 +35,9 @@ function updatePLNConditiontemplateDates() {
 							// Look up the number of days to add or subtract
 							var daysToAddToIssueDate = null;
 							var theValueName = sgrpName + "." + fields[fld].getFieldName();
+							logDebug("going to look up PLN_PC_HEARING_GTMP_DATEADD for value:"+theValueName);
 							daysToAddToIssueDate = lookup("PLN_PC_HEARING_GTMP_DATEADD", theValueName);
+							logDebug("the days to add based on lookup ->" + theValueName + "< is:" + daysToAddToIssueDate);
 							
 							if (daysToAddToIssueDate) {
 								// create a new FieldPK object to use in the next aa.condition line
@@ -40,24 +46,34 @@ function updatePLNConditiontemplateDates() {
 									aFieldPK.groupName = fields[fld].getGroupName();
 									aFieldPK.subgroupName = fields[fld].getSubgroupName();
 								
+								fixaDate = new Date(safeDateKeeper);
+								logDebug("calling dateAddHC3 with this date:"+fixaDate+" which is of type:"+typeof fixaDate);
+								
+								//PLN has complicated things a bit.  They want to initially just adjust the date
+								//  based on the number of calendar days.  THEN check that date and if it falls on 
+								//  a non-working day, move it one more (positive or negative).
+								
+								var newGTmpDate = dateAddHC3(fixaDate,parseInt(daysToAddToIssueDate));
+								logDebug("okay before we check holidays the date is:"+newGTmpDate);
+								if (checkHolidayCalendar(newGTmpDate)) {
+									logDebug("OOPS that day is a Non Working Day Silly!");
+									if (parseInt(daysToAddToIssueDate) > 0) {
+										logDebug("The days to add is a positive number - Lets move FORWARD to a working day.");
+										var newGTmpDate2 = dateAddHC3(newGTmpDate,1,"Y");
+									}
+									else {
+										logDebug("The days to add is a negative number or zero - Lets move BACKWARD to a working day.");
+										var newGTmpDate2 = dateAddHC3(newGTmpDate,-1,"Y");
+									}
+									newGTmpDate = newGTmpDate2;
+								}
+								
 								// use dateAddHC3 with the lookup days to set the date 
-								var newGTmpDate = dateAddHC3(chkIssuedDate,daysToAddToIssueDate,"Y");
-								logDebug("After calling dateAddHC3 we have:"+newGTmpDate);
+								
+								logDebug("After ALL THOSE DATE CHECKS we have:"+newGTmpDate);
 								
 								// set the date 
 								aa.condition.editField4TemplateForm(myEntity,aFieldPK, newGTmpDate);
-								
-								// Potentially right here we'll need a look up to the ASIT for each Gtmp Field to
-								// populate a list on the record ... if that is still needed!
-
-										// look up the ASIT for this field 
-										// create an ASIT row for the myEntity (the condition) 
-											// each column in the ASIT is the field list here 
-											
-										// we could make this generic by looking at the controlstring for the event
-										// and if its an update we update the appropriate ASIT row (replace it)
-										// otherwise we just add the new row
-								
 							}
 						}
 					}
@@ -65,5 +81,4 @@ function updatePLNConditiontemplateDates() {
 			}
 		}
 	}
-	logDebug("END updatePLNConditiontemplateDates");
 }
