@@ -44,7 +44,7 @@ function updatePLNConditiontemplateDates() {
 								//  based on the number of calendar days.  THEN check that date and if it falls on 
 								//  a non-working day, move it one more (positive or negative).
 								
-								var newGTmpDate = dateAddHC3(chkIssuedDate,parseInt(daysToAddToIssueDate));
+								var newGTmpDate = new Date(dateAddHC3(chkIssuedDate,parseInt(daysToAddToIssueDate)));
 								logDebug("okay before we check holidays the date is:"+newGTmpDate);
 								if (checkHolidayCalendar(newGTmpDate)) {
 									logDebug("OOPS that day is a Non Working Day Silly!");
