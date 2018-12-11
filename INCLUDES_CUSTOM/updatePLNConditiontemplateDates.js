@@ -1,11 +1,6 @@
-function updatePLNConditiontemplateDates(updatePLNCondDateTo) {
-	logDebug("inside updatePLNConditiontemplateDates and the date to add to is:"+updatePLNCondDateTo);
-	
-	
-	// added this little gem because dateAddHC3 is altering the date you send in.
-	var safeDateKeeper = new Date(updatePLNCondDateTo);
-	var fixaDate = null;							
-	
+function updatePLNConditiontemplateDates() {
+	logDebug("START updatePLNConditiontemplateDates");
+
 	var myEntity = conditionObj.getEntityPK();
 	var chkIssuedDate = conditionObj.getIssuedDate();
 	var chkCondType = conditionObj.getConditionType();
@@ -36,9 +31,7 @@ function updatePLNConditiontemplateDates(updatePLNCondDateTo) {
 							// Look up the number of days to add or subtract
 							var daysToAddToIssueDate = null;
 							var theValueName = sgrpName + "." + fields[fld].getFieldName();
-							logDebug("going to look up PLN_PC_HEARING_GTMP_DATEADD for value:"+theValueName);
 							daysToAddToIssueDate = lookup("PLN_PC_HEARING_GTMP_DATEADD", theValueName);
-							logDebug("the days to add based on lookup ->" + theValueName + "< is:" + daysToAddToIssueDate);
 							
 							if (daysToAddToIssueDate) {
 								// create a new FieldPK object to use in the next aa.condition line
@@ -47,12 +40,8 @@ function updatePLNConditiontemplateDates(updatePLNCondDateTo) {
 									aFieldPK.groupName = fields[fld].getGroupName();
 									aFieldPK.subgroupName = fields[fld].getSubgroupName();
 								
-								fixaDate = new Date(safeDateKeeper);
-								logDebug("calling dateAddHC3 with this date:"+fixaDate+" which is of type:"+typeof fixaDate);
-								
 								// use dateAddHC3 with the lookup days to set the date 
-								var newGTmpDate = dateAddHC3(fixaDate,daysToAddToIssueDate,"Y");
-								
+								var newGTmpDate = dateAddHC3(chkIssuedDate,daysToAddToIssueDate,"Y");
 								logDebug("After calling dateAddHC3 we have:"+newGTmpDate);
 								
 								// set the date 
@@ -76,4 +65,5 @@ function updatePLNConditiontemplateDates(updatePLNCondDateTo) {
 			}
 		}
 	}
+	logDebug("END updatePLNConditiontemplateDates");
 }
