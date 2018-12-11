@@ -2,32 +2,19 @@
 // Script 		ACUA:~/~/~/~.js
 // Record Types: all
 //
-// Event: 	ACUA	
+// Event: 	ACAA	
 //
 // Desc:	this script is for app submit global actions
 //
 // Created By: Silver Lining Solutions
 // ********************************************************************************************************
 // Change Log
-//         		Date		Name			Modification
-//				9/12/2018	Eric			Orig
+//         		Date		Name		Modification
+//				09/12/2018	Eric		Orig
+//				12/10/2018	Chad		calling updatePLNConditiontemplateDates();
 // ********************************************************************************************************
+logDebug("START of ACUA */*/*/* !");
 
-logDebug("ACUA Start");
-printObjProperties(conditionObj);
-var myCapConditionModel = conditionObj.getCapConditionModel();
-printObjProperties(myCapConditionModel);
-var myTemplate = myCapConditionModel.getTemplate();
-printObjProperties(myTemplate);
-logDebug("ACUA End");
-var templateForms = myTemplate.getTemplateForms();
-var pk = myTemplate.getEntityPKModel();
-printObjProperties(pk);
-printObjProperties(templateForms);
+updatePLNConditiontemplateDates();
 
-var condScript = aa.condition.getNewConditionScriptModel();
-printObjProperties(condScript);
-var mycs = condScript.getOutput();
-printObjProperties(mycs);
-var genTemp = aa.template.getTemplate(pk);
-printObjProperties(genTemp);
+logDebug("END of ACUB */*/*/* !");
