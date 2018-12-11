@@ -58,15 +58,15 @@ function updatePLNConditiontemplateDates() {
 										logDebug("The days to add is a negative number or zero - Lets move BACKWARD to a working day.");
 										var newGTmpDate2 = dateAddHC3(newGTDate,-1,"Y");
 									}
-									newGTmpDate = newGTmpDate2;
+									newGTDate = newGTmpDate2;
 								}
 								
 								// use dateAddHC3 with the lookup days to set the date 
 								
-								logDebug("After ALL THOSE DATE CHECKS we have:"+newGTmpDate);
+								logDebug("After ALL THOSE DATE CHECKS we have:"+newGTDate);
 								
 								// set the date 
-								aa.condition.editField4TemplateForm(myEntity,aFieldPK, newGTmpDate);
+								aa.condition.editField4TemplateForm(myEntity,aFieldPK, newGTDate);
 							}
 						}
 					}
