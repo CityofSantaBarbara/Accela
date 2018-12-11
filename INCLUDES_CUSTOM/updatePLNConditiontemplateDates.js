@@ -1,10 +1,6 @@
 function updatePLNConditiontemplateDates() {
-	logDebug("inside updatePLNConditiontemplateDates and the date to add to is:"+updatePLNCondDateTo);
+	logDebug("START updatePLNConditiontemplateDates");
 
-	// added this little gem because dateAddHC3 is altering the date you send in.
-	var safeDateKeeper = new Date(updatePLNCondDateTo);
-	var fixaDate = null;							
-	
 	var myEntity = conditionObj.getEntityPK();
 	var chkIssuedDate = conditionObj.getIssuedDate();
 	var chkCondType = conditionObj.getConditionType();
@@ -35,9 +31,7 @@ function updatePLNConditiontemplateDates() {
 							// Look up the number of days to add or subtract
 							var daysToAddToIssueDate = null;
 							var theValueName = sgrpName + "." + fields[fld].getFieldName();
-							logDebug("going to look up PLN_PC_HEARING_GTMP_DATEADD for value:"+theValueName);
 							daysToAddToIssueDate = lookup("PLN_PC_HEARING_GTMP_DATEADD", theValueName);
-							logDebug("the days to add based on lookup ->" + theValueName + "< is:" + daysToAddToIssueDate);
 							
 							if (daysToAddToIssueDate) {
 								// create a new FieldPK object to use in the next aa.condition line
@@ -46,14 +40,11 @@ function updatePLNConditiontemplateDates() {
 									aFieldPK.groupName = fields[fld].getGroupName();
 									aFieldPK.subgroupName = fields[fld].getSubgroupName();
 								
-								fixaDate = new Date(safeDateKeeper);
-								logDebug("calling dateAddHC3 with this date:"+fixaDate+" which is of type:"+typeof fixaDate);
-								
-								//PLN has complicated things a bit.  They want to initially just adjust the date
+								//  PLN wants to initially just adjust the date
 								//  based on the number of calendar days.  THEN check that date and if it falls on 
 								//  a non-working day, move it one more (positive or negative).
 								
-								var newGTmpDate = dateAddHC3(fixaDate,parseInt(daysToAddToIssueDate));
+								var newGTmpDate = dateAddHC3(chkIssuedDate,parseInt(daysToAddToIssueDate));
 								logDebug("okay before we check holidays the date is:"+newGTmpDate);
 								if (checkHolidayCalendar(newGTmpDate)) {
 									logDebug("OOPS that day is a Non Working Day Silly!");
