@@ -15,4 +15,5 @@
 //        12/11/2018  Chad    PLN no longer wants updatePLNConditiontemplateDates to run after testing
 // ********************************************************************************************************
 logDebug("START of ACUA */*/*/* !");
-logDebug("END of ACUB */*/*/* !");
+  updatePLNConditiontemplateDates();
+logDebug("END of ACUA */*/*/* !");
