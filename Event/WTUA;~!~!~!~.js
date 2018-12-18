@@ -19,7 +19,11 @@
 // Change Log
 //         		Date		Name			Modification
 //				08/15/2018	Eric 			Initial Development
+//				12/18/2018  Eric			Addition of the Notification Script
 //********************************************************************************************************
+logDebug("Script 89 Notification Automation - Begin");
+notification("Workflow");
+logDebug("Script 89 Notification Automation - End");
 
 logDebug("************* workflow revisions required email ****************");
 // ensure that we have an assigned staff that will be notified
