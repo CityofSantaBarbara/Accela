@@ -51,7 +51,7 @@ function appTypePriorityLookup(lookupTableName,lookupValue,appType)
 	// perform lookup with 3 levels of appType wild cards
 	if (!lookupResult)
 	{
-		lookupString = appTypeArray[0] + "/*/*/*" + "|" + lookupValue;}
+		lookupString = appTypeArray[0] + "/*/*/*" + "|" + lookupValue;
 		logDebug("lookupString = " + lookupString);
 		lookupResult = lookup(lookupTableName, lookupString);
 		logDebug("3 Wild lookupValue = " + lookupValue);	
@@ -60,7 +60,7 @@ function appTypePriorityLookup(lookupTableName,lookupValue,appType)
 	// perform lookup with 4 levels of appType wild cards
 	if (!lookupResult)
 	{
-		lookupString = "*/*/*/*" + "|" + lookupValue;}
+		lookupString = "*/*/*/*" + "|" + lookupValue;
 		logDebug("lookupString = " + lookupString);
 		lookupResult = lookup(lookupTableName, lookupString);
 		logDebug("3 Wild lookupValue = " + lookupValue);	
