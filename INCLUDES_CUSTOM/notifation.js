@@ -51,7 +51,6 @@
 //********************************************************************************************************
 function notification(triggerEvent)
 {
-	logDebug("notification - Begin");
 
 	var fromEmail = "noreply@SantaBarbaraCA.gov";
 	var toEmail = "";
@@ -70,101 +69,6 @@ function notification(triggerEvent)
 	logDebug("controlString = " + controlString);
 	logDebug("triggerEvent = " + triggerEvent);
 		
-	emailParameters = notificationParamBuild(emailParameters);
-
-	/* based on what triggered the notification lookup, set the proper
-	lookup value */
-	if (triggerEvent == "Workflow")	{
-		lookupValue = wfTask + "|" + wfStatus;
-		emailParameters = notificationParamWFBuild(emailParameters);
-	}
-	else if (triggerEvent == "Inspection") {
-		lookupValue = inspGroup + "|" + inspType + "|" + inspResult;
-		emailParameters = notificationParamInspBuild(emailParameters);
-	}
-	else if (triggerEvent == "AppSubmit") {
-		lookupValue = inspGroup + "|" + inspType + "|" + inspResult;
-		emailParameters = notificationParamAppBuild(emailParameters);
-	}
-		
-	var lookupResult = appTypePriorityLookup(lookupTable,lookupValue,appTypeString);
-	logDebug("lookupResult: " + lookupResult);
-	if (lookupResult)
-	{
-		var lookupResultArray = lookupResult.split("|");
-		notificationTemplateName = lookupResultArray[0];
-		var toEmailList=lookupResultArray[1];
-		var ccEmailList=lookupResultArray[2];
-		
-		ccEmail = notificationDistributionBuild(ccEmailList);
-		toEmail = notificationDistributionBuild(toEmailList);
-	
-	// send Notification
-		var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplateName,emailParameters,reportFile,capID4Email);
-		if (!sendResult) 
-			{ logDebug("UNABLE TO SEND NOTICE!  ERROR: "+sendResult); }
-		else
-			{ logDebug("Sent Notification"); }  
-	}		
 	
 	logDebug("notification - End");
-}
-
-function notificationParamBuild(emailParameters)
-{
-	addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
-	addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
-
-	return emailParameters;
-}
-
-function notificationParamAppBuild(emailParameters)
-{
-	return emailParameters;
-}
-
-function notificationParamInspBuild(emailParameters)
-{
-	return emailParameters;
-}
-
-function notificationParamWFBuild(emailParameters)
-{
-	return emailParameters;
-}
-
-function notificationDistributionBuild(emailList)
-{
-	var emailListArray = emailList.split(",");
-	for (var i, i<=emailList.length,i++)
-	{
-		if (emailListArray[i] == "AppStaff")
-		{
-			var staff = getRecordAssignedStaffEmail();
-			if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
-		}
-		else if (emailListArray[i] == "WFStaff")
-		{
-			var staff = getTaskAssignedStaffEmail("Plans Distribution");
-			if (staff){toEmail += "; " + staff; logDebug("toEmail: " + toEmail);}
-		}
-		else
-		{
-			var contactType = emailListArray[i];
-			var capContactResult = aa.people.getCapContactByCapID(capId);
-			if (capContactResult.getSuccess())
-			{
-				var Contacts = capContactResult.getOutput();
-				for (yy in Contacts)
-					if (contactType.equals(Contacts[yy].getCapContactModel().getPeople().getContactType()))
-						if (Contacts[yy].getEmail() != null)
-						{
-							toEmail += ";" + Contacts[yy].getEmail();
-							logDebug("toEmail: " + toEmail);
-						}
-			}
-		}
-	}
-
-	return toEmail;
 }
