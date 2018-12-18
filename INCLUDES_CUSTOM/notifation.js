@@ -51,7 +51,7 @@
 //********************************************************************************************************
 function notification(triggerEvent)
 {
-	logDebug("Script 89 Notification Automation - Begin");
+	logDebug("notification - Begin");
 
 	var fromEmail = "noreply@SantaBarbaraCA.gov";
 	var toEmail = "";
@@ -107,7 +107,7 @@ function notification(triggerEvent)
 			{ logDebug("Sent Notification"); }  
 	}		
 	
-	logDebug("Script 89 Notification Automation - End");
+	logDebug("notification - End");
 }
 
 function notificationParamBuild(emailParameters)
@@ -136,7 +136,7 @@ function notificationParamWFBuild(emailParameters)
 function notificationDistributionBuild(emailList)
 {
 	var emailListArray = emailList.split(",");
-	for (var i, i<=emailList.length,i++);
+	for (var i, i<=emailList.length,i++)
 	{
 		if (emailListArray[i] == "AppStaff")
 		{
