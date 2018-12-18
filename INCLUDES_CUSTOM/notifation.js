@@ -52,7 +52,7 @@
 function notification(triggerEvent)
 {
 
-	var fromEmail = "noreply@SantaBarbaraCA.gov";
+	var fromEmail = lookup("SCRIPT_EMAIL_FROM","AGENCY_FROM");
 	var toEmail = "";
 	var ccEmail = "";
 	var notificationTemplateName = "";
