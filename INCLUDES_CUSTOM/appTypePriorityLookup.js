@@ -25,7 +25,7 @@ function appTypePriorityLookup(lookupTableName,lookupValue,appType)
 	var appTypeArray = appType.split("/");
 	
 	// start with full appType
-	var lookupString = appTypeString + "|" lookupValue;
+	var lookupString = appTypeString + "|" + lookupValue;
 	logDebug("lookupString = " + lookupString);
 	var lookupResult = lookup(lookupTableName, lookupString);
 	logDebug("Full lookupValue = " + lookupValue);
