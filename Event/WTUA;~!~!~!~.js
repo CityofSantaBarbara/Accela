@@ -47,7 +47,7 @@ logDebug("************* workflow revisions required email ****************");
 			if (toEmail.indexOf("@") > 0)
 				{
 				logDebug("Successfully sent email to " + contactType);
-				var fromEmail = "noreply@SantaBarbaraCA.gov";
+				var fromEmail = lookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");
 				var ccEmail = ""; //blank for now
 				var reportFile = [];  // empty set for the file list
 				var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
