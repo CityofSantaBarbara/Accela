@@ -1,0 +1,3 @@
+showMessage = true;
+validateDocument();
+
