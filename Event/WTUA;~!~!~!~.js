@@ -19,7 +19,8 @@
 // Change Log
 //         		Date		Name			Modification
 //				08/15/2018	Eric 			Initial Development
-//				12/18/2018  Eric			Addition of the Notification Script
+//				12/18/2018      Eric			Addition of the Notification Script
+//                              1/3/2019        Alec			Change to Corrections Required for status
 //********************************************************************************************************
 logDebug("Script 89 Notification Automation - Begin");
 notification("Workflow");
@@ -29,7 +30,7 @@ logDebug("************* workflow revisions required email ****************");
 // ensure that we have an assigned staff that will be notified
 //var staff = getTaskAssignedStaff("Plans Distribution");
 //if (staff)
-	if (wfStatus == "Revisions Required" && wfTask == "Plans Coordination") {
+	if (wfStatus == "Corrections Required" && wfTask == "Plans Coordination") {
 		logDebug("Found revisions required");
 		var contactType = "Applicant"
 		var toEmail = "";
