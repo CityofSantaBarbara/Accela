@@ -33,4 +33,5 @@ for (i = 0; i < recordDocArray.length; i++) {
 	printObjProperties(recDocModel);
 }
 
+validateDocument();
 logDebug("DUB - End - Script 59");
