@@ -289,8 +289,8 @@ function externalLP_CA_AT(licNum,rlpType,doPopulateRef,doPopulateTrx,itemCap)
 			var sta = stas.get(i);
 
 				if (sta.getAttribute("Desc").getValue()) editRefLicProfAttribute(licNum,"STATUS",unescape(sta.getAttribute("Desc").getValue()));
-
-				break; // only use first
+// cw: 01-07-2019 took this out, it appears the most recent is now the last status in the list
+//				break; // only use first
 				}
 				
 //  do this again for WC  
