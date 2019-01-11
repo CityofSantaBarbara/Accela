@@ -19,7 +19,7 @@ function getProximityAlert(svc,layer,attributeName, numDistance, distanceType )
 		return(gisVal);
 	}
 	catch (err) {
-		aa.print("A JavaScript Error occurred: function mapGISAttribToASI: " + err.message);
+		aa.print("A JavaScript Error occurred: function getProximityAlert: " + err.message);
 		aa.print(err.stack);
 	}	
 }
