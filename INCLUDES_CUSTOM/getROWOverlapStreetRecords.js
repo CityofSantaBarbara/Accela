@@ -12,8 +12,10 @@
 // Change Log
 //            Date        Name			Modification
 //            01-16-2019  Chad			Created
+//	      01-16-2019  Chad                  changed to check for b1_alt_id match
 //********************************************************************************************************
 function getROWOverlapStreetRecords( lStartDate, lEndDate, lStreetName, lStreetStartNum, lStreetEndNum ) {
+logDebug("START getROWOverlapStreetRecords");
 	try {
 		var matchedRecList =[];
 		
@@ -37,16 +39,18 @@ function getROWOverlapStreetRecords( lStartDate, lEndDate, lStreetName, lStreetS
 			var mStartNum	= rSet.getString("StartNum"); 
 			var mEndNum		= rSet.getString("EndNum"); 
 
-			var msgStr	=	"Potential Right of Way Work Conflicts at record:"+mB1_Alt_id
-						+	"<br>      starting:"+mWorkStart
-						+	"<br>      ending:"+mWorkEnd
-						+	"<br>      on street:"+mStreetName
-						+	"<br>      start address:"+mStartNum
-						+	"<br>      end address:"+mEndNum;
 						
-			matchedRecList.push(mB1_Alt_id);
-						
-			logDebug(msgStr);
+			if (mB1_Alt_id != cap.getCapModel().getAltID()) {
+				matchedRecList.push(mB1_Alt_id);
+				var msgStr	=	"Potential Right of Way Work Conflicts at record:"+mB1_Alt_id
+							+	"<br>      starting:"+mWorkStart
+							+	"<br>      ending:"+mWorkEnd
+							+	"<br>      on street:"+mStreetName
+							+	"<br>      start address:"+mStartNum
+							+	"<br>      end address:"+mEndNum;
+				logDebug(msgStr);
+			} else 
+				logDebug("it is the same ID for getaltId >"+cap.getCapModel().getAltID()+"< and mb1alt >"+mB1_Alt_id);			
 		cntr++;
 		} 
 		rSet.close(); 
@@ -59,5 +63,6 @@ function getROWOverlapStreetRecords( lStartDate, lEndDate, lStreetName, lStreetS
 //	logDebug("your rec list is:"+matchedRecList);
 	var unqRecMatches = uniqArray(matchedRecList);
 //	logDebug("your UNIQUE rec list is:"+unqRecMatches);	
+	logDebug("END getROWOverlapStreetRecords");
 	return (unqRecMatches);
 }
