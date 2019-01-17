@@ -21,7 +21,7 @@ function checkPBWRightOfWayConflicts () {
 		var searchWorkEnd = AInfo["Work End Date"]
 		tpbwRowAddresses = loadASITable("PBW_ROWADDRESS", capId);
 	}
-	else {
+	else if (publicUser && controlString != "ApplicationSubmitAfter") {
 		var acaAinfo = [];
 		loadAppSpecific4ACA(acaAinfo);
 		var searchWorkStart = acaAinfo["Work Start Date"];
