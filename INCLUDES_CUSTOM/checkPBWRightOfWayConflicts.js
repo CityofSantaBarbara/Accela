@@ -12,6 +12,7 @@
 // Change Log
 //            Date        Name			Modification
 //            01-16-2019  Chad			Created
+//            01-16-2019  Chad                  Added in publicUser logic
 //********************************************************************************************************
 function checkPBWRightOfWayConflicts () {
 // get the ASIT and attach GIS objectds based on their values!
@@ -26,7 +27,7 @@ function checkPBWRightOfWayConflicts () {
 		var searchWorkStart = acaAinfo["Work Start Date"];
 		var searchWorkEnd = acaAinfo["Work End Date"]
 		loadASITables4ACA();
-		if (typeof(PBW_ROWADDRESS) == “object”) {
+		if (typeof(PBW_ROWADDRESS) == "object") {
 			tpbwRowAddresses = PBW_ROWADDRESS;
 		}
 		else return false;
