@@ -78,15 +78,15 @@ var appTypeString = appTypeResult.toString();           // Convert application t
 var appTypeArray = appTypeString.split("/");            // Array of application type string
 // page flow custom code begin
 try{
-	comment("START ASA:Publicworks\ROWM\*\* ");
+	comment("START ASA:Publicworks!ROWM!*!* ");
 	checkPBWRightOfWayConflicts();
-	comment("END ASA:Publicworks\ROWM\*\* ");
+	comment("END ASA:Publicworks!ROWM!*!* ");
 	cancel=true;
 }
 catch(err){
     //cancel = true;
     //showDebug = 3;
-    logDebug("Error on custom pageflow ACA_FIRE_LOC_AND_CONTACT_INFO_BEFORE. Err: " + err);
+    logDebug("Error on custom pageflow ACA_PBW_CHECK_FOR_ROW_CONFLICTS. Err: " + err);
 }
 
 // page flow custom code end
