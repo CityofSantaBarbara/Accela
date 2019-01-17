@@ -34,6 +34,7 @@ function checkPBWRightOfWayConflicts () {
 		}
 		else return false;
 	}
+	else return false;
 	
 	overLapRecs = [];
 	
