@@ -25,10 +25,12 @@ function checkPBWRightOfWayConflicts () {
 	}
 	else if ( publicUser && (typeof controlString == "undefined")) {
 		var acaAinfo = new Array();
-		loadAppSpecific4ACA(acaAinfo, capId);
+//		loadAppSpecific4ACA(acaAinfo, capId);
+		loadAppSpecific4ACA(acaAinfo);
 		var searchWorkStart = acaAinfo["Work Start Date"];
 		var searchWorkEnd = acaAinfo["Work End Date"]
-		loadASITables4ACA(capId);
+//		loadASITables4ACA(capId);
+		loadASITables4ACA();
 		if (typeof(PBWROWADDRESS) == "object") {
 			tpbwRowAddresses = PBWROWADDRESS;
 		}
