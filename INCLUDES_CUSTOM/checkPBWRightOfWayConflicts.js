@@ -37,8 +37,8 @@ function checkPBWRightOfWayConflicts () {
 	if (tpbwRowAddresses && tpbwRowAddresses.length > 0) {
 		for ( asitRow in tpbwRowAddresses ) {
 			var asitStreetName = tpbwRowAddresses[asitRow]["Street Name"].toString().toUpperCase();
-			var asitStreetStartCheck = tpbwRowAddresses[asitRow]["Start #"].toString().toUpperCase();
-			var asitStreetEndCheck = tpbwRowAddresses[asitRow]["End #"].toString().toUpperCase();
+			var asitStreetStartCheck = tpbwRowAddresses[asitRow]["Start Num"].toString().toUpperCase();
+			var asitStreetEndCheck = tpbwRowAddresses[asitRow]["End Num"].toString().toUpperCase();
 
 			var thisRowRecList = getROWOverlapStreetRecords( searchWorkStart, searchWorkEnd, asitStreetName, asitStreetStartCheck, asitStreetEndCheck );
 
