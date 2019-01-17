@@ -18,24 +18,17 @@ function checkPBWRightOfWayConflicts () {
 // get the ASIT and attach GIS objectds based on their values!
 	var tpbwRowAddresses;
 	
+	controlString = undefined;
+	
 	if (!publicUser) {
 		var searchWorkStart = AInfo["Work Start Date"];
 		var searchWorkEnd = AInfo["Work End Date"]
-		tpbwRowAddresses = loadASITable4ACA("PBW_ROWADDRESS",cap);
+		tpbwRowAddresses = loadASITable("PBW_ROWADDRESS", capId);
 	}
 	else if ( publicUser && (typeof controlString == "undefined")) {
-		var acaAinfo = new Array();
-//		loadAppSpecific4ACA(acaAinfo, capId);
-		loadAppSpecific4ACA(acaAinfo);
-		var searchWorkStart = acaAinfo["Work Start Date"];
-		var searchWorkEnd = acaAinfo["Work End Date"]
-//		loadASITables4ACA(capId);
-//		loadASITables4ACA();
-		loadASITablesBefore();
-		if (typeof(PBWROWADDRESS) == "object") {
-			tpbwRowAddresses = PBWROWADDRESS;
-		}
-		else return false;
+		var searchWorkStart = AInfo["Work Start Date"];
+		var searchWorkEnd = AInfo["Work End Date"]
+		tpbwRowAddresses = loadASITable4ACA("PBW_ROWADDRESS",cap);
 	}
 	else return false;
 	
