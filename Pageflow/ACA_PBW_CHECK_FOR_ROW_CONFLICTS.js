@@ -14,8 +14,8 @@
 //            01-16-2019  Chad			Created
 //********************************************************************************************************
 
-var showMessage = false; // Set to true to see results in popup window
-var showDebug = false; // Set to true to see debug messages in popup window
+var showMessage = true; // Set to true to see results in popup window
+var showDebug = true; // Set to true to see debug messages in popup window
 var useAppSpecificGroupName = false; // Use Group name when populating App Specific Info Values
 var useTaskSpecificGroupName = false; // Use Group name when populating Task Specific Info Values
 var cancel = false;
@@ -78,9 +78,11 @@ var appTypeString = appTypeResult.toString();           // Convert application t
 var appTypeArray = appTypeString.split("/");            // Array of application type string
 // page flow custom code begin
 try{
-	comment("START ASA:Publicworks!ROWM!*!* ");
+	logDebug("START ASA:Publicworks!ROWM!*!* ");
+	logDebug("the cap is:"+cap);
+	logDebug("the cap typeof is:"+typeof cap);
 	checkPBWRightOfWayConflicts();
-	comment("END ASA:Publicworks!ROWM!*!* ");
+	logDebug("END ASA:Publicworks!ROWM!*!* ");
 	cancel=true;
 }
 catch(err){
