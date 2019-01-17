@@ -15,9 +15,22 @@
 //********************************************************************************************************
 function checkPBWRightOfWayConflicts () {
 // get the ASIT and attach GIS objectds based on their values!
-	var searchWorkStart = AInfo["Work Start Date"];
-	var searchWorkEnd = AInfo["Work End Date"]
-	tpbwRowAddresses = loadASITable("PBW_ROWADDRESS", capId);
+	if (!publicUser) {
+		var searchWorkStart = AInfo["Work Start Date"];
+		var searchWorkEnd = AInfo["Work End Date"]
+		tpbwRowAddresses = loadASITable("PBW_ROWADDRESS", capId);
+	}
+	else {
+		var acaAinfo = [];
+		loadAppSpecific4ACA(acaAinfo);
+		var searchWorkStart = acaAinfo["Work Start Date"];
+		var searchWorkEnd = acaAinfo["Work End Date"]
+		loadASITables4ACA();
+		if (typeof(PBW_ROWADDRESS) == “object”) {
+			tpbwRowAddresses = PBW_ROWADDRESS;
+		}
+		else return false;
+	}
 	
 	overLapRecs = [];
 	
@@ -39,6 +52,6 @@ function checkPBWRightOfWayConflicts () {
 	var unqOverLapRecs = uniqArray(overLapRecs);
 	var checkMsg = "<Font Color=RED>WARNING THERE ARE POTENTIALLY "+unqOverLapRecs.length+" OTHER PROJECTS THAT WILL CONFLICT WITH THIS WORK!"
 	+"<br>OTHER project ids are:<br>     "+unqOverLapRecs.join("<br>     ")+"</Font Color>";
-	logDebug(checkMsg);
+//	logDebug(checkMsg);
 	comment(checkMsg);
 }
