@@ -30,7 +30,8 @@ function checkPBWRightOfWayConflicts () {
 		var searchWorkStart = acaAinfo["Work Start Date"];
 		var searchWorkEnd = acaAinfo["Work End Date"]
 //		loadASITables4ACA(capId);
-		loadASITables4ACA();
+//		loadASITables4ACA();
+		loadASITablesBefore();
 		if (typeof(PBWROWADDRESS) == "object") {
 			tpbwRowAddresses = PBWROWADDRESS;
 		}
