@@ -199,20 +199,16 @@ var appTypeString = appTypeResult.toString();           // Convert application t
 var appTypeArray = appTypeString.split("/");            // Array of application type string
 
 */
-
+showMessage = true;
+//showDebug = true;
 // page flow custom code begin
 try{
-	emlText += "<br>" + "START ASA:Publicworks!ROWM!*!* ";
+	emlText += "<br>" + "START ACA_PBW_CHECK_FOR_ROW_CONFLICTS";
 	emlText += "<br>" + "the capId is:"+capId;
 	emlText += "<br>" + "the cap is:"+cap;
 	emlText += "<br>" + "the cap typeof is:"+typeof cap;
 
-
-
-
 	checkPBWRightOfWayConflicts();
-	emlText += "<br>" + "END ASA:Publicworks!ROWM!*!* ";
-	cancel=true;
 }
 catch(err){
     //cancel = true;
@@ -222,23 +218,27 @@ catch(err){
 }
 
 
-
+emlText += "<br>" + "END ACA_PBW_CHECK_FOR_ROW_CONFLICTS" + "<br>**************<br>"+ debug;
 aa.sendMail("SBCityLDT@santabarbaraca.gov", "chad@esilverliningsolutions.com", "", "email from aca debug", emlText);
+//cancel=true;
+//comment(emlText);
 
 // page flow custom code end
 
-
 if (debug.indexOf("**ERROR") > 0) {
     aa.env.setValue("ErrorCode", "1");
+	logDebug("set error code to 1 because there is error in message");
     aa.env.setValue("ErrorMessage", debug);
 } else {
     if (cancel) {
-        aa.env.setValue("ErrorCode", "-2");
+		logDebug("cancel was true, setting err code to -2");
+		aa.env.setValue("ErrorCode", "-2");
         if (showMessage)
             aa.env.setValue("ErrorMessage", message);
         if (showDebug)
             aa.env.setValue("ErrorMessage", debug);
     } else {
+		logDebug("cancel was NOT true, setting err code to 0");
         aa.env.setValue("ErrorCode", "0");
         if (showMessage)
             aa.env.setValue("ErrorMessage", message);
@@ -247,125 +247,3 @@ if (debug.indexOf("**ERROR") > 0) {
     }
 }
 
-
-function XXloadASITables4ACA() {
-
- 	//
- 	// Loads App Specific tables into their own array of arrays.  Creates global array objects
-	//
-	// Optional parameter, cap ID to load from.  If no CAP Id specified, use the capModel
-	//
-
-	var itemCap = capId;
-	if (arguments.length == 1)
-		{
-		itemCap = arguments[0]; // use cap ID specified in args
-		var gm = aa.appSpecificTableScript.getAppSpecificTableGroupModel(itemCap).getOutput();
-		}
-	else
-		{
-		var gm = cap.getAppSpecificTableGroupModel()
-		}
-
-	var ta = gm.getTablesMap();
-
-	emlText += "<br>" + "inside xxloadasitable4aca and we have a map!";
-	EMAIL_printObjProperties(ta);
-
-	var tai = ta.values().iterator();
-
-
-//	emlText += "<br>" + "inside xxloadasitable4aca and ta values are:";
-//	EMAIL_printObjProperties(ta.values());
-
-//	emlText += "<br>" + "inside xxloadasitable4aca and my tai is:";
-//	EMAIL_printObjProperties(tai);
-
-	while (tai.hasNext())
-	  {
-	  var tsm = tai.next();
-
-	  if (tsm.rowIndex.isEmpty()) continue;  // empty table
-
-	  var tempObject = new Array();
-	  var tempArray = new Array();
-	  var tn = tsm.getTableName();
-
-	  tn = String(tn).replace(/[^a-zA-Z0-9]+/g,'');
-
-	  if (!isNaN(tn.substring(0,1))) tn = "TBL" + tn  // prepend with TBL if it starts with a number
-
-emlText += "<br>" + "going to load up:"+tn;
-
-  	  var tsmfldi = tsm.getTableField().iterator();
-	  var tsmcoli = tsm.getColumns().iterator();
-	  var numrows = 1;
-
-	  while (tsmfldi.hasNext())  // cycle through fields
-		{
-		if (!tsmcoli.hasNext())  // cycle through columns
-			{
-
-			var tsmcoli = tsm.getColumns().iterator();
-			tempArray.push(tempObject);  // end of record
-			var tempObject = new Array();  // clear the temp obj
-			numrows++;
-			}
-			
-//emlText += "<br>" + "********************************************************looping through and tsmcoli.next is:";
-//EMAIL_printObjProperties(tsmcoli.next());
-//emlText += "<br>" + "********************************************************looping through and tsmfldi.next is:";
-//EMAIL_printObjProperties(tsmfldi.next());
-		var tcol = tsmcoli.next();
-		var tval = tsmfldi.next().getInputValue();
-		tempObject[tcol.getColumnName()] = tval;
-		}
-	  tempArray.push(tempObject);  // end of record
-	  var copyStr = "" + tn + " = tempArray";
-	  emlText += "<br>" + "ASI Table Array : " + tn + " (" + numrows + " Rows)";
-	  eval(copyStr);  // move to table name
-	  }
-
-	}
-
-function ZZloadASITable4ACA(tname, cap) {
-	var gm = cap.getAppSpecificTableGroupModel()
-	var ta = gm.getTablesMap();
-	var tai = ta.values().iterator();
-	while (tai.hasNext()) {
-	  var tsm = tai.next();
-	  var tn = tsm.getTableName();
-
-      	  if (!tn.equals(tname)) continue;
-	  if (tsm.rowIndex.isEmpty()) {
-			logDebug("Couldn't load ASI Table " + tname + " it is empty");
-			return false;
-		}
-
-   	  var tempObject = new Array();
-	  var tempArray = new Array();
-
-  	  var tsmfldi = tsm.getTableField().iterator();
-	  var tsmcoli = tsm.getColumns().iterator();
-	  var numrows = 1;
-
-	  while (tsmfldi.hasNext())  // cycle through fields
-		{
-		if (!tsmcoli.hasNext())  // cycle through columns
-			{
-			var tsmcoli = tsm.getColumns().iterator();
-			tempArray.push(tempObject);  // end of record
-			var tempObject = new Array();  // clear the temp obj
-			numrows++;
-			}
-		var tcol = tsmcoli.next();
-		var tval = tsmfldi.next();
-		var readOnly = 'N';
-		var fieldInfo = new asiTableValObj(tcol.getColumnName(), tval, readOnly);
-		tempObject[tcol.getColumnName()] = fieldInfo;
-
-		}
-		tempArray.push(tempObject);  // end of record
-	  }
-	  return tempArray;
-	}
