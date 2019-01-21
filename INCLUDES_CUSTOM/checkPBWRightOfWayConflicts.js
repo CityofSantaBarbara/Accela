@@ -51,7 +51,8 @@ function checkPBWRightOfWayConflicts () {
 
 	var unqOverLapRecs = uniqArray(overLapRecs);
 	if (unqOverLapRecs.length > 0) {
-		var checkMsg = "<Font Color=RED>WARNING THERE ARE POTENTIALLY "+unqOverLapRecs.length+" OTHER PROJECTS THAT WILL CONFLICT WITH THIS WORK!"
+		var checkMsg = "<Font Color=RED>Conflicting work in street may occur based upon application information."
+						+"<br>Please verify dates, location, and traffic control description for further review."
 						+"<br>OTHER project ids are:<br>     "+unqOverLapRecs.join("<br>     ")+"</Font Color>";
 		comment(checkMsg);
 	}
