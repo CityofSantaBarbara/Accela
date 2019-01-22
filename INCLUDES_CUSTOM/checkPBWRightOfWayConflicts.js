@@ -14,23 +14,66 @@
 //			01-16-2019	Chad		Created
 //			01-16-2019	Chad		Added in publicUser logic
 //			01-21-2019	Chad		Add condition when triggered from event
+//			01-22-2019	Chad		More logic to get correct cap when called from aca
 //********************************************************************************************************
 function checkPBWRightOfWayConflicts () {
 logDebug("START checkPBWRightOfWayConflicts ");
+logDebug(" checkpbwrow: public user is:"+publicUser);
+if (typeof controlString != "undefined") { 
+	logDebug(" checkpbwrow: control string is:"+controlString);
+}
+else {
+	logDebug(" checkpbwrow: control string is: undefined");
+}
+logDebug(" checkpbwrow: capid is:"+capId);
+logDebug(" checkpbwrow: work start date is:"+AInfo["Work Start Date"]);
+logDebug(" checkpbwrow: work end date is:"+AInfo["Work End Date"]);
+
 // get the ASIT and attach GIS objectds based on their values!
 	var tpbwRowAddresses;
 	
-	if (!publicUser) {
+	if (!publicUser ) {
 		var searchWorkStart = AInfo["Work Start Date"];
 		var searchWorkEnd = AInfo["Work End Date"]
+logDebug(" checkpbwrow: calling loadASITable");
+		tpbwRowAddresses = loadASITable("PBW_ROWADDRESS", capId);
+	}
+	else if ( publicUser && (typeof controlString != "undefined") && controlString == "ConvertToRealCAPAfter")  {
+
+// for some strange reason the capid and cap are getting reset so have to get them again
+		if (typeof(getCapId) != "undefined")
+			capId = getCapId();
+		 
+		if(capId == null){
+			if(aa.env.getValue("CapId") != ""){
+				sca = String(aa.env.getValue("CapId")).split("-");
+				capId = aa.cap.getCapID(sca[0],sca[1],sca[2]).getOutput();
+			}else if(aa.env.getValue("CapID") != ""){
+				sca = String(aa.env.getValue("CapID")).split("-");
+				capId = aa.cap.getCapID(sca[0],sca[1],sca[2]).getOutput();
+			}
+		}
+		cap = aa.cap.getCap(capId).getOutput();
+
+
+//		var cap = aa.env.getValue("CapModel");
+//		var capId = cap.getCapID();
+		var searchWorkStart = AInfo["Work Start Date"];
+		var searchWorkEnd = AInfo["Work End Date"]
+logDebug(" checkpbwrow: ctrca and re loaded capid is:"+capId);
+logDebug(" checkpbwrow: public user but calling loadASITable");
 		tpbwRowAddresses = loadASITable("PBW_ROWADDRESS", capId);
 	}
 	else if ( publicUser && (typeof controlString == "undefined")) {
+		logDebug("you are public user and control string is not defined");
+		var cap = aa.env.getValue("CapModel");
+		var capId = cap.getCapID();
 		var searchWorkStart = AInfo["Work Start Date"];
 		var searchWorkEnd = AInfo["Work End Date"]
+logDebug(" checkpbwrow: calling loadASITable4ACA");
 		tpbwRowAddresses = loadASITable4ACA("PBW_ROWADDRESS",cap);
 	}
-	else { logDebug("END FALSE checkPBWRightOfWayConflicts "); return false; }
+	else { logDebug("END FALSE checkPBWRightOfWayConflicts "); return; }
 	
 	overLapRecs = [];
 	
@@ -48,7 +91,8 @@ logDebug("START checkPBWRightOfWayConflicts ");
 	else { 
 		logDebug("no PBW_ROWADDRESS table information exists on this record:"+capId);
 	}
-	var unqOverLapRecs = uniqArray(overLapRecs);
+	var unqOverLapRecs = [];
+	if (overLapRecs.length > 0) unqOverLapRecs = uniqArray(overLapRecs);
 	if (unqOverLapRecs.length > 0) {
 		var checkMsg = "<Font Color=RED>Conflicting work in street may occur based upon application information."
 						+"<br>Please verify dates, location, and traffic control description for further review."
