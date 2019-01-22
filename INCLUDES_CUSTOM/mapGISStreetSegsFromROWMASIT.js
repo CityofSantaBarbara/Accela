@@ -57,7 +57,7 @@ function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 
 			//Create an instance of the ObjectMapper that we'll be using for serialization
 			var objectMapper = new org.codehaus.jackson.map.ObjectMapper();
-			var esriGETResult = TEST_doHttpGET(login, password, url, "application/json");
+			var esriGETResult = doHttpGET(login, password, url, "application/json");
 			var arrFromJson = JSON.parse( esriGETResult );
 
 			for (feat in arrFromJson.features) {
