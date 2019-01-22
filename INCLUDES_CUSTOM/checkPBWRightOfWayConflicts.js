@@ -10,15 +10,15 @@
 //Created By: Silver Lining Solutions
 //********************************************************************************************************
 // Change Log
-//            Date        Name			Modification
-//            01-16-2019  Chad			Created
-//            01-16-2019  Chad                  Added in publicUser logic
+//			Date		Name		Modification
+//			01-16-2019	Chad		Created
+//			01-16-2019	Chad		Added in publicUser logic
+//			01-21-2019	Chad		Add condition when triggered from event
 //********************************************************************************************************
 function checkPBWRightOfWayConflicts () {
+logDebug("START checkPBWRightOfWayConflicts ");
 // get the ASIT and attach GIS objectds based on their values!
 	var tpbwRowAddresses;
-	
-	controlString = undefined;
 	
 	if (!publicUser) {
 		var searchWorkStart = AInfo["Work Start Date"];
@@ -30,7 +30,7 @@ function checkPBWRightOfWayConflicts () {
 		var searchWorkEnd = AInfo["Work End Date"]
 		tpbwRowAddresses = loadASITable4ACA("PBW_ROWADDRESS",cap);
 	}
-	else return false;
+	else { logDebug("END FALSE checkPBWRightOfWayConflicts "); return false; }
 	
 	overLapRecs = [];
 	
@@ -48,12 +48,59 @@ function checkPBWRightOfWayConflicts () {
 	else { 
 		logDebug("no PBW_ROWADDRESS table information exists on this record:"+capId);
 	}
-
 	var unqOverLapRecs = uniqArray(overLapRecs);
 	if (unqOverLapRecs.length > 0) {
 		var checkMsg = "<Font Color=RED>Conflicting work in street may occur based upon application information."
 						+"<br>Please verify dates, location, and traffic control description for further review."
 						+"<br>OTHER project ids are:<br>     "+unqOverLapRecs.join("<br>     ")+"</Font Color>";
 		comment(checkMsg);
+		logDebug(checkMsg);
+		
+		//		if this is an event - it was called from asa or ctrca!
+		
+		if (typeof controlString != "undefined") { //must be an event...not a aca pageflow
+		
+			// place a condition on this record
+			var conditionGroup = "PBW ROWM",
+				conditionType = "Conflicting ROW Work",
+				conditionName = "Conflicting ROW Work - Pre Record Submittal",
+				conditionComment = "Conflicting work in street may occur based upon application information. Please verify dates, location, and traffic control description for further review.",
+				impactCode = "Notice",
+				condStatus = "Applied",
+				auditStatus = "A",
+				displayNotice = "Y",
+				displayNoticeOnACA = "Y",
+				condInheretible = "N",
+				displayLongDesc = "Y";
+
+			//Create new empty cap condition model and set the expected values.
+			var newCondModel = aa.capCondition.getNewConditionScriptModel().getOutput();
+
+			newCondModel.setCapID(capId);
+			newCondModel.setConditionGroup(conditionGroup);
+			newCondModel.setConditionType(conditionType);
+			newCondModel.setConditionDescription(conditionName);
+			newCondModel.setConditionComment(conditionComment);
+			newCondModel.setLongDescripton(conditionComment);
+			newCondModel.setDispConditionComment(conditionComment);
+			newCondModel.setDispLongDescripton(displayLongDesc);
+			newCondModel.setConditionStatus(condStatus);
+			newCondModel.setEffectDate(sysDate);
+			newCondModel.setIssuedDate(sysDate);
+			newCondModel.setStatusDate(sysDate);
+			newCondModel.setIssuedByUser(systemUserObj);
+			newCondModel.setStatusByUser(systemUserObj);
+			newCondModel.setAuditID(currentUserID);
+			newCondModel.setAuditStatus(auditStatus);
+			newCondModel.setDisplayConditionNotice(displayNotice);
+			newCondModel.setDisplayNoticeOnACA(displayNoticeOnACA);
+			newCondModel.setImpactCode(impactCode);
+			newCondModel.setInheritable(condInheretible);
+			newCondModel.setAdditionalInformation(checkMsg);
+
+			aa.capCondition.createCapCondition(newCondModel);
+			logDebug("ROWM Condition created!");
+		}
 	}
+logDebug("END checkPBWRightOfWayConflicts ");
 }
