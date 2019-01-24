@@ -4,20 +4,20 @@ function mapGISAttribToASI(svc,layer,attributeName,asiName) {
 		will copy assessment value of High Fire Hazard Areas layer to "In High Fire" custom field
 */
 	try {
-		aa.print("mapGISAttribToASI: param svc is:"+svc);
-		aa.print("mapGISAttribToASI: param layer is:"+layer);
-		aa.print("mapGISAttribToASI: param attributeName is:"+attributeName);
-		aa.print("mapGISAttribToASI: param asiName is:"+asiName);
+		logDebug("mapGISAttribToASI: param svc is:"+svc);
+		logDebug("mapGISAttribToASI: param layer is:"+layer);
+		logDebug("mapGISAttribToASI: param attributeName is:"+attributeName);
+		logDebug("mapGISAttribToASI: param asiName is:"+asiName);
 		
 		var arrGIS = getGISInfoArray2(svc, layer, attributeName, -2);
 		if (arrGIS != null && arrGIS.length > 0) {
 			var gisAttrforASI = arrGIS.toString();
 			editAppSpecific(asiName,gisAttrforASI);
 		}
-		else { aa.print("mapGISAttribToASI: NO ATTRIBUTE FOUND FOR ATTRIB:"+attributeName); }
+		else { logDebug("mapGISAttribToASI: NO ATTRIBUTE FOUND FOR ATTRIB:"+attributeName); }
 	}
 	catch (err) {
-		aa.print("A JavaScript Error occurred: function mapGISAttribToASI: " + err.message);
-		aa.print(err.stack);
+		logDebug("A JavaScript Error occurred: function mapGISAttribToASI: " + err.message);
+		logDebug(err.stack);
 	}
 }
