@@ -117,16 +117,12 @@ function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 			return false;
 		}
 //		logDebug("For "+asitStreetStartCheck+"-"+asitStreetEndCheck+" "+asitStreetName);
-//		logDebug("    we would keep:<br>     "+keepSegsToAdd.join("<br>     "));
+//		logDebug("    we would keep:<br>     "+keepAPNsToAdd.join("<br>     "));
 	}
 	keepAPNsToAdd = keepAPNsToAdd.sort();
 //	logDebug("AFTER ALL ASIT rows checked we would keep "+keepAPNsToAdd.length+" elements:<br>     "+keepAPNsToAdd.join("<br>     "));
 	var unqArrForMe = uniqArray(keepAPNsToAdd);
 	logDebug("AFTER UNIQUE keep "+unqArrForMe.length+" elements:<br>     "+unqArrForMe.join("<br>     "));
-
-//	keepSegAddressToAdd = keepSegAddressToAdd.sort();
-//	var unqAddArr = uniqArray(keepSegAddressToAdd);
-//	logDebug("And... the segments and address is:"+unqAddArr.join("<br>"));
 
 	var gisAttachErrors = null;
 	for (addGisObjId in unqArrForMe) {
