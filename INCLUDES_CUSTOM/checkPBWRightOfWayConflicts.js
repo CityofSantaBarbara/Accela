@@ -15,6 +15,7 @@
 //			01-16-2019	Chad		Added in publicUser logic
 //			01-21-2019	Chad		Add condition when triggered from event
 //			01-22-2019	Chad		More logic to get correct cap when called from aca
+//			01-23-2019	Chad		capId is null coming into this in back office now too.
 //********************************************************************************************************
 function checkPBWRightOfWayConflicts () {
 logDebug("START checkPBWRightOfWayConflicts ");
@@ -32,9 +33,25 @@ logDebug(" checkpbwrow: work end date is:"+AInfo["Work End Date"]);
 // get the ASIT and attach GIS objectds based on their values!
 	var tpbwRowAddresses;
 	
-	if (!publicUser ) {
+	if (!publicUser) {
+		// force the cap Id to have something its getting reset somehow
+		if (typeof(getCapId) != "undefined")
+			capId = getCapId();
+
+		if(capId == null){
+			if(aa.env.getValue("CapId") != ""){
+				sca = String(aa.env.getValue("CapId")).split("-");
+				capId = aa.cap.getCapID(sca[0],sca[1],sca[2]).getOutput();
+			}else if(aa.env.getValue("CapID") != ""){
+				sca = String(aa.env.getValue("CapID")).split("-");
+				capId = aa.cap.getCapID(sca[0],sca[1],sca[2]).getOutput();
+			}
+		}
+		cap = aa.cap.getCap(capId).getOutput();
+
 		var searchWorkStart = AInfo["Work Start Date"];
 		var searchWorkEnd = AInfo["Work End Date"]
+logDebug(" checkpbwrow: re loaded capid is:"+capId);
 logDebug(" checkpbwrow: calling loadASITable");
 		tpbwRowAddresses = loadASITable("PBW_ROWADDRESS", capId);
 	}
