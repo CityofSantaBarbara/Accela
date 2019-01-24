@@ -163,5 +163,15 @@ logDebug(" checkpbwrow: calling loadASITable4ACA");
 			logDebug("ROWM Condition created!");
 		}
 	}
+	else {
+		if (typeof controlString != "undefined") { //must be an event...not a aca pageflow
+			//advance the workflow  "Review of Conflicts" status of "Approved", comment "by EMSE"
+			//advance the workflow "Review for Conflicts and Confirm Operating Division", comment "by EMSE"
+			logDebug("closing workflow tasks");
+			closeTask("Review of Conflicts","Approved","Closed by EMSE Script","");
+			closeTask("Review for Conflicts and Confirm Operating Division","Approved","Closed by EMSE Script","");
+			logDebug("done closing workflows");
+		}
+	}
 logDebug("END checkPBWRightOfWayConflicts ");
 }
