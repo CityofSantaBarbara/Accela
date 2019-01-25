@@ -126,7 +126,7 @@ logDebug(" checkpbwrow: calling loadASITable4ACA");
 				conditionType = "Conflicting ROW Work",
 				conditionName = "Conflicting ROW Work - Pre Record Submittal",
 				conditionComment = "Conflicting work in street may occur based upon application information. Please verify dates, location, and traffic control description for further review.",
-				impactCode = "Notice",
+				impactCode = "Hold",
 				condStatus = "Applied",
 				auditStatus = "A",
 				displayNotice = "Y",
