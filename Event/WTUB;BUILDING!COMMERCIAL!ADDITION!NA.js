@@ -1,6 +1,5 @@
-if(wfTask == "Permit Issuance" || wfTask == "Inspection"){
+if(wfTask == "Inspection" && wfStatus == "Final Inspection Complete"){
 
 checkFireFinalInspection();
-
 
 }
