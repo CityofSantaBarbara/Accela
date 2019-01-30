@@ -16,6 +16,7 @@
 //			01-21-2019	Chad		Add condition when triggered from event
 //			01-22-2019	Chad		More logic to get correct cap when called from aca
 //			01-23-2019	Chad		capId is null coming into this in back office now too.
+//			01-30-2019	Chad		added street direction logic
 //********************************************************************************************************
 function checkPBWRightOfWayConflicts () {
 logDebug("START checkPBWRightOfWayConflicts ");
@@ -97,10 +98,18 @@ logDebug(" checkpbwrow: calling loadASITable4ACA");
 	if (tpbwRowAddresses && tpbwRowAddresses.length > 0) {
 		for ( asitRow in tpbwRowAddresses ) {
 			var asitStreetName = tpbwRowAddresses[asitRow]["Street Name"].toString().toUpperCase();
+// street direction is not required so check for null
+			if (tpbwRowAddresses[asitRow]["Direction"] && tpbwRowAddresses[asitRow]["Direction"].toString() != 'undefined' ) {
+				var asitStreetDir = tpbwRowAddresses[asitRow]["Direction"].toString().toUpperCase();
+			}
+			else {
+				var asitStreetDir = " ";
+			}
+			
 			var asitStreetStartCheck = tpbwRowAddresses[asitRow]["Start Num"].toString().toUpperCase();
 			var asitStreetEndCheck = tpbwRowAddresses[asitRow]["End Num"].toString().toUpperCase();
 
-			var thisRowRecList = getROWOverlapStreetRecords( searchWorkStart, searchWorkEnd, asitStreetName, asitStreetStartCheck, asitStreetEndCheck );
+			var thisRowRecList = getROWOverlapStreetRecords( searchWorkStart, searchWorkEnd, asitStreetName, asitStreetDir, asitStreetStartCheck, asitStreetEndCheck );
 
 			overLapRecs = overLapRecs.concat(thisRowRecList);
 		}
