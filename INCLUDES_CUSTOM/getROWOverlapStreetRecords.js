@@ -15,12 +15,12 @@
 //	      01-16-2019  Chad                  changed to check for b1_alt_id match
 //			01-17-2019	Chad			Changes for ACA
 //********************************************************************************************************
-function getROWOverlapStreetRecords( lStartDate, lEndDate, lStreetName, lStreetStartNum, lStreetEndNum ) {
+function getROWOverlapStreetRecords( lStartDate, lEndDate, lStreetName, lStreetDir, lStreetStartNum, lStreetEndNum ) {
 logDebug("START getROWOverlapStreetRecords");
 	try {
 		var matchedRecList =[];
 		
-		var selectString = "EXEC DBO.sp_GetOverlapROWStreetRecords '"+lStartDate+"','"+lEndDate+"','"+lStreetName+"','"+lStreetStartNum+"','"+lStreetEndNum+"';"
+		var selectString = "EXEC DBO.sp_GetOverlapROWStreetRecords '"+lStartDate+"','"+lEndDate+"','"+lStreetName+"','"+lStreetDir+"','"+lStreetStartNum+"','"+lStreetEndNum+"';"
 		logDebug("selectString="+selectString);
 
 		var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext").getOutput();
@@ -39,6 +39,7 @@ logDebug("START getROWOverlapStreetRecords");
 			var mWorkStart	= rSet.getString("workStart"); 
 			var mWorkEnd	= rSet.getString("workEnd"); 
 			var mStreetName	= rSet.getString("StrtName"); 
+			var mStreetDir	= rSet.getString("StrtDir"); 
 			var mStartNum	= rSet.getString("StartNum"); 
 			var mEndNum		= rSet.getString("EndNum"); 
 
@@ -50,6 +51,7 @@ logDebug("START getROWOverlapStreetRecords");
 							+	"<br>      starting:"+mWorkStart
 							+	"<br>      ending:"+mWorkEnd
 							+	"<br>      on street:"+mStreetName
+							+	"<br>      street direction:"+mStreetDir
 							+	"<br>      start address:"+mStartNum
 							+	"<br>      end address:"+mEndNum;
 				logDebug(msgStr);
