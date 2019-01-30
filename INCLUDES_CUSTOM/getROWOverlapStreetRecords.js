@@ -10,10 +10,11 @@
 //Created By: Silver Lining Solutions
 //********************************************************************************************************
 // Change Log
-//            Date        Name			Modification
-//            01-16-2019  Chad			Created
-//	      01-16-2019  Chad                  changed to check for b1_alt_id match
+//			Date        Name			Modification
+//			01-16-2019  Chad			Created
+//			01-16-2019  Chad			changed to check for b1_alt_id match
 //			01-17-2019	Chad			Changes for ACA
+//			01-30-2019	Chad			Added Street Direction Logic
 //********************************************************************************************************
 function getROWOverlapStreetRecords( lStartDate, lEndDate, lStreetName, lStreetDir, lStreetStartNum, lStreetEndNum ) {
 logDebug("START getROWOverlapStreetRecords");
