@@ -59,7 +59,7 @@ function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 
 			//Create an instance of the ObjectMapper that we'll be using for serialization
 			var objectMapper = new org.codehaus.jackson.map.ObjectMapper();
-			var esriGETResult = TEST_doHttpGET(login, password, url, "application/json");
+			var esriGETResult = doHttpGET(login, password, url, "application/json");
 			var arrFromJson = JSON.parse( esriGETResult );
 
 			for (feat in arrFromJson.features) {
@@ -89,10 +89,6 @@ function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 						var streetSegEndAddNbr = esriFeatureList[attrList]["ADRT"];	
 					}
 
-//logDebug(" determined start and end of street to be:");
-//logDebug("     start->"+streetSegStartAddNbr);
-//logDebug("       end->"+streetSegEndAddNbr);
-
 					if	(  (streetSegStartAddNbr >= asitStreetStartCheck && streetSegStartAddNbr <= asitStreetEndCheck)
 						|| (streetSegEndAddNbr >= asitStreetStartCheck && streetSegEndAddNbr <= asitStreetEndCheck) ) {
 //							logDebug("we would keep this segment for later! >>>>>>>>>>"+esriFeatureList[attrList]["APN"]);
@@ -119,16 +115,12 @@ function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 			return false;
 		}
 //		logDebug("For "+asitStreetStartCheck+"-"+asitStreetEndCheck+" "+asitStreetName);
-//		logDebug("    we would keep:<br>     "+keepSegsToAdd.join("<br>     "));
+//		logDebug("    we would keep:<br>     "+keepAPNsToAdd.join("<br>     "));
 	}
 	keepAPNsToAdd = keepAPNsToAdd.sort();
 //	logDebug("AFTER ALL ASIT rows checked we would keep "+keepAPNsToAdd.length+" elements:<br>     "+keepAPNsToAdd.join("<br>     "));
 	var unqArrForMe = uniqArray(keepAPNsToAdd);
 	logDebug("AFTER UNIQUE keep "+unqArrForMe.length+" elements:<br>     "+unqArrForMe.join("<br>     "));
-
-//	keepSegAddressToAdd = keepSegAddressToAdd.sort();
-//	var unqAddArr = uniqArray(keepSegAddressToAdd);
-//	logDebug("And... the segments and address is:"+unqAddArr.join("<br>"));
 
 	var gisAttachErrors = null;
 	for (addGisObjId in unqArrForMe) {
