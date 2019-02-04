@@ -90,8 +90,10 @@ function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 					}
 
 					if	(  (streetSegStartAddNbr >= asitStreetStartCheck && streetSegStartAddNbr <= asitStreetEndCheck)
-						|| (streetSegEndAddNbr >= asitStreetStartCheck && streetSegEndAddNbr <= asitStreetEndCheck) ) {
-//							logDebug("we would keep this segment for later! >>>>>>>>>>"+esriFeatureList[attrList]["APN"]);
+						|| (streetSegEndAddNbr >= asitStreetStartCheck && streetSegEndAddNbr <= asitStreetEndCheck)
+						|| (asitStreetStartCheck >= streetSegStartAddNbr && asitStreetStartCheck <= streetSegEndAddNbr)
+						|| (asitStreetEndCheck >= streetSegStartAddNbr && asitStreetEndCheck <= streetSegEndAddNbr) ) {
+//						logDebug("we would keep this segment for later! >>>>>>>>>>"+esriFeatureList[attrList]["APN"]);
 						keepAPNsToAdd.push(esriFeatureList[attrList]["APN"]);  // could put whole obj here though if needed!
 					}
 				}
