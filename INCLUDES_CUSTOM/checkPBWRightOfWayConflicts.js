@@ -17,6 +17,7 @@
 //			01-22-2019	Chad		More logic to get correct cap when called from aca
 //			01-23-2019	Chad		capId is null coming into this in back office now too.
 //			01-30-2019	Chad		added street direction logic
+//			02-04-2019	Chad		Workflow task name change
 //********************************************************************************************************
 function checkPBWRightOfWayConflicts () {
 logDebug("START checkPBWRightOfWayConflicts ");
@@ -177,7 +178,7 @@ logDebug(" checkpbwrow: calling loadASITable4ACA");
 			//advance the workflow  "Review of Conflicts" status of "Approved", comment "by EMSE"
 			//advance the workflow "Review for Conflicts and Confirm Operating Division", comment "by EMSE"
 			logDebug("closing workflow tasks");
-			closeTask("Review of Conflicts","Approved","Closed by EMSE Script","");
+			closeTask("Review for Conflicts","Approved","Closed by EMSE Script","");
 			closeTask("Review for Conflicts and Confirm Operating Division","Approved","Closed by EMSE Script","");
 			logDebug("done closing workflows");
 		}
