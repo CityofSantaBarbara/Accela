@@ -12,6 +12,7 @@
 // Change Log
 //			Date		Name		Modification
 //			01-22-2019	Chad		created
+//			01-31-2019	Chad		Added street Dir logic to esri query 
 //********************************************************************************************************
 function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 	logDebug("START of mapGISStreetSegsFromROWMASIT;");
@@ -23,7 +24,8 @@ function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 			var asitStreetName = streetsToFindArr[asitRow]["Street Name"].toString().toUpperCase();
 			var asitStreetStartCheck = streetsToFindArr[asitRow]["Start Num"].toString().toUpperCase();
 			var asitStreetEndCheck = streetsToFindArr[asitRow]["End Num"].toString().toUpperCase();
-			var sbESRIQuery = "where=APN+like++%27ROW%25%27+and+SStreet+%3D+%27"+asitStreetName.replace(/ /g, "+")+"%27";
+			var asitStreetDirCheck = streetsToFindArr[asitRow]["Direction"].toString().toUpperCase(); 
+			var sbESRIQuery = "where=APN+like++%27ROW%25%27+and+SStreet+%3D+%27"+asitStreetName.replace(/ /g, "+")+"%27+and+SDir%3D+%27"+asitStreetDirCheck+"%27";
 		}
 		else {
 			return false;
@@ -57,7 +59,7 @@ function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 
 			//Create an instance of the ObjectMapper that we'll be using for serialization
 			var objectMapper = new org.codehaus.jackson.map.ObjectMapper();
-			var esriGETResult = doHttpGET(login, password, url, "application/json");
+			var esriGETResult = TEST_doHttpGET(login, password, url, "application/json");
 			var arrFromJson = JSON.parse( esriGETResult );
 
 			for (feat in arrFromJson.features) {
@@ -117,12 +119,16 @@ function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 			return false;
 		}
 //		logDebug("For "+asitStreetStartCheck+"-"+asitStreetEndCheck+" "+asitStreetName);
-//		logDebug("    we would keep:<br>     "+keepAPNsToAdd.join("<br>     "));
+//		logDebug("    we would keep:<br>     "+keepSegsToAdd.join("<br>     "));
 	}
 	keepAPNsToAdd = keepAPNsToAdd.sort();
 //	logDebug("AFTER ALL ASIT rows checked we would keep "+keepAPNsToAdd.length+" elements:<br>     "+keepAPNsToAdd.join("<br>     "));
 	var unqArrForMe = uniqArray(keepAPNsToAdd);
 	logDebug("AFTER UNIQUE keep "+unqArrForMe.length+" elements:<br>     "+unqArrForMe.join("<br>     "));
+
+//	keepSegAddressToAdd = keepSegAddressToAdd.sort();
+//	var unqAddArr = uniqArray(keepSegAddressToAdd);
+//	logDebug("And... the segments and address is:"+unqAddArr.join("<br>"));
 
 	var gisAttachErrors = null;
 	for (addGisObjId in unqArrForMe) {
