@@ -45,8 +45,11 @@ logDebug("START getROWOverlapStreetRecords");
 			var mEndNum		= rSet.getString("EndNum"); 
 
 						
-			if (!publicUser) chkAltId = cap.getCapModel().getAltID();	
-			if (mB1_Alt_id != chkAltId) {
+			if (!publicUser) chkAltId = cap.getCapModel().getAltID();
+			else if ( publicUser && (typeof controlString != "undefined") && controlString == "ConvertToRealCAPAfter")  {
+				chkAltId = cap.getCapModel().getAltID()
+			}
+				if (mB1_Alt_id != chkAltId) {
 				matchedRecList.push(mB1_Alt_id);
 				var msgStr	=	"Potential Right of Way Work Conflicts at record:"+mB1_Alt_id
 							+	"<br>      starting:"+mWorkStart
