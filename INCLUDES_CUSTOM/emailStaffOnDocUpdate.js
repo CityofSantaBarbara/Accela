@@ -113,6 +113,9 @@ function handleNotificationEmail()
 	// prepare Notification parameters
 	addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
 	addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
+	var acaSite = lookup("ACA_CONFIGS", "OFFICIAL_WEBSITE_URL");
+	addParameter(emailParameters,"$$acaUrl$$",acaSite);
+
 
 
 	// identify the doc(s) that were just uploaded and for each doc, send a notification
