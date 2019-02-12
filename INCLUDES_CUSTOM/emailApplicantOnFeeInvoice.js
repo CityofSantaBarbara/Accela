@@ -15,7 +15,8 @@
 // Change Log
 //         		Date		Name		Modification
 //			09/11/2018	Eric		orig
-//			112/07/2018	Chad		took out "return null" when no staff found, send email anyway
+//			12/07/2018	Chad		took out "return null" when no staff found, send email anyway
+//			02/12/2019	Chad		adding aca url to parameters for template - city can use this as example.
 //********************************************************************************************************
 function emailApplicantOnFeeInvoice()
 {
@@ -39,6 +40,7 @@ function handleFeeInvoiceNotificationEmail()
 	// prepare Notification parameters
 	addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
 	addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
+	addParameter(emailParameters,"$$acaUrl$$",acaSite);
 
 	// fee invoice specific information: use these objects if you want to include fee info in email
 	//	printObjProperties(FeeObjs); 
