@@ -12,7 +12,7 @@
 //         		Date		Name			Modification
 //				      Jason			Initial Draft
 //			08-08-2018	Chad			changed header
-//                02-12-2018  Chad              Fixed UAT issue 319 by adding exp logic here.
+//			02-12-2018	Chad			Fixed UAT issue 319 by adding exp logic here.
 //********************************************************************************************************
       
       
