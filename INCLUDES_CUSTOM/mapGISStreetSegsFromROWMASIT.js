@@ -13,6 +13,7 @@
 //			Date		Name		Modification
 //			01-22-2019	Chad		created
 //			01-31-2019	Chad		Added street Dir logic to esri query 
+//			02-15-2019	Chad		Change needed for underscore street directions - do not use in query to ESRI
 //********************************************************************************************************
 function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 	logDebug("START of mapGISStreetSegsFromROWMASIT;");
@@ -25,7 +26,11 @@ function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 			var asitStreetStartCheck = streetsToFindArr[asitRow]["Start Num"].toString().toUpperCase();
 			var asitStreetEndCheck = streetsToFindArr[asitRow]["End Num"].toString().toUpperCase();
 			var asitStreetDirCheck = streetsToFindArr[asitRow]["Direction"].toString().toUpperCase(); 
-			var sbESRIQuery = "where=APN+like++%27ROW%25%27+and+SStreet+%3D+%27"+asitStreetName.replace(/ /g, "+")+"%27+and+SDir%3D+%27"+asitStreetDirCheck+"%27";
+			var sbESRIQuery = "where=APN+like++%27ROW%25%27+and+SStreet+%3D+%27"+asitStreetName.replace(/ /g, "+")+"%27";
+			
+			if (asitStreetDirCheck != "_") {
+				sbESRIQuery += "+and+SDir%3D+%27"+asitStreetDirCheck+"%27";
+			}
 		}
 		else {
 			return false;
@@ -88,7 +93,6 @@ function mapGISStreetSegsFromROWMASIT( streetsToFindArr, gisObjSearchType ) {
 					else {
 						var streetSegEndAddNbr = esriFeatureList[attrList]["ADRT"];	
 					}
-
 					if	(  (streetSegStartAddNbr >= asitStreetStartCheck && streetSegStartAddNbr <= asitStreetEndCheck)
 						|| (streetSegEndAddNbr >= asitStreetStartCheck && streetSegEndAddNbr <= asitStreetEndCheck)
 						|| (asitStreetStartCheck >= streetSegStartAddNbr && asitStreetStartCheck <= streetSegEndAddNbr)
