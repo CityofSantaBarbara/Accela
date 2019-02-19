@@ -58,6 +58,7 @@ function notification(triggerEvent)
 	var lookupValue = wfTask + "|" + wfStatus;
 
 	showMessage = true;
+	showDebug = true;
 	logDebug("notification - Begin");
 	logDebug("controlString = " + controlString);
 	logDebug("triggerEvent = " + triggerEvent);
