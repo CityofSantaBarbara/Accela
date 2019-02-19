@@ -56,7 +56,7 @@ function checkFireFinalInspection(){
 			}
 		}
 		
-		if(hasFireFinalInsp){
+		if(!hasFireFinalInsp){
 			logDebug("<font color=red><b>You don't have a Fire Department Final Inspection, please add one.</b></font>");
 		}
 	}
