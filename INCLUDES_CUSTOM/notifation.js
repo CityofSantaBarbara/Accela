@@ -104,7 +104,9 @@ function notificationParamBuild(emailParameters)
 {
 	addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
 	addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
-
+	addParameter(emailParameters, "$$wfComments$$", wfComment);
+	addParameter(emailParameters, "$$recAddress$$", getAddress(cap.getCapModel().getAltID()));
+	
 	return emailParameters;
 }
 
