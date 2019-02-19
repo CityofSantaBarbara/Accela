@@ -20,6 +20,7 @@
 // Change Log
 //         		Date		Name			Modification
 //				12/10/2018	Michael 		Initial Development
+//				02/19/2019	Michael 		Bug Fixed
 //				
 //											
 //********************************************************************************************************
@@ -31,25 +32,32 @@ function checkFireFinalInspection(){
 		inspArr = inspArrObj.getOutput();
 		if(inspArr.length < 1){
 			cancel = true;
-			aa.print("<font color=red><b>You don't have a Fire Department Final Inspection, please add one.</b></font>");
+			logDebug("<font color=red><b>You don't have a Fire Department Final Inspection, please add one.</b></font>");
 		}
-
+		
+		var hasFireFinalInsp = false;
 		for(var i=0;i<inspArr.length;i++){
 
 			var inspModScript = inspArr[i];
 			var inspMod = inspModScript.getInspection();
 			//aa.print(inspMod.getInspectionGroup()+","+inspMod.getInspectionType())
+			
 			if(inspMod.getInspectionGroup() !="BLD GENERAL" && inspMod.getInspectionType() !="Fire Final" ){
-				cancel = true;
-				aa.print("<font color=red><b>You don't have a Fire Department Final Inspection, please add one.</b></font>");
+				continue;
+			}else{
+				hasFireFinalInsp = true;
 			}
-			//aa.print(inspMod.getInspectionStatus())
+			
 			
 			if(inspMod.getInspectionStatus()!="Passed"){
 				cancel = true;
-				aa.print("<font color=red><b>Please result the Fire Department Final Inspection as Passed.</b></font>");
-                                logDebug("CapID = "+capId.getCustomID()+". Please result the Fire Department Final Inspection as Passed.");
+				//aa.print("<font color=red><b>Please result the Fire Department Final Inspection as Passed.</b></font>");
+				logDebug("CapID = "+capId.getCustomID()+". Please result the Fire Department Final Inspection as Passed.");
 			}
+		}
+		
+		if(hasFireFinalInsp){
+			logDebug("<font color=red><b>You don't have a Fire Department Final Inspection, please add one.</b></font>");
 		}
 	}
 }
