@@ -72,6 +72,7 @@ function notification(triggerEvent)
 	{
 		var lookupResultArray = lookupResult.split("|");
 		notificationTemplateName = lookupResultArray[0];
+		logDebug("template name = " + notificationTemplateName);
 		var toEmailList=lookupResultArray[1];
 		var ccEmailList=lookupResultArray[2];
 		
@@ -87,6 +88,7 @@ function notification(triggerEvent)
 		ccEmail = notificationDistributionBuild(ccEmailList);
 		logDebug("ccEmail = " + ccEmail);
 	
+		logDebug("email params = " + emailParameters);
 	// send Notification
 		logDebug("calling sendNotification");
 		var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplateName,emailParameters,reportFile,capID4Email);
