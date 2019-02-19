@@ -18,54 +18,54 @@
 //********************************************************************************************************
 function appTypePriorityLookup(lookupTableName,lookupValue,appType)
 {
-	showMessage = true;
-	logDebug("appTypePriorityLookup - Begin");
-	var lookupResult = false;
+	logDebug("settingsLookup - Begin");
 	
 	var appTypeArray = appType.split("/");
-	
+
+		
 	// start with full appType
 	var lookupString = appTypeString + "|" + lookupValue;
 	logDebug("lookupString = " + lookupString);
 	var lookupResult = lookup(lookupTableName, lookupString);
-	logDebug("Full lookupValue = " + lookupValue);
-	
+	logDebug("Full lookupValue = " + lookupResult);
+
 	// perform lookup with 1 levels of appType wild cards
 	if (!lookupResult)
 	{
 		lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*" + "|" + lookupValue;
 		logDebug("lookupString = " + lookupString);
 		lookupResult = lookup(lookupTableName, lookupString);
-		logDebug("1 Wild lookupValue = " + lookupValue);	
+		logDebug("1 Wild lookupValue = " + lookupResult);	
 	}
-
+	
 	// perform lookup with 2 levels of appType wild cards
 	if (!lookupResult)
 	{
 		lookupString = appTypeArray[0] + "/" + appTypeArray[1] + "/*/*" + "|" + lookupValue;
 		logDebug("lookupString = " + lookupString);
 		lookupResult = lookup(lookupTableName, lookupString);
-		logDebug("2 Wild lookupValue = " + lookupValue);	
+		logDebug("2 Wild lookupValue = " + lookupResult);	
 	}
-
+	
 	// perform lookup with 3 levels of appType wild cards
 	if (!lookupResult)
 	{
 		lookupString = appTypeArray[0] + "/*/*/*" + "|" + lookupValue;
 		logDebug("lookupString = " + lookupString);
 		lookupResult = lookup(lookupTableName, lookupString);
-		logDebug("3 Wild lookupValue = " + lookupValue);	
+		logDebug("3 Wild lookupValue = " + lookupResult);	
 	}
 
 	// perform lookup with 4 levels of appType wild cards
 	if (!lookupResult)
 	{
-		lookupString = "*/*/*/*" + "|" + lookupValue;
+		lookupString = "*/*/*/*|" + lookupValue;
 		logDebug("lookupString = " + lookupString);
 		lookupResult = lookup(lookupTableName, lookupString);
-		logDebug("3 Wild lookupValue = " + lookupValue);	
+		logDebug("3 Wild lookupValue = " + lookupResult);	
 	}
 
 	logDebug("appTypePriorityLookup - End");
 	return lookupResult;
+
 }
