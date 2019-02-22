@@ -58,7 +58,9 @@ function notification(triggerEvent)
 	var lookupValue = wfTask + "|" + wfStatus;
 
 	showMessage = true;
-	showDebug = true;
+// do not force the debug window open within scripts.  This should only be set in includes_custom_globals
+// leaving showMessage for now, but this should be set to true to send the comment to the screen and then back to false when done
+//	showDebug = true;
 	logDebug("notification - Begin");
 	logDebug("controlString = " + controlString);
 	logDebug("triggerEvent = " + triggerEvent);
