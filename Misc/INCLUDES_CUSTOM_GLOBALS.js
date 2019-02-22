@@ -7,7 +7,7 @@
 | Notes   : 
 |              11-02-2018: CW - added scriptAgencyEmailFrom so that we can use this to 
 |                               send all email message from scripts FROM this variable
-|
+|		02-22-2019 CW - added showDebug=false to all other users to turn off debug
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 | Custom Parameters
@@ -20,10 +20,13 @@ if(vEventName.equals("FeeEstimateAfter4ACA"))
 | END Custom Parameters
 /------------------------------------------------------------------------------------------------------*/
 
-if (matches(currentUserID, "ADMIN", "JJACKSON", "CWEIFFENBACH", "EKOONTZ","AHARDY","EJUST","MDOUVILLE","ANARES","TBOLTON","MDurousseau")) 
+if (matches(currentUserID, "ADMIN", "JJACKSON", "CWEIFFENBACH", "EKOONTZ","AHARDY","EJUST","MDOUVILLE","ANARES","TBOLTON","MDurousseau", "DKATO")) 
 {
 showDebug = 3;
 showMessage = true;
+}
+else {
+showDebug = false;
 }
 
 var scriptAgencyEmailFrom = lookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");
