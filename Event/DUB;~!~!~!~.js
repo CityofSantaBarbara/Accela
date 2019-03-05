@@ -19,19 +19,20 @@
 // 				9/21/2018       Alec			use for testing. 
 //********************************************************************************************************
 logDebug("DUB - Begin- Script 59");
+if (capId) {
+	var recordDocArray = null;
+	var recDocModel = null;
 
-var recordDocArray = null;
-var recDocModel = null;
+	recordDocArray = getDocumentList();
+	logDebug("recordDocArray = " + recordDocArray);
+	printObjProperties(recordDocArray);
 
-recordDocArray = getDocumentList();
-logDebug("recordDocArray = " + recordDocArray);
-printObjProperties(recordDocArray);
+	for (i = 0; i < recordDocArray.length; i++) {
+		recDocModel = recordDocArray[i];
+		logDebug("************* doc Model ****************");
+		printObjProperties(recDocModel);
+	}
 
-for (i = 0; i < recordDocArray.length; i++) {
-	recDocModel = recordDocArray[i];
-	logDebug("************* doc Model ****************");
-	printObjProperties(recDocModel);
+	validateDocument();
 }
-
-validateDocument();
 logDebug("DUB - End - Script 59");
