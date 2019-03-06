@@ -14,6 +14,7 @@
 //			08-08-2018	Chad			changed header, can't have slash star in headers
 //			11-12-2018	Chad			Added logic for Script 90
 // ********************************************************************************************************
+logDebug("Start of ASA:*/*/*/*");
 
 var GISService = "SANTABARBARA";
 
@@ -37,6 +38,10 @@ if (thisExpModelList.getSuccess()) {
 				thisExpModel.setExpDate(aa.date.parseDate(newExpDate));
 				var result = aa.expiration.editB1Expiration(thisExpModel.getB1Expiration());
 				comment("setting active AND setting expire date to:"+newExpDate);
+
+				// update asi 
+				logDebug("updating ASI Application Expiration Date to:" + newExpDate);
+				editAppSpecific("Application Expiration Date",newExpDate);
 			}
 		} 
 	}
@@ -90,5 +95,5 @@ mapGISAttribToASI("SANTABARBARA", "FEMA Flood 2015", "FLD_ZONE", "Flood Zone");
 // parcel sq ft
 mapGISAttribToASI("SANTABARBARA", "Assessors Parcels", "Shape.STArea()", "Parcel Sq Ft");
 
-
+logDebug("END of ASA:*/*/*/*");
 

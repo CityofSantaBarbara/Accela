@@ -19,13 +19,21 @@
 // Change Log
 //         		Date		Name			Modification
 //				08/15/2018	Eric 			Initial Development
+//				12/18/2018  Eric			Addition of the Notification Script
+//              1/3/2019    Alec			Change to Corrections Required for status
+//				02/19/2019	Eric			Per Amber request, Alec's changes were commented out
 //********************************************************************************************************
+logDebug("Script 89 Notification Automation - Begin");
+notification("Workflow");
+logDebug("Script 89 Notification Automation - End");
 
 logDebug("************* workflow revisions required email ****************");
 // ensure that we have an assigned staff that will be notified
 //var staff = getTaskAssignedStaff("Plans Distribution");
 //if (staff)
-	if (wfStatus == "Revisions Required" && wfTask == "Plans Coordination") {
+/*	commenting out the corrections notification.  Amber will now use script 89 functionality to do this
+
+if (wfStatus == "Corrections Required" && wfTask == "Plans Coordination") {
 		logDebug("Found revisions required");
 		var contactType = "Applicant"
 		var toEmail = "";
@@ -43,8 +51,8 @@ logDebug("************* workflow revisions required email ****************");
 			if (toEmail.indexOf("@") > 0)
 				{
 				logDebug("Successfully sent email to " + contactType);
-				var fromEmail = lookup("SCRIPT_EMAIL_FROM","AGENCY_FROM");
-				var ccEmail = "anares@santabarbaraca.gov";
+				var fromEmail = lookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");
+				var ccEmail = ""; //blank for now
 				var reportFile = [];  // empty set for the file list
 				var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
 				var emailParameters = aa.util.newHashtable();
@@ -63,7 +71,7 @@ logDebug("************* workflow revisions required email ****************");
 			else
 				logDebug("Couldn't send email to " + contactType + ", no valid email address");
 			} 
-		}
+		}*/
 
 
 

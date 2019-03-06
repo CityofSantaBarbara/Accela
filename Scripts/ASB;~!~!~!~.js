@@ -1,3 +1,11 @@
+// Use for High Fire sample for Script #35
+// 
+
+
+
+
+
+
 if (matches(currentUserID,"JJACKSON","ADMIN")) {
 	showDebug = 3;
 	showMessage= true;

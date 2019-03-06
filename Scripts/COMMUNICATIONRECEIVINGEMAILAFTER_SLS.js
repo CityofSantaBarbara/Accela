@@ -12,7 +12,7 @@
 |
 |			CW: changing debug emails  - otherwise same as master script!
 |
-|
+|12-19-2018: turned off debug emails
 /------------------------------------------------------------------------------------------------------*/
 
 
@@ -25,8 +25,8 @@
 /------------------------------------------------------------------------------------------------------*/
 // only enable sendDebugEmail when debugging this script
 // when sendDebugEmail = true, the debug log will be emailed to the debugEmailAddress
-sendDebugEmail = true;
-debugEmailAddress = "chad@esilverliningsolutions.com";
+sendDebugEmail = false;
+debugEmailAddress = "";
 
 
 // set the bounceback subject and body
@@ -117,7 +117,8 @@ logDebug("SCRIPT VERSION : " + SCRIPT_VERSION);
 
 var prefix = lookup("EMSE_VARIABLE_BRANCH_PREFIX",vEventName);
 
-var scriptAgencyEmailFrom = "acceladev@santabarbaraca.gov";
+//var scriptAgencyEmailFrom = "acceladev@santabarbaraca.gov";
+var scriptAgencyEmailFrom = lookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");
 
 var controlFlagStdChoice = "EMSE_EXECUTE_OPTIONS";
 var doStdChoices = true;  // compatibility default
@@ -229,7 +230,7 @@ function associateMessagesToRecords(messages)
 		logDebug("<br>"+">>>>>>>>>>>>>> assocSuccessCnt:"+assocSuccessCnt);
 		
 //		email(debugEmailAddress, scriptAgencyEmailFrom, "no debug date in CommunicationReceivingEmailAfter_SLS.associateMessagesToRecords", debug);
-		email(debugEmailAddress, scriptAgencyEmailFrom, debugTitle, debug);
+//		email(debugEmailAddress, scriptAgencyEmailFrom, debugTitle, debug);
 	}
 	if ( assocSuccessCnt > 0 ) {
 		return true;

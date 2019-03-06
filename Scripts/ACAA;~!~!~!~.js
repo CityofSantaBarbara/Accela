@@ -9,13 +9,13 @@
 // Created By: Silver Lining Solutions
 // ********************************************************************************************************
 // Change Log
-//         		Date		Name			Modification
-//				9/12/2018	Eric			Orig
+//         		Date		Name		Modification
+//				09/12/2018  Eric		Orig
+//				12/10/2018	Chad		Altered to use the std cond template data to update fields in function
 // ********************************************************************************************************
 
 logDebug("ACAA Start");
-pop(conditionObj);
-var templateModel = conditionObj.getTemplateModel();
-pop(templateModel);
+
+updatePLNConditiontemplateDates();
 
 logDebug("ACAA End");

@@ -1,8 +1,9 @@
 //********************************************************************************************************
-//Script 		
+//Script 	 Script # 59 	
 //Record Types:	​*/*/*/*
 //
 //Event: 		DUB
+
 //
 //Desc:			
 //
@@ -15,9 +16,10 @@
 // Change Log
 //         		Date		Name			Modification
 //				08/15/2018	Eric 			Initial Development
+// 				9/21/2018       Alec			use for testing. 
 //********************************************************************************************************
-logDebug("DUB - Begin");
-
+logDebug("DUB - Begin- Script 59");
+showMessage = true;
 var recordDocArray = null;
 var recDocModel = null;
 
@@ -31,4 +33,8 @@ for (i = 0; i < recordDocArray.length; i++) {
 	printObjProperties(recDocModel);
 }
 
-logDebug("DUB - End");
+
+validateDocument();
+
+logDebug("DUB - End - Script 59");
+
