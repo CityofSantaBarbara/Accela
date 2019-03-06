@@ -89,11 +89,11 @@ try{
 
 // zoning 
 
-mapGISAttribToASI("SANTABARBARA", "Zoning", "ZONE", "Zone");
+//mapGISAttribToASI("SANTABARBARA", "Zoning", "ZONE", "Zone");
 // flood zone 
-mapGISAttribToASI("SANTABARBARA", "FEMA Flood 2015", "FLD_ZONE", "Flood Zone");
+//mapGISAttribToASI("SANTABARBARA", "FEMA Flood 2015", "FLD_ZONE", "Flood Zone");
 // parcel sq ft
-mapGISAttribToASI("SANTABARBARA", "Assessors Parcels", "Shape.STArea()", "Parcel Sq Ft");
+//mapGISAttribToASI("SANTABARBARA", "Assessors Parcels", "Shape.STArea()", "Parcel Sq Ft");
 
 logDebug("END of ASA:*/*/*/*");
 
