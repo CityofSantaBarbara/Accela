@@ -32,7 +32,7 @@ function checkFireFinalInspection(){
 		inspArr = inspArrObj.getOutput();
 		if(inspArr.length < 1){
 			cancel = true;
-			logDebug("<font color=red><b>You don't have a Fire Department Final Inspection, please add one.</b></font>");
+			comment("<font color=red><b>You don't have a Fire Department Final Inspection, please add one.</b></font>");
 		}
 		
 		var hasFireFinalInsp = false;
@@ -52,12 +52,12 @@ function checkFireFinalInspection(){
 			if(inspMod.getInspectionStatus()!="Passed"){
 				cancel = true;
 				//aa.print("<font color=red><b>Please result the Fire Department Final Inspection as Passed.</b></font>");
-				logDebug("CapID = "+capId.getCustomID()+". Please result the Fire Department Final Inspection as Passed.");
+				comment("CapID = "+capId.getCustomID()+". Please result the Fire Department Final Inspection as Passed.");
 			}
 		}
 		
 		if(!hasFireFinalInsp){
-			logDebug("<font color=red><b>You don't have a Fire Department Final Inspection, please add one.</b></font>");
+			comment("<font color=red><b>You don't have a Fire Department Final Inspection, please add one.</b></font>");
 		}
 	}
 }
