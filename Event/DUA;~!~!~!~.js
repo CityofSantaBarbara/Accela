@@ -17,5 +17,6 @@
 // 				use Document Update Notification template
 //
 //Created By: Silver Lining Solutions 
-
+if (capId) {
 emailStaffOnDocUpdate();
+}
