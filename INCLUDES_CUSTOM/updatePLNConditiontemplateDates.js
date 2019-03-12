@@ -44,7 +44,7 @@ function updatePLNConditiontemplateDates() {
 								//  based on the number of calendar days.  THEN check that date and if it falls on 
 								//  a non-working day, move it one more (positive or negative).
 								
-								var newGTDate = dateAddHC3(chkIssuedDate,parseInt(daysToAddToIssueDate));
+								var newGTDate = dateAddHC3_Planning(chkIssuedDate,parseInt(daysToAddToIssueDate));
 								var newGTmpDate = new Date(newGTDate);
 								
 								logDebug("okay before we check holidays the date is:"+newGTmpDate);
@@ -52,16 +52,16 @@ function updatePLNConditiontemplateDates() {
 									logDebug("OOPS that day is a Non Working Day Silly!");
 									if (parseInt(daysToAddToIssueDate) > 0) {
 										logDebug("The days to add is a positive number - Lets move FORWARD to a working day.");
-										var newGTmpDate2 = dateAddHC3(newGTDate,1,"Y");
+										var newGTmpDate2 = dateAddHC3_Planning(newGTDate,1,"Y");
 									}
 									else {
 										logDebug("The days to add is a negative number or zero - Lets move BACKWARD to a working day.");
-										var newGTmpDate2 = dateAddHC3(newGTDate,-1,"Y");
+										var newGTmpDate2 = dateAddHC3_Planning(newGTDate,-1,"Y");
 									}
 									newGTDate = newGTmpDate2;
 								}
 								
-								// use dateAddHC3 with the lookup days to set the date 
+								// use dateAddHC3_Planning with the lookup days to set the date 
 								
 								logDebug("After ALL THOSE DATE CHECKS we have:"+newGTDate);
 								
