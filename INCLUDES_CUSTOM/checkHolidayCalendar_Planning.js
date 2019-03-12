@@ -1,7 +1,9 @@
 /*
-* Checks all agency holiday calendars for an event on the specified date
+* Checks PLN_NON_WORKING_DAYS calendar for an event on the specified date
 * Returns true if there is an event, else false
 * date - javascript date object
+*
+* This is used to exclude days that planning dept is not open/working
 */
 function checkHolidayCalendar_Planning(date){
 	try {
@@ -16,7 +18,8 @@ function checkHolidayCalendar_Planning(date){
 		var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
 		var ds = initialContext.lookup("java:/AA");
 		var conn = ds.getConnection();
-		var selectString = "select * from CALENDAR WHERE SERV_PROV_CODE = ? AND CALENDAR_TYPE='AGENCY HOLIDAY' AND  REC_STATUS='A'";
+		var selectString = "select * from CALENDAR WHERE SERV_PROV_CODE = ? AND CALENDAR_NAME = 'PLN_NON_WORKING_DAYS'";
+		
 		var sStmt = conn.prepareStatement(selectString);
 		sStmt.setString(1, agency);
 		var rSet = sStmt.executeQuery();
