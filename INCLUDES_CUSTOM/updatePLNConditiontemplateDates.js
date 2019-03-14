@@ -48,7 +48,7 @@ function updatePLNConditiontemplateDates() {
 								var newGTmpDate = new Date(newGTDate);
 								
 								logDebug("okay before we check holidays the date is:"+newGTmpDate);
-								if (checkHolidayCalendar(newGTmpDate)) {
+								if (checkHolidayCalendar_Planning(newGTmpDate)) {
 									logDebug("OOPS that day is a Non Working Day Silly!");
 									if (parseInt(daysToAddToIssueDate) > 0) {
 										logDebug("The days to add is a positive number - Lets move FORWARD to a working day.");
