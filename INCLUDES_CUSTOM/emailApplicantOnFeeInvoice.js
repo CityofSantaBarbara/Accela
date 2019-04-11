@@ -30,7 +30,7 @@ function handleFeeInvoiceNotificationEmail()
 {
 	var toEmail = "";
 	var fromEmail = scriptAgencyEmailFrom;
-	var ccEmail = "ahardy@santabarbaraca.gov";
+//	var ccEmail = "ahardy@santabarbaraca.gov";
 	var notificationTemplate = "INVOICED FEES";
 	var reportFile = [];  // empty set for the file list
 	var capID4Email = aa.cap.createCapIDScriptModel(capId.getID1(),capId.getID2(),capId.getID3());
