@@ -28,11 +28,22 @@ function sumFeesAssessedBeforeInvoiceAndAddTechFee () {
 		printObjProperties(checkFeesArr[x]);
 		
 		// here is where we check the fee schedule and fee code and add to our own techFeeTotal
-		var iFeeAmt = null, iFeeSched = null, iFeeItem = null;
+		var iFeeAmt = null, iFeeSched = null, iFeeItem = null; iFeeStat = null; iFeeAmtPaid = null;
 		
 		iFeeAmt = checkFeesArr[x].amount;
 		iFeeItem = checkFeesArr[x].code;
 		iFeeSched = checkFeesArr[x].sched;
+		iFeeStat = checkFeesArr[x].status;
+		iFeeAmtPaid = checkFeesArr[x].amountPaid;
+		
+		if ( iFeeStat != 'INVOICED' ) {
+			logDebug("Skipping fee because it is not invoiced!");
+			continue;
+		}
+		if ( iFeeAmtPaid > 0 ) {
+			logDebug("Skipping fee because it has a paid amount!");
+			continue;
+		}
 		
 		// build the look up search, first the "all schedule"
 		// if found, skip adding the fee.
