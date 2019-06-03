@@ -36,8 +36,8 @@ function sumFeesAssessedBeforeInvoiceAndAddTechFee () {
 		iFeeStat = checkFeesArr[x].status;
 		iFeeAmtPaid = checkFeesArr[x].amountPaid;
 		
-		if ( iFeeStat != 'INVOICED' ) {
-			logDebug("Skipping fee because it is not invoiced!");
+		if ( iFeeStat != 'NEW' ) {
+			logDebug("Skipping fee because it is not NEW!");
 			continue;
 		}
 		if ( iFeeAmtPaid > 0 ) {
