@@ -87,13 +87,13 @@ function sumFeesAssessedBeforeInvoiceAndAddTechFee () {
 		switch(thisModule) {
 			case "PublicWorks":
 			case "PublicWorks":
+			case "PublicWorks":
 				logDebug("Public Works module... assessing fee of "+techFeeAmt);
 				if (iTechFeeUpd) {
-					updateFee("PBW_TECH_FEE","PBW_TECH_FEE","FINAL", techFeeAmt, "N");
+//					updateFee("PBW_TECH_FEE","PBW_TECH_FEE","FINAL", techFeeAmt, "N");
+					removeFee("PBW_TECH_FEE","FINAL");
 				}
-				else {
-					addFee("PBW_TECH_FEE","PBW_TECH_FEE","FINAL", techFeeAmt, "N");
-				}
+				addFee("PBW_TECH_FEE","PBW_TECH_FEE","FINAL", techFeeAmt, "N");
 				break;
 			case "Building":
 				logDebug("Building module... would assess fee but no spec...");
