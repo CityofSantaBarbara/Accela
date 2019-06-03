@@ -24,6 +24,9 @@ function sumFeesAssessedBeforeInvoiceAndAddTechFee () {
 	checkFeesArr = loadFees();
 	
 	logDebug("printing check fees array -----------");
+	
+	var iTechFeeUpd = false;
+
 	for (var x in checkFeesArr) {
 		printObjProperties(checkFeesArr[x]);
 		
@@ -44,6 +47,7 @@ function sumFeesAssessedBeforeInvoiceAndAddTechFee () {
 			logDebug("Skipping fee because it has a paid amount!");
 			continue;
 		}
+		if ( iFeeStat == 'NEW' && iFeeItem == 'PBW_TECH_FEE') iTechFeeUpd = true;
 		
 		// build the look up search, first the "all schedule"
 		// if found, skip adding the fee.
@@ -82,9 +86,14 @@ function sumFeesAssessedBeforeInvoiceAndAddTechFee () {
 		
 		switch(thisModule) {
 			case "PublicWorks":
-				logDebug("Public Works module... assessing fee of...");
-//				updateFee("PBW_TECH_FEE","PBW_TECH_FEE","FINAL", techFeeAmt, "N");
-				addFee("PBW_TECH_FEE","PBW_TECH_FEE","FINAL", techFeeAmt, "N");
+			case "PublicWorks":
+				logDebug("Public Works module... assessing fee of "+techFeeAmt);
+				if (iTechFeeUpd) {
+					updateFee("PBW_TECH_FEE","PBW_TECH_FEE","FINAL", techFeeAmt, "N");
+				}
+				else {
+					addFee("PBW_TECH_FEE","PBW_TECH_FEE","FINAL", techFeeAmt, "N");
+				}
 				break;
 			case "Building":
 				logDebug("Building module... would assess fee but no spec...");
