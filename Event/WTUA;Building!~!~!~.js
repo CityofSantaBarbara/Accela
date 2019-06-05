@@ -39,7 +39,7 @@ if (wfTask == "Plans Distribution" && wfStatus == "Routed for Review") {
 	editAppSpecific("Plan Review Distribution Count", prdCount + 1);
 }
 
-if (wfTask == "B-General" && wfStatus == "Routed") {
+if (wfTask == "B-General" && wfStatus == "Routed to Reviewer") {
 	logDebug("Matched on B-General & Routed");
 	addAppCondition("cond Type","Applied","Desc of Cond","comment for cond","Notice");
 }
