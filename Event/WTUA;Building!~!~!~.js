@@ -47,6 +47,21 @@ if (wfTask == "B-General" && wfStatus == "Routed to Reviewer") {
 	addAppCondition("Plan Review","Pending(Applied)",title,"01025","Notice");
 }
 
+if (wfTask == "Z-General" && wfStatus == "Routed to Reviewer") {
+
+	var prdCount = getAppSpecific("Plan Review Distribution Count");	
+	var title = "Review " + prdCount + ": Zoning-General";
+	logDebug("Matched on Z-General & Routed & title =" + title + " & prdCount = " + prdCount);
+	addAppCondition("Plan Review","Pending(Applied)",title,"01025","Notice");
+}
+if (wfTask == "B-Electrical" && wfStatus == "Routed to Reviewer") {
+
+	var prdCount = getAppSpecific("Plan Review Distribution Count");	
+	var title = "Review " + prdCount + ": Building-Electrical";
+	logDebug("Matched on B-Electrical & Routed & title =" + title + " & prdCount = " + prdCount);
+	addAppCondition("Plan Review","Pending(Applied)",title,"01025","Notice");
+}
+
 //**********************************************************************************
 
 logDebug("WTUB;Building/*/*/* ------------------------>> Status check on Event flow");
