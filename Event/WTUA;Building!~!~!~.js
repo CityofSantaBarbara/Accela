@@ -42,9 +42,9 @@ if (wfTask == "Plans Distribution" && wfStatus == "Routed for Review") {
 if (wfTask == "B-General" && wfStatus == "Routed to Reviewer") {
 
 	var prdCount = getAppSpecific("Plan Review Distribution Count");	
-	var title = prdCount + "Review-Building-General";
+	var title = "Review " + prdCount + ": Building-General";
 	logDebug("Matched on B-General & Routed & title =" + title + " & prdCount = " + prdCount);
-	addAppCondition("1st Review","Pending(Applied)",title,"comment for cond","Notice");
+	addAppCondition("Plan Review","Pending(Applied)",title,"01025","Notice");
 }
 
 //**********************************************************************************
