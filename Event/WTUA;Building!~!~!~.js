@@ -34,7 +34,7 @@ licEditExpInfo(null, AInfo["Permit Expiration Date"]);
 //* updates made 6/5 for automation of BLD conditions creation for plan review tasks
 //* EK
 if (wfTask == "Plans Distribution" && wfStatus == "Routed for Review") {
-	
+	logDebug("Matched on Plans Distribution & Routed for Review");
 	editAppSpecific("Plan Review Distribution Count", 1);
 }
 
@@ -93,7 +93,7 @@ eval(getScriptText("INCLUDES_CRM", null, false));
 
 logDebug("*** BEGIN process_WF_JSON_Rules for CRM (Building) ***");
 // execute workflow propagation rules
-process_WF_JSON_Rules(capId, wfTask, wfStatus);
+//process_WF_JSON_Rules(capId, wfTask, wfStatus);
 logDebug("*** FINISH process_WF_JSON_Rules for CRM (Building) ***");
 
 //Retreive Custom CRM Logic File
