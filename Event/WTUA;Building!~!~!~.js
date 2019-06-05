@@ -35,7 +35,7 @@ licEditExpInfo(null, AInfo["Permit Expiration Date"]);
 //* EK
 if (wfTask == "Plans Distribution" && wfStatus == "Routed for Review") {
 	logDebug("Matched on Plans Distribution & Routed for Review");
-	editAppSpecific("Plan Review Distribution Count", 1);
+	editAppSpecific("Plan Review Distribution Count", {Plan Review Distribution Count} + 1);
 }
 
 //**********************************************************************************
