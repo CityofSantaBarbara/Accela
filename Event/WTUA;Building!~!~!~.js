@@ -30,6 +30,16 @@ licEditExpInfo(null, AInfo["Permit Expiration Date"]);
 |
 /------------------------------------------------------------------------------------------------------*/
 
+//**********************************************************************************
+//* updates made 6/5 for automation of BLD conditions creation for plan review tasks
+//* EK
+if (wfTask == "Plans Distribution" && wfStatus == "Routed for Review") {
+	
+	editAppSpecific("Plan Review Distribution Count", 1);
+}
+
+//**********************************************************************************
+
 logDebug("WTUB;Building/*/*/* ------------------------>> Status check on Event flow");
 include("5074_Building_WF_Accept_Plans_Withdrawn");
 
@@ -89,12 +99,3 @@ logDebug("*** FINISH process_WF_JSON_Rules for CRM (Building) ***");
 //Retreive Custom CRM Logic File
 includesCrmCustomWorkflowRules();
 
-//**********************************************************************************
-//* updates made 6/5 for automation of BLD conditions creation for plan review tasks
-//* EK
-if (wfTask == "Plans Distribution" && wfStatus == "Routed for Review") {
-	
-	editAppSpecific("Plan Review Distribution Count", 1);
-}
-
-//**********************************************************************************
