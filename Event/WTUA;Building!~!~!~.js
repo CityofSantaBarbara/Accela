@@ -41,7 +41,7 @@ if (wfTask == "Plans Distribution" && wfStatus == "Routed for Review") {
 
 if (wfTask == "B-General" && wfStatus == "Routed to Reviewer") {
 	logDebug("Matched on B-General & Routed");
-	addAppCondition("cond Type","Applied","Desc of Cond","comment for cond","Notice");
+	addAppCondition("1st Review","Pending(Applied)","1st Review-Building-General","comment for cond","Notice");
 }
 
 //**********************************************************************************
