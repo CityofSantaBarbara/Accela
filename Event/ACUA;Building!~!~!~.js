@@ -28,6 +28,9 @@ logDebug("				 length = " + lenDesc);
 logDebug("             startPos = " + startPos);
 logDebug("          lookupValue = " + lookupValue);
 
+var testString = "follow me to the drive";
+var tsLen = testString.length;
+logDebug("testString and length = " + testString + " " + tsLen);
 
 var task = lookup("BLD_CONDITION_WFTASK_MAP", lookupValue);
 
