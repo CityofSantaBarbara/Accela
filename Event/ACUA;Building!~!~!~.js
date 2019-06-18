@@ -16,7 +16,7 @@
 logDebug("START of ACUA Building/*/*/* !");
 
 var condDesc = conditionObj.getConditionDescription().toString();
-var lengthDesc = condDesc.length;
+var lenDesc = condDesc.length;
 var startPos = condDesc.indexOf(":");
 var lookupValue = condDesc.substr(startPos+2,26);
 
@@ -24,7 +24,7 @@ logDebug("******* Condition Info *********************");
 logDebug("       Condition Type = " + conditionType);
 logDebug("	   Condition Status = " + conditionStatus);
 logDebug("Condition Description = " + condDesc);
-logDebug("				 length = " + lengthDesc);
+logDebug("				 length = " + lenDesc);
 logDebug("             startPos = " + startPos);
 logDebug("          lookupValue = " + lookupValue);
 
