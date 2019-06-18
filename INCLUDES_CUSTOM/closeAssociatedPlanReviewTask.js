@@ -16,6 +16,8 @@
 
 function closeAssociatedPlanReviewTask()
 {
+	
+	logDebug("START of closeAssociatedPlanReviewTask");
 	var tempStr = conditionObj.getDispConditionDescription().toString();
 	var condDesc = "" + tempStr.toString();
 	var lenDesc = condDesc.length;
@@ -33,10 +35,14 @@ function closeAssociatedPlanReviewTask()
 	var task = lookup("BLD_CONDITION_WFTASK_MAP", lookupValue);
 	logDebug("                 task = " + task);
 
-	if (task != -1 && isTaskActive(task)){	
+	var stat = lookup("BLD_PLANREVIEW_STATUS", conditionStatus);
+	logDebug("                 stat = " + stat);
+	
+	if (task != -1 && stat == 1 && isTaskActive(task)){	
 		logDebug("the associated task is active");
 		closeTask(task,conditionStatus,"Associated Condition updated","Associated Condition updated");
 		}
 		
 	//printObjProperties(conditionObj);
+	logDebug("END of closeAssociatedPlanReviewTask");
 }

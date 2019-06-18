@@ -34,7 +34,7 @@ function createConditionForPlanReview()
 		var title = "Review " + prdCount + ": " + conditionDesc;
 		var newStatus = "Routed to Reviewer " + prdCount;
 		logDebug("Matched on " + conditionDesc + " & Routed & title =" + title + " & prdCount = " + prdCount);
-		addAppCondition("Plan Review","Pending(Applied)",title,"01025","Notice");
+		addAppCondition("Plan Review","Pending",title,"01025","Notice");
 		updateTask(wfTask,newStatus,"comment","note");
 		}
 	
