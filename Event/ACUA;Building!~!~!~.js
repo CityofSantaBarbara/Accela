@@ -34,7 +34,7 @@ logDebug("                 task = " + task);
 
 if (task != -1 && isTaskActive(task)){	
 	logDebug("the associated task is active");
-	updateTask(task,conditionStatus,"Associated Condition updated","Associated Condition updated");
+	closeTask(task,conditionStatus,"Associated Condition updated","Associated Condition updated");
 	}
 	
 //printObjProperties(conditionObj);
