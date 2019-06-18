@@ -33,36 +33,7 @@ licEditExpInfo(null, AInfo["Permit Expiration Date"]);
 //**********************************************************************************
 //* updates made 6/5 for automation of BLD conditions creation for plan review tasks
 //* EK
-if (wfTask == "Plans Distribution" && wfStatus == "Routed for Review") {
-	logDebug("Matched on Plans Distribution & Routed for Review");
-	var prdCount = parseInt(getAppSpecific("Plan Review Distribution Count"));
-	editAppSpecific("Plan Review Distribution Count", prdCount + 1);
-}
-
-if (wfTask == "B-General" && wfStatus == "Routed to Reviewer") {
-
-	var prdCount = getAppSpecific("Plan Review Distribution Count");	
-	var title = "Review " + prdCount + ": Building-General";
-	var newStatus = "Routed to Reviewer" + prdCount;
-	logDebug("Matched on B-General & Routed & title =" + title + " & prdCount = " + prdCount);
-	addAppCondition("Plan Review","Pending(Applied)",title,"01025","Notice");
-	updateTask(wfTask,newStatus,"comment","note");
-}
-
-if (wfTask == "Z-General" && wfStatus == "Routed to Reviewer") {
-
-	var prdCount = getAppSpecific("Plan Review Distribution Count");	
-	var title = "Review " + prdCount + ": Zoning-General";
-	logDebug("Matched on Z-General & Routed & title =" + title + " & prdCount = " + prdCount);
-	addAppCondition("Plan Review","Pending(Applied)",title,"01025","Notice");
-}
-if (wfTask == "B-Electrical" && wfStatus == "Routed to Reviewer") {
-
-	var prdCount = getAppSpecific("Plan Review Distribution Count");	
-	var title = "Review " + prdCount + ": Building-Electrical";
-	logDebug("Matched on B-Electrical & Routed & title =" + title + " & prdCount = " + prdCount);
-	addAppCondition("Plan Review","Pending(Applied)",title,"01025","Notice");
-}
+createConditionForPlanReview();
 
 //**********************************************************************************
 

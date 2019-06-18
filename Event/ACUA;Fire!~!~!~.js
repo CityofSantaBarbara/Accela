@@ -1,5 +1,5 @@
 // ********************************************************************************************************
-// Script 		ACUA:Building/~/~/~.js
+// Script 		ACUA:Fire/~/~/~.js
 // Record Types: all
 //
 // Event: 	ACAA	
@@ -13,8 +13,10 @@
 //				06/18/2018	Eric		Orig
 //
 // ********************************************************************************************************
-logDebug("START of ACUA Building/*/*/* !");
+logDebug("START of ACUA Fire/*/*/* !");
 
-closeAssociatedPlanReviewTask();
+closeAssociatedPlanReviewTask()
 
-logDebug("END of ACUA Building/*/*/* !");
+logDebug("END of ACUA Fire/*/*/* !");
+
+
