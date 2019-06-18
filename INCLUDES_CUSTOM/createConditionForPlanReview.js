@@ -28,7 +28,7 @@ function createConditionForPlanReview()
 	
 	/* create the associated plan review */
 	var conditionDesc = lookup("BLD_WFTASK_CONDITION_MAP",wfTask);
-	if (if conditionDesc != -1 && wfStatus == "Routed to Reviewer") {
+	if (conditionDesc != -1 && wfStatus == "Routed to Reviewer") {
 
 		var prdCount = getAppSpecific("Plan Review Distribution Count");	
 		var title = "Review " + prdCount + ": " + conditionDesc;
@@ -36,7 +36,7 @@ function createConditionForPlanReview()
 		logDebug("Matched on " + conditionDesc + " " & Routed & title =" + title + " & prdCount = " + prdCount);
 		addAppCondition("Plan Review","Pending(Applied)",title,"01025","Notice");
 		updateTask(wfTask,newStatus,"comment","note");
-	}
+		}
 	
 	logDebug("END of createConditionForPlanReview");
 }
