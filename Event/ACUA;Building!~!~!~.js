@@ -15,21 +15,20 @@
 // ********************************************************************************************************
 logDebug("START of ACUA Building/*/*/* !");
 
+var condDesc = conditionObj.getConditionDescription();
+var lengthDesc = condDesc.length;
+var startPos = condDesc.indexOf(":");
+var lookupValue = condDesc.substr(startPos,lengthDesc-startPos);
+
 logDebug("******* Condition Info *********************");
 logDebug("       Condition Type = " + conditionType);
 logDebug("	   Condition Status = " + conditionStatus);
-logDebug("Condition Description = " + conditionObj.getConditionDescription());
-
-/* get the condition name and remove everything before the colon */
-var lengthDesc = conditionObj.getConditionDescription().length;
-var startPos = conditionObj.getConditionDescription().indexOf(":");
-logDebug("length = " + lengthDesc);
-logDebug("startPos = " + startPos);
+logDebug("Condition Description = " + condDesc);
+logDebug("				 length = " + lengthDesc);
+logDebug("             startPos = " + startPos);
 
 
-var conditionName = conditionObj.getConditionDescription().substr(startPos,lengthDesc-startPos);
-
-var task = lookup("BLD_CONDITION_WFTASK_MAP", conditionName);
+var task = lookup("BLD_CONDITION_WFTASK_MAP", lookupValue);
 
 printObjProperties(conditionObj);
 
