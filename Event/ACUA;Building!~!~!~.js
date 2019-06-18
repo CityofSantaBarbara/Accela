@@ -17,5 +17,6 @@ logDebug("START of ACUA Building/*/*/* !");
 
 logDebug("Condition Type = " + conditionType);
 logDebug("Condition Status = " + conditionStatus);
-printObjProperties(conditionStatus);
+printObjProperties(conditionObj);
+printObjProperties(conditionObj.getOutput()); 
 logDebug("END of ACUA Building/*/*/* !");
