@@ -29,13 +29,15 @@ logDebug("				 length = " + lenDesc);
 logDebug("             startPos = " + startPos);
 logDebug("          lookupValue = " + lookupValue);
 
-var testString = "follow me to the drive";
-var tsLen = testString.length;
-logDebug("testString and length = " + testString + " " + tsLen);
-
 var task = lookup("BLD_CONDITION_WFTASK_MAP", lookupValue);
+logDebug("                 task = " + task);
 
-printObjProperties(conditionObj);
+if (task != -1 && isTaskActive(task)){	
+	logDebug("the associated task is active");
+	updateTask(task,conditionStatus,"Associated Condition updated","Associated Condition updated");
+	}
+	
+//printObjProperties(conditionObj);
 
 
 logDebug("END of ACUA Building/*/*/* !");
