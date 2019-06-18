@@ -26,6 +26,7 @@ logDebug("	   Condition Status = " + conditionStatus);
 logDebug("Condition Description = " + condDesc);
 logDebug("				 length = " + lengthDesc);
 logDebug("             startPos = " + startPos);
+logDebug("          lookupValue = " + lookupValue);
 
 
 var task = lookup("BLD_CONDITION_WFTASK_MAP", lookupValue);
