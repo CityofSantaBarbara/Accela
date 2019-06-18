@@ -19,6 +19,10 @@ logDebug("******* Condition Info *********************");
 logDebug("       Condition Type = " + conditionType);
 logDebug("	   Condition Status = " + conditionStatus);
 logDebug("Condition Description = " + conditionObj.getConditionDescription());
+
+var conditionName = conditionObj.getConditionDescription();
+var task = lookup("BLD_CONDITION_WFTASK_MAP", conditionName);
+
 printObjProperties(conditionObj);
 
 
