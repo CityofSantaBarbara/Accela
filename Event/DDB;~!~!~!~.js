@@ -4,7 +4,7 @@ validateDocument();
 function validateDocument()
 {
 
-if (typeof(docCapStatus) != "undefined")
+      if (typeof(getCapId) != "undefined")
       {
 	//aa.print("capstatus="+docCapStatus );
 	if(docCapStatus && (docCapStatus == "Ready to Issue" || docCapStatus == "Revisions Required"))
