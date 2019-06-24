@@ -11,13 +11,15 @@
 //********************************************************************************************************
 // Change Log
 //				Date		Name			Modification
-//				06/24/2018	Chad			Original Development
+//				06/24/2019	Chad			Original Development
+//				06/24/2019	Chad			Added to email lookup
 //********************************************************************************************************
 function SendDataTicketAppealsRequestUploadedEmail()
 {
-	var toEmail = "";
-//	var fromEmail = scriptAgencyEmailFrom;
-	var fromEmail = 'AccelaDev@santabarbaraca.gov';
+	var toEmail = lookup("APPEALS_REQUEST_UPLOADED_EMAIL", "EMAIL_TO");
+
+	var fromEmail = scriptAgencyEmailFrom;
+//	var fromEmail = 'AccelaDev@santabarbaraca.gov';
 	var ccEmail = "";
 	var notificationTemplate = "APPEAL REQUEST UPLOADED";
 	var reportFile = [];  // empty set for the file list
@@ -28,7 +30,8 @@ function SendDataTicketAppealsRequestUploadedEmail()
 	var lRecAlias = cap.getCapType().getAlias();
 
 //	toEmail += " admincites@dataticket.com   ROLL THIS WHEN YOU ARE READY TO ACTUALL TEST
-	toEmail += "cweiffenbach@santabarbaraca.gov";
+//	toEmail += "cweiffenbach@santabarbaraca.gov";
+	
 
 	//	spec says no aca as of 6-11-19
 	//	var acaSite = lookup("ACA_CONFIGS", "OFFICIAL_WEBSITE_URL");
@@ -39,7 +42,7 @@ function SendDataTicketAppealsRequestUploadedEmail()
 	//chad add this line back when you are ready to roll
 	//	var docArray = documentModelArray.toArray();
 	// fake it out here
-	docArray = documentModelArray;
+	docArray = documentModelArray.toArray();
 	var err = 0;
 
 	var documentModel = null;
