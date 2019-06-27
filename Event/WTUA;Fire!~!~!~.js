@@ -19,7 +19,7 @@ Notes:
 	- for assure WF-Task will be usable in all situation, setCompleteFlag=N added to script
 */
 
-activateAndAssignWfTask([ "Assign Complaint", "Assign Inspection" ], [ "Complete" ], "Inspection");
+/*activateAndAssignWfTask([ "Assign Complaint", "Assign Inspection" ], [ "Complete" ], "Inspection");
 
 /**ACCELA CIVIC PLATFORM TO CRM SCRIPTING LOGIC 
  * Workflow automation for all FIRE Records 
@@ -28,7 +28,7 @@ activateAndAssignWfTask([ "Assign Complaint", "Assign Inspection" ], [ "Complete
  */ 
 
 //Retreive Enterprise CRM Function File
-eval(getScriptText("INCLUDES_CRM", null, false));
+/*eval(getScriptText("INCLUDES_CRM", null, false));
 
 logDebug("*** BEGIN process_WF_JSON_Rules for CRM (FIRE) ***");
 // execute workflow propagation rules
@@ -36,7 +36,8 @@ process_WF_JSON_Rules(capId, wfTask, wfStatus);
 logDebug("*** FINISH process_WF_JSON_Rules for CRM (Fire) ***");
 
 //Retreive Custom CRM Logic File
-includesCrmCustomWorkflowRules();
+includesCrmCustomWorkflowRules(); 
+*/
 
 //**********************************************************************************
 //* updates made 6/5 for automation of BLD conditions creation for plan review tasks
