@@ -1,6 +1,6 @@
 //********************************************************************************************************
 //Script 		SendDataTicketAppealsRequestUploadedEmail 
-//Record Types:	Enforcement/*/*/*
+//Record Types:	​Enforcement/*/*/*
 //
 //Event: 		this script may be triggered from DocumentUploadAfter.
 //
@@ -11,8 +11,7 @@
 //********************************************************************************************************
 // Change Log
 //				Date		Name			Modification
-//				06/24/2019	Chad			Original Development
-//				06/24/2019	Chad			Added to email lookup
+//				06/24/2018	Chad			Original Development
 //********************************************************************************************************
 function SendDataTicketAppealsRequestUploadedEmail()
 {
@@ -55,9 +54,18 @@ function SendDataTicketAppealsRequestUploadedEmail()
 		documentModel = docArray[i];
 		var iDocFileName = documentModel.getDocName();
 		iDocFileName = iDocFileName.toUpperCase();
+
+		var iDocCat			= documentModel.getDocCategory();
+		var iDocGroup		= documentModel.getDocGroup();
 		
-		if (iDocFileName.indexOf("APPEAL REQUEST") >= 0 ) {  // FOUND IT!
-		
+//		if (iDocFileName.indexOf("APPEAL REQUEST") >= 0 ) {  // FOUND IT!
+		if (iDocGroup == 'ENF' && (
+				idocCat == 'Admin Citation 1' ||
+				idocCat == 'Admin Citation 2' ||
+				idocCat == 'Admin Citation 3 or More' ||
+				idocCat == 'Admin Citation Appeal Request'
+			))
+		{
 			var iDocCustomID	= lAltId;
 			var iDocEntityID	= documentModel.getEntityID();
 			var iDocEntityType	= documentModel.getEntityType();
