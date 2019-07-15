@@ -59,7 +59,7 @@ function SendDataTicketAppealsRequestUploadedEmail()
 		var iDocGroup		= documentModel.getDocGroup();
 		
 //		if (iDocFileName.indexOf("APPEAL REQUEST") >= 0 ) {  // FOUND IT!
-		if (iDocGroup == 'ENF' && (idocCat == 'Admin Citation Appeal Request')) {
+		if (iDocGroup == 'ENF' && (iDocCat == 'Admin Citation Appeal Request')) {
 			var iDocCustomID	= lAltId;
 			var iDocEntityID	= documentModel.getEntityID();
 			var iDocEntityType	= documentModel.getEntityType();
