@@ -68,9 +68,9 @@ function SendDataTicketAdminCitationUploadedEmail()
 		
 //		if (iDocFileName.indexOf("ADMIN CITATION") >= 0 ) {  // FOUND IT!
 		if (iDocGroup == 'ENF' && (
-				idocCat == 'Admin Citation 1' ||
-				idocCat == 'Admin Citation 2' ||
-				idocCat == 'Admin Citation 3 or More'
+				iDocCat == 'Admin Citation 1' ||
+				iDocCat == 'Admin Citation 2' ||
+				iDocCat == 'Admin Citation 3 or More'
 			))
 		{
 		
