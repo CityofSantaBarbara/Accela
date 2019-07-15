@@ -70,8 +70,7 @@ function SendDataTicketAdminCitationUploadedEmail()
 		if (iDocGroup == 'ENF' && (
 				idocCat == 'Admin Citation 1' ||
 				idocCat == 'Admin Citation 2' ||
-				idocCat == 'Admin Citation 3 or More' ||
-				idocCat == 'Admin Citation Appeal Request'
+				idocCat == 'Admin Citation 3 or More'
 			))
 		{
 		
