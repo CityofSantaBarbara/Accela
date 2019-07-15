@@ -15,7 +15,7 @@
 //********************************************************************************************************
 function SendDataTicketAdminCitationUploadedEmail()
 {
-	var toEmail = null; //lookup("ADMIN_CITATION_UPLOADED_EMAIL", "EMAIL_TO");
+	var toEmail = lookup("ADMIN_CITATION_UPLOADED_EMAIL", "EMAIL_TO");
 
 	var fromEmail = scriptAgencyEmailFrom;
 //	var fromEmail = 'AccelaDev@santabarbaraca.gov';
