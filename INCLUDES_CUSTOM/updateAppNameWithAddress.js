@@ -12,24 +12,34 @@
 // Change Log
 //         		Date		Name		Modification
 //				10/17/2019	Chad		Orig
+//				10/28/2019	Chad		Added Building, Fire, PublicWorks, Enforcement logic
 //
 // ********************************************************************************************************
 function updateAppNameWithAddress() {
+logDebug("start of updateAppNameWithAddress");
+	var itemCap = null;
 
-	var appName = cap.getSpecialText();
+	if (arguments.length == 1) itemCap = arguments[0]; // use cap ID specified in args
+	else var itemCapID = capId;
+	
+	var itemAltID			= itemCapID.getCustomID();
+	var itemCap				= aa.cap.getCap(itemCapID).getOutput();
+	var itemAppTypeResult	= itemCap.getCapType();
+	var itemAppTypeString	= appTypeResult.toString();
+	var itemAppTypeArray	= appTypeString.split("/");
+	var appName				= itemCap.getSpecialText();
+	var fcapAddressObj		= null;
+	var addressAttrObj		= null;
+	var lCapAddress			= "";
+	var lAddrPrimary		= null;
 
-	var itemCap = capId;
-	var fcapAddressObj = null;
-   	var capAddressResult = aa.address.getAddressWithAttributeByCapId(itemCap);
+   	var capAddressResult	= aa.address.getAddressWithAttributeByCapId(itemCapID);
    	if (capAddressResult.getSuccess()) {
-   		var fcapAddressObj = capAddressResult.getOutput();
+   		var fcapAddressObj	= capAddressResult.getOutput();
 	}
    	else {
-     		aa.print("**ERROR: Failed to get Address object: " + capAddressResult.getErrorType() + ":" + capAddressResult.getErrorMessage())
+     		logDebug("**ERROR: Failed to get Address object: " + capAddressResult.getErrorType() + ":" + capAddressResult.getErrorMessage())
 	}
-	var addressAttrObj = null;
-	var lCapAddress = null;
-	var lAddrPrimary = null;
 
   	for (i in fcapAddressObj)
   	{
@@ -38,7 +48,7 @@ function updateAppNameWithAddress() {
 		
 		if (lAddrPrimary) break;
 	}	
-			
+
 	lCapAddress2 = lCapAddress;
 	if (lCapAddress) {
 		// for some reason the regex utils do not work with this address desc so... looping through old fashioned way!		
@@ -49,16 +59,42 @@ function updateAppNameWithAddress() {
 			if (i == 99) break;  // don't ever want to get stuck here
 		}
 	}
-
-	if ( AInfo["ParcelAttribute.ZONING"] != "" ) {
-		lCapAddress2 += ", " + AInfo["ParcelAttribute.ZONING"] + " ZONE";
-	}
 	
-	if (appName == null) {
-		appName = lCapAddress2;
-	} else {
-		if ( (appName.indexOf(lCapAddress) == -1) && (appName.indexOf(lCapAddress2) == -1) ) {
-			//prevent multiple concatenation
+	if (appName == null) { appName = ""; }
+	if ( (appName.indexOf(lCapAddress) == -1) && (appName.indexOf(lCapAddress2) == -1) ) {
+		//prevent multiple concatenation
+		
+		if ( itemAppTypeArray[0] == 'Building' ) {
+			logDebug("update for Building!");
+			appName = lCapAddress2 + ": " + appName;
+		}
+		else if ( itemAppTypeArray[0] == 'Planning' ) {
+			logDebug("update for Planning!");
+			if ( AInfo["ParcelAttribute.ZONING"] != "" ) {
+				appName = lCapAddress2 + ", " + AInfo["ParcelAttribute.ZONING"] + " ZONE: " + appName;
+			} else {
+				appName = lCapAddress2 + ": " + appName;
+				
+			}
+		}
+		else if ( itemAppTypeArray[0] == 'Enforcement' ) {
+			logDebug("update for Enforcement!");
+			if ( AInfo["ParcelAttribute.ZONING"] != "" ) {
+				appName = lCapAddress2 + ", " + AInfo["ParcelAttribute.ZONING"] + " ZONE: " + appName;
+			} else {
+				appName = lCapAddress2 + ": " + appName;
+				
+			}
+		}
+		else if ( itemAppTypeArray[0] == 'Fire' ) {
+			logDebug("update for Fire!");
+			appName = lCapAddress2 + ": " + appName;
+		}
+		else if ( itemAppTypeArray[0] == 'PublicWorks' ) {
+			logDebug("update for PublicWorks!");
+			appName = lCapAddress2 + ": " + appName;
+		}
+		else { //default
 			appName = lCapAddress2 + ": " + appName;
 		}
 	}
@@ -66,8 +102,12 @@ function updateAppNameWithAddress() {
 	//only update if value was changed
 	if (appName != cap.getSpecialText()) {
 		editAppName(appName);
-		aa.print("we would set the app name to:"+appName);
+		logDebug("we would set the app name to:"+appName);
+	}
+	else {
+		logDebug("app name update not required");
 	}
 
+logDebug("end of updateAppNameWithAddress");
 	return true;
 }
