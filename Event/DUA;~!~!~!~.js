@@ -17,6 +17,12 @@
 // 				use Document Update Notification template
 //
 //Created By: Silver Lining Solutions 
-if (capId) {
-emailStaffOnDocUpdate();
+
+// commented emaiStaffOnDocUpdate as it is throwing and error and stopping the event!
+
+//emailStaffOnDocUpdate();
+
+if(!publicUser){
+    SendDataTicketAppealsRequestUploadedEmail();
+    SendDataTicketAdminCitationUploadedEmail();
 }
