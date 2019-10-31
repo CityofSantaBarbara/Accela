@@ -72,7 +72,7 @@ function SendDataTicketAdminCitationUploadedEmail()
 				iDocCat == 'Admin Citation 1' ||
 				iDocCat == 'Admin Citation 2' ||
 				iDocCat == 'Admin Citation 3 or More' ||
-				iDocCat == 'Added Admin Citation Appeal Staff'
+				iDocCat == 'Admin Citation Appeal Staff'
 			))
 		{
 		
