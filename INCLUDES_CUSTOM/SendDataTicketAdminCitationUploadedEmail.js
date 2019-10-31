@@ -12,6 +12,7 @@
 // Change Log
 //				Date		Name			Modification
 //				06/24/2018	Chad			Original Development
+//				10/31/2019	Chad			Added Admin Citation Appeal Staff Report doc type
 //********************************************************************************************************
 function SendDataTicketAdminCitationUploadedEmail()
 {
@@ -70,7 +71,8 @@ function SendDataTicketAdminCitationUploadedEmail()
 		if (iDocGroup == 'ENF' && (
 				iDocCat == 'Admin Citation 1' ||
 				iDocCat == 'Admin Citation 2' ||
-				iDocCat == 'Admin Citation 3 or More'
+				iDocCat == 'Admin Citation 3 or More' ||
+				iDocCat == 'Added Admin Citation Appeal Staff'
 			))
 		{
 		
