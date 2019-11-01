@@ -13,5 +13,4 @@
 //			10-17-2019		Chad			Original
 // ********************************************************************************************************
 logDebug("Start of ASA:Planning/*/*/*");
-updateAppNameWithAddress();
 logDebug("End of ASA:Planning/*/*/*");
