@@ -15,6 +15,7 @@
 //			11-12-2018	Chad			Added logic for Script 90
 // ********************************************************************************************************
 logDebug("Start of ASA:*/*/*/*");
+updateAppNameWithAddress();
 
 var GISService = "SANTABARBARA";
 
