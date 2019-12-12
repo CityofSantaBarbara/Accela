@@ -606,3 +606,122 @@ function getGISInfo(svc,layer,attributename) // optional: numDistance, distanceT
 | End Function getGISInfo
 /--------------------------------------------------------------------------------------------------------------------*/
 
+function handleFinalInspectionMap(itemCap) {
+    var inspMapString = lookup("FINAL_INSPECTION_MAPPING", appTypeString);
+
+    // sample:  [{"inspection":"Final Electrical","result":["Passed","Passed with Conditions"],"task":"taskName","status":"statusName","reportName":"InspectionReport"},{"inspection":"Final Plumbing","result":["Passed","Passed with Conditions"],"task":"taskName","status":"statusName","reportName":"InspectionReport"}]
+
+    if (!inspMapString || inspMapString == "") {
+        logDebug("no mapping found for " + appTypeString);
+        return false;
+    }
+
+    try {
+        var inspMap = JSON.parse(inspMapString);
+    } catch (err) {
+        logDebug("can't parse mapping for " + appTypeString + " result: " + err.message);
+        return false;
+    }
+
+    for (var i in inspMap) { // once for each object
+        var m = inspMap[i];
+        if (((m.inspection instanceof Array) && m.inspection.indexOf(String(inspType)) >= 0) || (!(m.inspection instanceof Array) && m.inspection.equals(String(inspType)))) {
+            logDebug("handleFinalInspectionMap 1: found matching inspType of " + inspType);
+            if ((m.result instanceof Array && m.result.indexOf(String(inspResult)) >= 0) || (!(m.result instanceof Array) && m.result.equals(String(inspResult)))) {
+                logDebug("handleFinalInspectionMap 2: found matching result of " + inspResult);
+                if (m.task && m.status) {
+                    resultWorkflowTask(m.task, m.status, "", "");
+                }
+                if (m.reportName) {
+                     logDebug("report sample " + m.reportName);
+                    runReportAsyncAttach(capId, m.reportName,"AGENCY_ALT_ID",capId.getCustomID());
+                }
+            }
+        }
+    }
+}	
+
+function resultWorkflowTask(wfstr, wfstat, wfcomment, wfnote) // optional process name
+{
+	var useProcess = false;
+	var processName = "";
+	if (arguments.length == 5) {
+		processName = arguments[4]; // subprocess
+		useProcess = true;
+	}
+
+	var workflowResult = aa.workflow.getTaskItems(capId, wfstr, processName, null, null, null);
+	if (workflowResult.getSuccess())
+		var wfObj = workflowResult.getOutput();
+	else {
+		logMessage("**ERROR: Failed to get workflow object: " + workflowResult.getErrorMessage());
+		return false;
+	}
+
+	if (!wfstat)
+		wfstat = "NA";
+
+	for (i in wfObj) {
+		var fTask = wfObj[i];
+		if (fTask.getTaskDescription().toUpperCase().equals(wfstr.toUpperCase()) && (!useProcess || fTask.getProcessCode().equals(processName))) {
+			var statObj = aa.workflow.getTaskStatus(fTask, wfstat);
+			var dispo = "U";
+			if (statObj.getSuccess()) {
+				var status = statObj.getOutput();
+				dispo = status.getResultAction();
+			} else {
+				logDebug("Could not get status action resulting to no change")
+			}
+
+			var dispositionDate = aa.date.getCurrentDate();
+			var stepnumber = fTask.getStepNumber();
+			var processID = fTask.getProcessID();
+
+			if (useProcess)
+				aa.workflow.handleDisposition(capId, stepnumber, processID, wfstat, dispositionDate, wfnote, wfcomment, systemUserObj, dispo);
+			else
+				aa.workflow.handleDisposition(capId, stepnumber, wfstat, dispositionDate, wfnote, wfcomment, systemUserObj, dispo);
+
+			logMessage("Resulting Workflow Task: " + wfstr + " with status " + wfstat);
+			logDebug("Resulting Workflow Task: " + wfstr + " with status " + wfstat);
+		}
+	}
+} 
+
+
+function runReportAsyncAttach(itemCapId, aaReportName) {
+	// optional parameters are report parameter pairs
+	// for example: runReportAttach(capId,"ReportName","altid",capId.getCustomID(),"months","12");
+
+	var reportName = aaReportName;
+	reportResult = aa.reportManager.getReportInfoModelByName(reportName);
+	if (!reportResult.getSuccess()) {
+		logDebug("**WARNING** couldn't load report " + reportName + " " + reportResult.getErrorMessage());
+		return false;
+	}
+	var report = reportResult.getOutput();
+	var itemCap = aa.cap.getCap(itemCapId).getOutput();
+	appTypeResult = itemCap.getCapType();
+	appTypeString = appTypeResult.toString();
+	appTypeArray = appTypeString.split("/");
+	report.setModule(appTypeArray[0]);
+	report.setCapId(itemCapId.getID1() + "-" + itemCapId.getID2() + "-" + itemCapId.getID3());
+	report.getEDMSEntityIdModel().setAltId(itemCapId.getCustomID());
+	var parameters = aa.util.newHashMap();
+	for (var i = 2; i < arguments.length; i = i + 2) {
+		parameters.put(arguments[i], arguments[i + 1]);
+		logDebug("Report parameter: " + arguments[i] + " = " + arguments[i + 1]);
+	}
+	report.setReportParameters(parameters);
+	var permit = aa.reportManager.hasPermission(reportName, 'ADMIN');
+
+	if (permit.getOutput().booleanValue()) {
+		var scriptName = "RUN_REPORT_ATTACH_ASYNC";
+		var envParameters = aa.util.newHashMap();
+		envParameters.put("report", report);
+		aa.runAsyncScript(scriptName, envParameters);
+		//var reportResult = aa.reportManager.getReportResult(report);
+		logDebug("Report " + aaReportName + " has been run async for " + itemCapId.getCustomID());
+	} else
+		logDebug("No permission to report: " + reportName + " for user: " + currentUserID);
+}
