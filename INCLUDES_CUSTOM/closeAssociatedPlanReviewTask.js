@@ -9,8 +9,9 @@
 // Created By: Silver Lining Solutions
 // ********************************************************************************************************
 // Change Log
-//         		Date		Name		Modification
-//				06/18/2018	Eric		Orig
+//			Date		Name		Modification
+//			06/18/2018	Eric		Orig
+//			01/31/2020	Chad		Assign task before closing to document who updated the condition
 //
 // ********************************************************************************************************
 
@@ -40,6 +41,7 @@ function closeAssociatedPlanReviewTask()
 	
 	if (task != -1 && stat == 1 && isTaskActive(task)){	
 		logDebug("the associated task is active");
+		assignTask(task,currentUserID);
 		closeTask(task,conditionStatus,"Associated Condition updated","Associated Condition updated");
 		}
 		
