@@ -24,6 +24,7 @@ function closeAssociatedPlanReviewTask()
 	var lenDesc = condDesc.length;
 	var startPos = condDesc.indexOf(":");
 	var lookupValue = condDesc.substr(startPos+2,lenDesc);
+	var condAppliedBy = conditionObj.getStatusByUser();
 
 	logDebug("******* Condition Info *********************");
 	logDebug("       Condition Type = " + conditionType);
@@ -41,7 +42,7 @@ function closeAssociatedPlanReviewTask()
 	
 	if (task != -1 && stat == 1 && isTaskActive(task)){	
 		logDebug("the associated task is active");
-		assignTask(task,currentUserID);
+		assignTask(task,condAppliedBy);
 		closeTask(task,conditionStatus,"Associated Condition updated","Associated Condition updated");
 		}
 		
