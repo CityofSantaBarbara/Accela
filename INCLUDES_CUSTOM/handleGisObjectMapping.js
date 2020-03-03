@@ -1,4 +1,3 @@
-
 // added 11/6/19 JHS Gray Quarter, Inc.
 function handleGisObjectMapping(itemCap) {
 	var gisService = "SANTABARBARA";
@@ -45,6 +44,7 @@ function handleGisObjectMapping(itemCap) {
 		var gisId = gisMap[i].gisId; // field used in GIS for ID
 		var gisLayerId = gisMap[i].gisLayerId;  // layer number
 		var thisLayer = gisMap[i].layer // layer name 
+	
 		if (!valueString || valueString== "") {
 			logDebug("empty ASI field for GIS object mapping to layer " + thisLayer + ", " + thisId + " is empty, checking if one already exists");
 			var tempValues = [];
@@ -97,11 +97,11 @@ function handleGisObjectMapping(itemCap) {
 								newValue = lookup(asiMapping.map,newValue);
 								logDebug("used std choice " + asiMapping.map + " to translate to " + newValue);	
 							}
-							logDebug("adding value to : " + asiMapping.gis + " : " + newValue);
-							if (!value[asiMapping.gis]) {
-								value[asiMapping.gis] = [];
+							logDebug("adding value to : " + asiMapping.asi + " : " + newValue);
+							if (!value[asiMapping.asi]) {
+								value[asiMapping.asi] = [];
 							}
-							value[asiMapping.gis].push(newValue);
+							value[asiMapping.asi].push(newValue);
 						}
 					}
 				}
@@ -109,8 +109,9 @@ function handleGisObjectMapping(itemCap) {
 		}
 		for (var iii in value) {
 			logDebug("value['" + iii + "'] = " + JSON.stringify(value[iii]));
-			logDebug("editAppSpecific(" + asiMapping.asi + ",'" + value[iii].join(",") + "',itemCap)");
-			editAppSpecific(asiMapping.asi,value[iii].join(","),itemCap);
+			logDebug("editAppSpecific(" + iii + ",'" + value[iii].join(",") + "',itemCap)");
+			editAppSpecific(iii,value[iii].join(","),itemCap);
 		}
 	}
 }
+
