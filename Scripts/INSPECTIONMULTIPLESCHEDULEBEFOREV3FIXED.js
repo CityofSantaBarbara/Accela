@@ -21,8 +21,6 @@
 var controlString = "InspectionScheduleBefore"; // Standard choice for control
 var preExecute = "PreExecuteForAfterEvents"; // Standard choice to execute first (for globals, etc)
 var documentOnly = false; // Document Only -- displays hierarchy of std choice steps
-var ivrReturn = null;
-var ivrErrormessages = new Array();
 /*------------------------------------------------------------------------------------------------------/
 | END User Configurable Parameters
 /------------------------------------------------------------------------------------------------------*/
@@ -261,12 +259,6 @@ if (debug.indexOf("**ERROR") > 0) {
 			aa.env.setValue("ScriptReturnMessage", "<font color=red><b>Action Cancelled</b></font><br><br>" + message);
 		if (showDebug)
 			aa.env.setValue("ScriptReturnMessage", "<font color=red><b>Action Cancelled</b></font><br><br>" + debug);
-		//handle IVR - custom for CCSF
-		if (currentUserID.equals(userIVR))
-		{
-			ivrReturn = new IVRReturnObject("10", ivrErrormessages);
-			aa.env.setValue("ScriptReturnMessage", JSON.stringify(ivrReturn));
-		}		
 	} else {
 		aa.env.setValue("ScriptReturnCode", "0");
 		if (showMessage)
