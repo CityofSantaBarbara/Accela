@@ -12,6 +12,7 @@
 // Change Log
 //            Date        Name			Modification
 //            01-16-2019  Chad			Created
+//            04-08-2020  Chad			removing me from cc of debug email
 //********************************************************************************************************
 /*------------------------------------------------------------------------------------------------------/
 | START User Configurable Parameters
@@ -219,7 +220,7 @@ catch(err){
 
 
 emlText += "<br>" + "END ACA_PBW_CHECK_FOR_ROW_CONFLICTS" + "<br>**************<br>"+ debug;
-aa.sendMail("SBCityLDT@santabarbaraca.gov", "chad@esilverliningsolutions.com", "", "email from aca debug", emlText);
+aa.sendMail("SBCityLDT@santabarbaraca.gov", "", "", "email from aca debug", emlText);
 //cancel=true;
 //comment(emlText);
 
