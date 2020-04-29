@@ -1,4 +1,3 @@
-
 function getGisObjectInfo(gisServer, layerID, queryString) {
 
 	var jsonObject = null;
@@ -33,5 +32,3 @@ function getGisObjectInfo(gisServer, layerID, queryString) {
 		return null;
 	}
 }
-
-	

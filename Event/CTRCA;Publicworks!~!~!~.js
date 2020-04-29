@@ -1,4 +1,3 @@
-
 //********************************************************************************************************
 //Script 		CTRCA;Publicworks!~!~!~
 //
@@ -15,6 +14,10 @@
 //            01-22-2019  Chad			Created
 //********************************************************************************************************
 logDebug("START OF ctrca publicworks!*!*!*");
+
+    // populate GIS objects and ASI based on mapping std choice
+	handleGisObjectMapping(capId);
+
 	checkPBWRightOfWayConflicts();
 	
 	// by the time you get to CTRCA you no longer need the 4ACA functions

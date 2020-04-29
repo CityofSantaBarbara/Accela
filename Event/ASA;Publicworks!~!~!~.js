@@ -15,6 +15,11 @@
 //      01-22-2019    Chad      Added ROWM logic as there are many record types within PBW that need this
 // ********************************************************************************************************
 
+// populate GIS objects and ASI based on mapping std choice
+if (!publicUser) {
+	handleGisObjectMapping(capId);
+}
+
 logDebug("start ASA:PublicWorks/~/~/~ to add technology fee!");
 
 sumFeesAssessedBeforeInvoiceAndAddTechFee();

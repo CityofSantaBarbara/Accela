@@ -1,4 +1,3 @@
-// added 11/6/19 JHS Gray Quarter, Inc.
 function handleGisObjectMapping(itemCap) {
 	var gisService = "SANTABARBARA";
 	var gisMapString = lookup("PW_GIS_MAPPING",appTypeString);
@@ -114,4 +113,3 @@ function handleGisObjectMapping(itemCap) {
 		}
 	}
 }
-
