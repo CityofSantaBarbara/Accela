@@ -1,6 +1,6 @@
 //********************************************************************************************************
 //Script 		Email Applicant on Fee Invoice  ********* Script #27
-//Record Types:	​*/*/*/*
+//Record Types:	*/*/*/*
 //
 //Event: 		IFA
 //
@@ -72,7 +72,9 @@ function handleFeeInvoiceNotificationEmail()
 				if (Contacts[yy].getEmail() != null)
 				{
 					toEmail = "" + Contacts[yy].getEmail();
-
+					var conName = Contacts[yy].getCapContactModel().getPeople().getFullName();
+					if (!conName) conName = "";
+					addParameter(emailParameters, "$$ApplicantName$$", conName);
 					// send Notification
 					var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
 					if (!sendResult) { logDebug("UNABLE TO SEND NOTICE!  ERROR: "+ sendResult); }
@@ -81,8 +83,6 @@ function handleFeeInvoiceNotificationEmail()
 			}
 		}
 	}
-
-
 }
 
 function emailContact(mSubj,mText)   // optional: Contact Type, default Applicant
