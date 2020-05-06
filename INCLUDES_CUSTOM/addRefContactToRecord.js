@@ -12,11 +12,11 @@ function addRefContactToRecord(refNum, cType) {
             pm.setContactAddressList(getRefAddContactList(refNum));
             
             // var result = aa.people.createCapContactWithRefPeopleModel(itemCap, pm);
-            if (result.getSuccess()) {
+            if (pm.getSuccess()) {
                 logDebug("Successfully added the contact");
             }   
             else {
-                logDebug("Error creating the applicant " + result.getErrorMessage());
+                logDebug("Error creating the applicant " + pm.getErrorMessage());
             }
         }
     }
