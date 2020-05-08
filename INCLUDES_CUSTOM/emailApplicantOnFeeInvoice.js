@@ -17,6 +17,7 @@
 //			09/11/2018	Eric		orig
 //			12/07/2018	Chad		took out "return null" when no staff found, send email anyway
 //			02/12/2019	Chad		adding aca url to parameters for template - city can use this as example.
+//			05/08/2020	Chad		new template, new parameters
 //********************************************************************************************************
 function emailApplicantOnFeeInvoice()
 {
@@ -24,6 +25,25 @@ function emailApplicantOnFeeInvoice()
 
 	handleFeeInvoiceNotificationEmail();
 	logDebug("Script 27 Email Applicant on Fee Invoice - End");
+}
+
+function getPayFeesACAUrl(){
+
+	// returns the path to the record on ACA.  Needs to be appended to the site
+
+	itemCap = capId;
+	if (arguments.length == 1) itemCap = arguments[0]; // use cap ID specified in args
+   	var acaUrl = "";
+	var id1 = capId.getID1();
+	var id2 = capId.getID2();
+	var id3 = capId.getID3();
+	var cap = aa.cap.getCap(capId).getOutput().getCapModel();
+
+	acaUrl += "/urlrouting.ashx?type=1009";
+	acaUrl += "&Module=" + cap.getModuleName();
+	acaUrl += "&capID1=" + id1 + "&capID2=" + id2 + "&capID3=" + id3;
+	acaUrl += "&agencyCode=" + aa.getServiceProviderCode();
+	return acaUrl;
 }
 
 function handleFeeInvoiceNotificationEmail()
@@ -42,6 +62,8 @@ function handleFeeInvoiceNotificationEmail()
 	addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
 	var acaSite = lookup("ACA_CONFIGS", "OFFICIAL_WEBSITE_URL");
 	addParameter(emailParameters,"$$acaUrl$$",acaSite);
+	var acaPayFeeUrl = '<A href="' +acaSite + getPayFeesACAUrl() + '">here</A>';
+	addParameter(emailParameters,"$$acaPayFeeUrl$$",acaPayFeeUrl);
 
 	// fee invoice specific information: use these objects if you want to include fee info in email
 	//	printObjProperties(FeeObjs); 
@@ -49,7 +71,7 @@ function handleFeeInvoiceNotificationEmail()
 
 	
 	// ensure that we have an assigned staff that will be notified
-	staff = getRecordAssignedStaffEmail();
+/*	staff = getRecordAssignedStaffEmail();
 	if (staff){ccEmail += "; " + staff; logDebug("ccEmail: " + ccEmail);}
 
 	if (staff == "")
@@ -57,7 +79,7 @@ function handleFeeInvoiceNotificationEmail()
 		logDebug("No Staff identified for notification");
 //		return null;
 	}
-
+*/
 	// get the Applicant email
 	var applicant = null;
 	var contactType = "Applicant"
