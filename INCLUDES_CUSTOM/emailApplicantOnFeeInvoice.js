@@ -62,7 +62,7 @@ function handleFeeInvoiceNotificationEmail()
 	addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
 	var acaSite = lookup("ACA_CONFIGS", "OFFICIAL_WEBSITE_URL");
 	addParameter(emailParameters,"$$acaUrl$$",acaSite);
-	var acaPayFeeUrl = '<A href="' +acaSite + getPayFeesACAUrl() + '">here</A>';
+	var acaPayFeeUrl = acaSite + getPayFeesACAUrl();
 	addParameter(emailParameters,"$$acaPayFeeUrl$$",acaPayFeeUrl);
 
 	// fee invoice specific information: use these objects if you want to include fee info in email
