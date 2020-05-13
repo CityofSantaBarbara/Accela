@@ -28,7 +28,7 @@
 function validateDocument(){
 //cancel = true;
 //comment(capStatus )
-	if(capStatus && (capStatus == "Ready to Issue" || capStatus == "Revisions Required")){
+	if(capStatus && (capStatus == "Revisions Required")){
 		cancel = true;
 		comment(" You can not edit the document because current records status is : " + capStatus );
 	}
