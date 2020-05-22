@@ -1,8 +1,9 @@
-//*********************Begin************************//
-//***** Written by Gray Quarter						//
-//***** Deployed on 05/07/202 						//
-//***** Fees for online payment using CTRCA script 	//
-//********************End***************************//
+//*********************Begin********************//
+//***** Written by Gray Quarter			//
+//***** Deployed on 05/07/2020 			//
+//***** Fees for online payment using CTRCA script//
+//***** Updated on 05/22/2020 to include solar PV//
+//********************End************************//
 function getFeeRecsToProcess() {
 
 return [{
@@ -44,7 +45,22 @@ return [{
 			"recType": ["Building/SolarPV/NA/NA"],
 			"feeSchedule": "BLD LINE ITEMS FY2020",
 			"feeCode": "BLD_ITM_0015",
-			"feeAmount": "100"
+			"feeAmount": "233"
+		}, {
+			"recType": ["Building/SolarPV/NA/NA"],
+			"feeSchedule": "BLD LINE ITEMS FY2020",
+			"feeCode": "BLD_ITM_0016",
+			"feeAmount": "1"
+		}, {
+			"recType": ["Building/SolarPV/NA/NA"],
+			"feeSchedule": "BLD LINE ITEMS FY2020",
+			"feeCode": "BLD_ITM_0017",
+			"feeAmount": ".50"
+		}, {
+			"recType": ["Building/SolarPV/NA/NA"],
+			"feeSchedule": "BLD LINE ITEMS FY2020",
+			"feeCode": "BLD_ITM_0018",
+			"feeAmount": "18.64"
 		}, {
 			"recType": ["Building/BlackWall/NA/NA"],
 			"feeSchedule": "BLD LINE ITEMS FY2020",
