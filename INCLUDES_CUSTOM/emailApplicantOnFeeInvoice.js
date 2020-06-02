@@ -18,6 +18,7 @@
 //			12/07/2018	Chad		took out "return null" when no staff found, send email anyway
 //			02/12/2019	Chad		adding aca url to parameters for template - city can use this as example.
 //			05/08/2020	Chad		new template, new parameters
+//			06/01/2020	Chad		new requirement 05/27/2020 -check to see if the fee has been voided.  If so, do not send a notice!
 //********************************************************************************************************
 function emailApplicantOnFeeInvoice()
 {
@@ -80,31 +81,54 @@ function handleFeeInvoiceNotificationEmail()
 //		return null;
 	}
 */
-	// get the Applicant email
-	var applicant = null;
-	var contactType = "Applicant"
-	var capContactResult = aa.people.getCapContactByCapID(capId);
-	if (capContactResult.getSuccess())
-	{
-		var Contacts = capContactResult.getOutput();
-		for (yy in Contacts)
-		{
-			if (contactType.equals(Contacts[yy].getCapContactModel().getPeople().getContactType()))
-			{
-				if (Contacts[yy].getEmail() != null)
-				{
-					toEmail = "" + Contacts[yy].getEmail();
-					var conName = Contacts[yy].getCapContactModel().getPeople().getFullName();
-					if (!conName) conName = "";
-					addParameter(emailParameters, "$$ApplicantName$$", conName);
-					// send Notification
-					var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
-					if (!sendResult) { logDebug("UNABLE TO SEND NOTICE!  ERROR: "+ sendResult); }
-					else { logDebug("Sent Notification"); }  
+	// new requirement 05/27/2020
+	// check to see if the fee has actually been voided.  If so, do not send a notice!
+
+
+	var sendMsg = false;
+
+	for (inv in InvoiceNbrArray) {
+		thisInv = InvoiceNbrArray[inv];
+		var myInvDataGet = aa.invoice.getFeeItemInvoiceByInvoiceNbr(thisInv);
+		if (myInvDataGet.getSuccess() && myInvDataGet.getOutput()) {
+			var myInvDataArr = myInvDataGet.getOutput();
+			for (invFee in myInvDataArr) {
+				var thisFeeStatus = myInvDataArr[invFee].getFeeitemStatus();
+				if ( thisFeeStatus == 'INVOICED' ) {
+					sendMsg = true;
 				}
 			}
 		}
 	}
+
+	if (sendMsg) {
+		// get the Applicant email
+		var applicant = null;
+		var contactType = "Applicant"
+		var capContactResult = aa.people.getCapContactByCapID(capId);
+		if (capContactResult.getSuccess())
+		{
+			var Contacts = capContactResult.getOutput();
+			for (yy in Contacts)
+			{
+				if (contactType.equals(Contacts[yy].getCapContactModel().getPeople().getContactType()))
+				{
+					if (Contacts[yy].getEmail() != null)
+					{
+						toEmail = "" + Contacts[yy].getEmail();
+						var conName = Contacts[yy].getCapContactModel().getPeople().getFullName();
+						if (!conName) conName = "";
+						addParameter(emailParameters, "$$ApplicantName$$", conName);
+						// send Notification
+						var sendResult = sendNotification(fromEmail,toEmail,ccEmail,notificationTemplate,emailParameters,reportFile,capID4Email);
+						if (!sendResult) { logDebug("handleFeeInvoiceNotificationEmail:UNABLE TO SEND NOTICE!  ERROR: "+ sendResult); }
+						else { logDebug("handleFeeInvoiceNotificationEmail:Sent Notification"); }  
+					}
+				}
+			}
+		}
+	}
+	else { logDebug("handleFeeInvoiceNotificationEmail: No Message send because no new Invoices where invoiced!"); }
 }
 
 function emailContact(mSubj,mText)   // optional: Contact Type, default Applicant
