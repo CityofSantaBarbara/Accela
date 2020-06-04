@@ -24,7 +24,7 @@ function emailApplicantOnFeeInvoice()
 {
 	logDebug("Script 27 Email Applicant on Fee Invoice - Begin");
 
-	handleFeeInvoiceNotificationEmail();
+	if (!publicUser) handleFeeInvoiceNotificationEmail();
 	logDebug("Script 27 Email Applicant on Fee Invoice - End");
 }
 
