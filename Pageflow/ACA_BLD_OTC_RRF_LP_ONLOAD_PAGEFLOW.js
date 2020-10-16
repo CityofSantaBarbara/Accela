@@ -95,7 +95,7 @@ try {
         hide=true;
     }
     if(hide){
-        aa.acaPageFlow.hideCapPage4ACA(capId, 2, 2);
+        //aa.acaPageFlow.hideCapPage4ACA(capId, 2, 2);
         aa.env.setValue("ReturnData", "{'PageFlow': {'HidePage' : 'Y'}}");
     }
 
