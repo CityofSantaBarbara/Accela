@@ -164,6 +164,25 @@ eval(getScriptText("INCLUDES_CRM", null, false));
 	
     }
 
+if (wfTask == "Permit Issuance" && wfStatus == "Issued") {
+        logDebug("County Assessor email");
+		        //Get Report and Report Parameters
+              
+				var fromEmail = lookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");
+                var ccEmail = ""; //blank for now
+                var emailParameters = aa.util.newHashtable();
+				addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
+                addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
+                var emailTemplate = "BLD_PERMIT_ISSUED_ASSESSOR";
+                var capId4Email = aa.cap.createCapIDScriptModel(capId.getID1(), capId.getID2(), capId.getID3());
+                var fileNames = [];
+               
+                conEmailStr = toEmail.join(";");
+                ccEmailStr = toEmail.join(";");
+                aa.document.sendEmailAndSaveAsDocument(fromEmail, "larry@grayquarter.com;astuffler@SantaBarbaraCA.gov", ccEmailStr, emailTemplate, emailParameters, capId4Email, fileNames);
+                logDebug( ": Sent Email template " + emailTemplate + " To Contacts " + conEmailStr);
+}
+
 function generateReportForASyncEmail(itemCap, reportName, module, parameters) {
     //returns the report file which can be attached to an email.
     var vAltId;
