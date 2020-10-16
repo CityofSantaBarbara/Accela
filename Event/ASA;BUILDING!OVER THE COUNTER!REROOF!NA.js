@@ -58,7 +58,9 @@ updateFee("BLD_ITM_0018", "BLD LINE ITEMS FY2021", "FINAL", 1, "Y");
 updateFee("BLD_ITM_2040", "BLD LINE ITEMS FY2021", "FINAL", 1, "Y");
 //********************End************************//
 
+/*
 //Set the Detail Description
 if (AInfo["Like for Like Reroof"] == "CHECKED") {
   updateWorkDesc("TBD MESSAGE");
 }
+*/
