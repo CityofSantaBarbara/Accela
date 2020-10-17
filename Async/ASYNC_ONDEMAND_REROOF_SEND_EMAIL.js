@@ -13,13 +13,15 @@ if (capContactResult.getSuccess()) {
         var reportFiles = new Array();
 
         aa.print("Email: " + paEmail);
-        var emailFrom = "noreply@santabarbara.gov";
+        var emailFrom = "SBCityLDT_Train@santabarbaraca.gov";
         var emailTo = paEmail;
         var emailCC = "";
-        var emailTemplate = "BLD_ONDEMAND_REROOF";
+        var emailTemplate = "BLD ON DEMAND PERMIT";
         var emailParameters = aa.util.newHashtable();
-        emailParameters.put("$$email$$", paEmail);
-        emailParameters.put("$$CAPID$$", capIDString);
+        emailParameters.put("$$Applicantemail$$", paEmail);
+        emailParameters.put("$$firstName$$");
+        emailParameters.put("$$lastName$$");
+        emailParameters.put("$$altID$$", capIDString);
         //generate report
         var user = "ADMIN"; // Setting the User Name
         var reportNames = new Array();
