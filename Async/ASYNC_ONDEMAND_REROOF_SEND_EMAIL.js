@@ -19,8 +19,8 @@ if (capContactResult.getSuccess()) {
         var emailTemplate = "BLD ON DEMAND PERMIT";
         var emailParameters = aa.util.newHashtable();
         emailParameters.put("$$Applicantemail$$", paEmail);
-        emailParameters.put("$$firstName$$");
-        emailParameters.put("$$lastName$$");
+        //emailParameters.put("$$firstName$$");
+        //emailParameters.put("$$lastName$$");
         emailParameters.put("$$altID$$", capIDString);
         //generate report
         var user = "ADMIN"; // Setting the User Name
