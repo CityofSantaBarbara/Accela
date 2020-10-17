@@ -58,9 +58,18 @@ updateFee("BLD_ITM_0018", "BLD LINE ITEMS FY2021", "FINAL", 1, "Y");
 updateFee("BLD_ITM_2040", "BLD LINE ITEMS FY2021", "FINAL", 1, "Y");
 //********************End************************//
 
-/*
+
 //Set the Detail Description
-if (AInfo["Like for Like Reroof"] == "CHECKED") {
-  updateWorkDesc("TBD MESSAGE");
+if (AInfo["Like for Like TearOff and Replace Composition Roofing"] == "CHECKED") {
+  updateWorkDesc("Like for Like TearOff and Replace Composition Roofing");
 }
-*/
+else if (AInfo["Like for Like Remove and Re-Set Tile Roofing"] == "CHECKED") {
+  updateWorkDesc("Like for Like Remove and Re-Set Tile Roofing");
+}
+else if (AInfo[" Like for Like Composition Overlay Roofing"] == "CHECKED") {
+  updateWorkDesc(" Like for Like Composition Overlay Roofing");
+}
+else if (AInfo["Like for Like Certified PVC Cool Roofing"] == "CHECKED") {
+  updateWorkDesc("Like for Like Certified PVC Cool Roofing");
+}
+//******************END*****************//
