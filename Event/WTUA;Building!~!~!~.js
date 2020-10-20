@@ -163,7 +163,7 @@ eval(getScriptText("INCLUDES_CRM", null, false));
                 logDebug("Couldn't send email to, no valid email address");
 	
     }
-
+//Zen 1106 begin
 if (wfTask == "Permit Issuance" && wfStatus == "Issued") {
                 logDebug("County Assessor permit issuance email");
 		//Get Report and Report Parameters
@@ -205,7 +205,7 @@ if (wfTask == "Inspection" && wfStatus == "Final Inspection Complete") {
                 aa.document.sendEmailAndSaveAsDocument(fromEmail, toEmail, ccEmail, emailTemplate, emailParameters, capId4Email, fileNames);
                 logDebug( ": Sent Email template " + emailTemplate + " To Contacts ");
 }
-
+//Zen 1106 end
 function generateReportForASyncEmail(itemCap, reportName, module, parameters) {
     //returns the report file which can be attached to an email.
     var vAltId;
