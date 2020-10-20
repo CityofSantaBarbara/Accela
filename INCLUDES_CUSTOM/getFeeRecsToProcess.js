@@ -49,12 +49,12 @@ return [{
 		}, {
 			"recType": ["Building/SolarPV/NA/NA"],
 			"feeSchedule": "BLD LINE ITEMS FY2021",
-			"feeCode": "BLD_ITM_0016",
+			"feeCode": "BLD_ITM_5000",
 			"feeAmount": "1"
 		}, {
 			"recType": ["Building/SolarPV/NA/NA"],
 			"feeSchedule": "BLD LINE ITEMS FY2021",
-			"feeCode": "BLD_ITM_0017",
+			"feeCode": "BLD_ITM_5001",
 			"feeAmount": ".50"
 		}, {
 			"recType": ["Building/SolarPV/NA/NA"],
