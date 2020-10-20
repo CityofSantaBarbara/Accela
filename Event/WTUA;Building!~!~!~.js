@@ -165,22 +165,41 @@ eval(getScriptText("INCLUDES_CRM", null, false));
     }
 
 if (wfTask == "Permit Issuance" && wfStatus == "Issued") {
-        logDebug("County Assessor email");
-		        //Get Report and Report Parameters
+        	logDebug("County Assessor email Permit Issued");
+		 //Get Report and Report Parameters
               
-				var fromEmail = lookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");
+		var fromEmail = lookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");
                 var ccEmail = ""; //blank for now
                 var emailParameters = aa.util.newHashtable();
-				addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
+		addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
                 addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
+                addParameter(emailParameters, "$$acaRecordUrl$$", getACARecordURL("https://landuse-dt.santabarbaraca.gov/CitizenAccessDev"));
+                
                 var emailTemplate = "BLD_PERMIT_ISSUED_ASSESSOR";
                 var capId4Email = aa.cap.createCapIDScriptModel(capId.getID1(), capId.getID2(), capId.getID3());
                 var fileNames = [];
                
-                conEmailStr = toEmail.join(";");
-                ccEmailStr = toEmail.join(";");
-                aa.document.sendEmailAndSaveAsDocument(fromEmail, "larry@grayquarter.com;astuffler@SantaBarbaraCA.gov", ccEmailStr, emailTemplate, emailParameters, capId4Email, fileNames);
-                logDebug( ": Sent Email template " + emailTemplate + " To Contacts " + conEmailStr);
+                aa.document.sendEmailAndSaveAsDocument(fromEmail, "astuffler@SantaBarbaraCA.gov", ccEmail, emailTemplate, emailParameters, capId4Email, fileNames);
+                logDebug( ": Sent Email template " + emailTemplate + " To Contacts ");
+}
+
+if (wfTask == "Inspection" && wfStatus == "Final Inspection Complete") {
+        	logDebug("County Assessor email Final Inspection");
+		 //Get Report and Report Parameters
+              
+		var fromEmail = lookup("SCRIPT_EMAIL_FROM", "AGENCY_FROM");
+                var ccEmail = ""; //blank for now
+                var emailParameters = aa.util.newHashtable();
+		addParameter(emailParameters, "$$altID$$", cap.getCapModel().getAltID());
+                addParameter(emailParameters, "$$recordAlias$$", cap.getCapType().getAlias());
+                addParameter(emailParameters, "$$acaRecordUrl$$", getACARecordURL("https://landuse-dt.santabarbaraca.gov/CitizenAccessDev"));
+
+                var emailTemplate = "BLD_PERMIT_FINAL_INSPECTION_APP_ASSESSOR";
+                var capId4Email = aa.cap.createCapIDScriptModel(capId.getID1(), capId.getID2(), capId.getID3());
+                var fileNames = [];
+               
+                aa.document.sendEmailAndSaveAsDocument(fromEmail, "astuffler@SantaBarbaraCA.gov", ccEmail, emailTemplate, emailParameters, capId4Email, fileNames);
+                logDebug( ": Sent Email template " + emailTemplate + " To Contacts ");
 }
 
 function generateReportForASyncEmail(itemCap, reportName, module, parameters) {
