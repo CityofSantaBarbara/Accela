@@ -4,6 +4,7 @@ if (!publicUser) {
 	addRefContactToRecord(212,"Business Owner"); // added for zen 1106
 }
 
+/*
 // Added by Gray Quarter for zen #493
 if (publicUser) {  
 var acaFeeMap = getFeeRecsToProcess();
@@ -20,3 +21,4 @@ for (var i in acaFeeMap) {
 		}
 	}
 }
+*/
