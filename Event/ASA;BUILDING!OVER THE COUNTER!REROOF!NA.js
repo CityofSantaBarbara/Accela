@@ -60,16 +60,40 @@ updateFee("BLD_ITM_2040", "BLD LINE ITEMS FY2021", "FINAL", 1, "Y");
 
 
 //Set the Detail Description
-if (AInfo["Like for Like TearOff and Replace Composition Roofing"] == "CHECKED") {
-  updateWorkDesc("Like for Like TearOff and Replace Composition Roofing");
-}
-else if (AInfo["Like for Like Remove and Re-Set Tile Roofing"] == "CHECKED") {
-  updateWorkDesc("Like for Like Remove and Re-Set Tile Roofing");
-}
-else if (AInfo[" Like for Like Composition Overlay Roofing"] == "CHECKED") {
-  updateWorkDesc(" Like for Like Composition Overlay Roofing");
-}
-else if (AInfo["Like for Like Certified PVC Cool Roofing"] == "CHECKED") {
-  updateWorkDesc("Like for Like Certified PVC Cool Roofing");
-}
+var totPoints = "";
+if (
+  AInfo[
+    "Like for Like TearOff and Replace Composition Roofing"
+  ] == "CHECKED"
+  ) {
+  if(totPoints != '') totPoints+= '& ';
+  totPoints = totPoints + "Like for Like Tear-Off and Replace Composition Roofing ";
+  } if (
+  AInfo[
+    "Like for Like Remove and Re-Set Tile Roofing"
+  ] == "CHECKED"
+  ) {
+    if(totPoints != '') totPoints+= '& ';
+  totPoints = totPoints + "Like for Like Remove & Re-Set Tile Roofing ";
+  }
+ if (
+  AInfo[
+    "Like for Like Composition Overlay Roofing"
+  ] == "CHECKED"
+  ) {
+    if(totPoints != '') totPoints+= '& ';
+  totPoints = totPoints + "Like for Like Composition Overlay Roofing ";
+  }
+ if (
+  AInfo[
+    "Like for Like Certified PVC Cool Roofing"
+  ] == "CHECKED"
+  ) {
+    if(totPoints != '') totPoints+= '& ';
+  totPoints = totPoints + "Like-for-Like Color - Certified Cool Roof ";
+  }
+  
+
+  updateWorkDesc(String(totPoints));
+
 //******************END*****************//

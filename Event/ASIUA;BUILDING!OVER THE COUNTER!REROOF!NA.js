@@ -1,31 +1,36 @@
+//ASIUA:BUILDING/OVER THE COUNTER/REROOF/NA
 //Set the Detail Description
-    var totPoint = "";
+    var totPoints = "";
   if (
     AInfo[
       "Like for Like TearOff and Replace Composition Roofing"
     ] == "CHECKED"
     ) {
-    totPoints = totPoints + 'Like for Like Tear-Off and Replace Composition Roofing ';
-    } else if (
+    if(totPoints != '') totPoints+= '& ';
+    totPoints = totPoints + "Like for Like Tear-Off and Replace Composition Roofing ";
+    } if (
     AInfo[
       "Like for Like Remove and Re-Set Tile Roofing"
     ] == "CHECKED"
     ) {
-    totPoints = totPoints + 'Like for Like Remove & Re-Set Tile Roofing ';
+      if(totPoints != '') totPoints+= '& ';
+    totPoints = totPoints + "Like for Like Remove & Re-Set Tile Roofing ";
     }
-   else if (
+   if (
     AInfo[
       "Like for Like Composition Overlay Roofing"
     ] == "CHECKED"
     ) {
-    totPoints = totPoints + 'Like for Like Composition Overlay Roofing ';
+      if(totPoints != '') totPoints+= '& ';
+    totPoints = totPoints + "Like for Like Composition Overlay Roofing ";
     }
-   else if (
+   if (
     AInfo[
       "Like for Like Certified PVC Cool Roofing"
     ] == "CHECKED"
     ) {
-    totPoints = totPoints + 'Like for Like Certified PVC Cool Roofing ';
+      if(totPoints != '') totPoints+= '& ';
+    totPoints = totPoints + "Like-for-Like Color - Certified Cool Roof ";
     }
     
   
